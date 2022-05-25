@@ -57,6 +57,7 @@ userRouter.post('/login', async function (req, res, next) {
     const userToken = await userService.getUserToken({ email, password });
 
     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
+    console.log(userToken);
     res.status(200).json(userToken);
   } catch (error) {
     next(error);
@@ -65,7 +66,8 @@ userRouter.post('/login', async function (req, res, next) {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get('/userlist', loginRequired, async function (req, res, next) {
+// loginRequired, 다시 중간에 미들웨어로 넣어야함
+userRouter.get('/userlist',  async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -81,7 +83,7 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
   '/users/:userId',
-  loginRequired,
+  // loginRequired, 다시 넣어야 함
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -137,7 +139,8 @@ userRouter.patch(
 );
 
 // 회원 탈퇴 api 
-userRouter.delete('/:userId', loginRequired, async(req,res,next)=>{
+// loginRequired, 나중에 다시 확인
+userRouter.delete('/:userId', async(req,res,next)=>{
   try{
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -145,7 +148,13 @@ userRouter.delete('/:userId', loginRequired, async(req,res,next)=>{
       );
     }
     const userId = req.params.userId;
+    const currentPassword = req.body.currentPassword;
+    if (!currentPassword) {
+      throw new Error('정보를 변경하려면, 현재의 비밀번호가 필요합니다.');
+    }
+    const userInfoRequired={userId, currentPassword}
     const deletedUserInfo = await userService.deleteUser(userInfoRequired);
+    console.log("router"+ userId);
     //만약에 정상적으로 delete가 되어서 delete한 유저 정보가 있다면,
     if(deletedUserInfo){
       res.status(200).json({result:"success"});
