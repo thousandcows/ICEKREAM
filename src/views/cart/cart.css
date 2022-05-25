@@ -1,0 +1,40 @@
+#main {
+    background-color: yellow;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#cart-container {
+    width: 80%;
+    height: 800px;
+}
+
+#product-container {
+    background-color: pink;
+    width: 100%;
+    height: 660px;
+    padding: 30px;
+    border-top: 2px solid black;
+    overflow: scroll;
+}
+
+#cart-header {
+    background-color: aqua;
+    width: 100%;
+    height: 40px;
+}
+
+#price-container {
+    background-color: skyblue;
+    width: 100%;
+    height: 100px;
+}
+
+.product-card {
+    background-color: gray;
+    margin: 10px;
+}
