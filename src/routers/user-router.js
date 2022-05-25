@@ -6,6 +6,8 @@ import { userService } from '../services';
 
 const userRouter = Router();
 
+
+
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post('/register', async (req, res, next) => {
   try {
@@ -133,5 +135,24 @@ userRouter.patch(
     }
   }
 );
+
+// 회원 탈퇴 api 
+userRouter.delete('/:userId', loginRequired, async(req,res,next)=>{
+  try{
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        'headers의 Content-Type을 application/json으로 설정해주세요'
+      );
+    }
+    const userId = req.params.userId;
+    const deletedUserInfo = await userService.deleteUser(userInfoRequired);
+    //만약에 정상적으로 delete가 되어서 delete한 유저 정보가 있다면,
+    if(deletedUserInfo){
+      res.status(200).json({result:"success"});
+    }
+  }catch(error){
+    next(error);
+  }
+})
 
 export { userRouter };
