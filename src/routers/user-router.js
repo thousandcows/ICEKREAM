@@ -42,6 +42,16 @@ userRouter.post('/register', async (req, res, next) => {
   }
 });
 
+//auth 확인 // passport.authenticate가 middleware로 유저 인증 진행 이 때 http header 확인
+userRouter.post('/auth', passport.authenticate('jwt',{session:false}), async(req,res,next)=>{
+  try{
+    res.json({result:'success, you are User!'})
+  }catch(error){
+    next(error)
+  }
+})
+
+
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 userRouter.post('/login', async(req,res,next) =>{
   try{
@@ -63,7 +73,6 @@ userRouter.post('/login', async(req,res,next) =>{
                   return;
               }
               const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-              console.log(user);
               const token = jwt.sign({userId: user._id, role: user.role}, secretKey);
               res.json({token});
           })

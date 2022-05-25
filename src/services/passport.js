@@ -1,11 +1,12 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 import bcrypt from 'bcrypt';
-
+const {ExtractJwt, Strategy:JWTStrategy} = require('passport-jwt');
 const LocalStrategy=Strategy;
 // const User = require('../models/user');
 import { userModel } from '../db';
-const passportConfig = {
+
+const passportConfig = { //passport의 username, password field configure
     usernameField:'email',
     passwordField:'password'
 };
@@ -35,4 +36,31 @@ const passportVerify = async(email,password,done) =>{
 function passportConfiguration() {
   passport.use('local', new LocalStrategy(passportConfig, passportVerify));
 };
-export {passportConfiguration}
+//////// 아래는 JWT 유저 인증
+
+const JWTConfig = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET_KEY || 'secret-key'
+}
+
+const JWTVerify = async(jwtPayload,done)=>{
+    try{
+        console.log(jwtPayload.userId);
+        const user = await userModel.findById(jwtPayload.userId);
+        if(user){
+            done(null,user); //user가 맞다면 user 반환
+            return;
+        }
+        done(null, false, {reason:'로그인한 유저만 사용할 수 있는 서비스입니다.'});
+
+    }
+    catch(error){
+        done(error);
+    }
+}
+
+function JWTConfiguration(){
+    passport.use('jwt',new JWTStrategy(JWTConfig, JWTVerify))
+}
+
+export {passportConfiguration, JWTConfiguration}
