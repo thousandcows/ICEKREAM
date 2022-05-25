@@ -43,7 +43,7 @@ userRouter.post('/register', async (req, res, next) => {
 });
 
 //auth 확인 // passport.authenticate가 middleware로 유저 인증 진행 이 때 http header 확인
-userRouter.post('/auth', passport.authenticate('jwt',{session:false}), async(req,res,next)=>{
+userRouter.post('/auth', loginRequired, async(req,res,next)=>{
   try{
     res.json({result:'success, you are User!'})
   }catch(error){
@@ -82,33 +82,11 @@ userRouter.post('/login', async(req,res,next) =>{
   }
 });
 
-// userRouter.post('/login', async function (req, res, next) {
-//   try {
-//     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-//     if (is.emptyObject(req.body)) {
-//       throw new Error(
-//         'headers의 Content-Type을 application/json으로 설정해주세요'
-//       );
-//     }
 
-//     // req (request) 에서 데이터 가져오기
-//     const email = req.body.email;
-//     const password = req.body.password;
-
-//     // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
-//     const userToken = await userService.getUserToken({ email, password });
-
-//     // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-//     console.log(userToken);
-//     res.status(200).json(userToken);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-// loginRequired, 다시 중간에 미들웨어로 넣어야함
-userRouter.get('/userlist',  async function (req, res, next) {
+
+userRouter.get('/userlist',loginRequired,  async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -124,7 +102,7 @@ userRouter.get('/userlist',  async function (req, res, next) {
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
   '/users/:userId',
-  // loginRequired, 다시 넣어야 함
+  loginRequired, 
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -180,8 +158,8 @@ userRouter.patch(
 );
 
 // 회원 탈퇴 api 
-// loginRequired, 나중에 다시 확인
-userRouter.delete('/:userId', async(req,res,next)=>{
+//  나중에 다시 확인
+userRouter.delete('/:userId',loginRequired, async(req,res,next)=>{
   try{
     if (is.emptyObject(req.body)) {
       throw new Error(
