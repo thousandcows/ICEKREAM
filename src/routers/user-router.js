@@ -3,7 +3,10 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
-const passportCallback = require('../services/passport');
+
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+
 const userRouter = Router();
 
 
@@ -40,27 +43,33 @@ userRouter.post('/register', async (req, res, next) => {
 });
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
-userRouter.post('/login', async function (req, res, next) {
-  try {
+userRouter.post('/login', async(req,res,next) =>{
+  try{
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
       throw new Error(
         'headers의 Content-Type을 application/json으로 설정해주세요'
       );
     }
-
-    // req (request) 에서 데이터 가져오기
-    const email = req.body.email;
-    const password = req.body.password;
-
-    // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
-    const userToken = await userService.getUserToken({ email, password });
-
-    // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-    console.log(userToken);
-    res.status(200).json(userToken);
-  } catch (error) {
-    next(error);
+      passport.authenticate('local',{session:false},(error, user, info)=>{
+          if(error || !user ){
+            //passport 인증 실패 or 유저가 없으면 error
+              res.status(400).json({message: info.reason});
+              return;
+          }
+          req.login(user,{session: false}, (loginError)=>{
+              if(loginError){
+                  res.send(loginError);
+                  return;
+              }
+              const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+              console.log(user);
+              const token = jwt.sign({userId: user._id, role: user.role}, secretKey);
+              res.json({token});
+          })
+      })(req,res);
+  }catch(error){
+      next(error);
   }
 });
 
