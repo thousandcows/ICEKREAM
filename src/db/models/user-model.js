@@ -45,10 +45,10 @@ export class UserModel {
         return updatedUser;
     }
 
-    async deleteOrder({userId, orderId}){
+    async deleteOrder({ userId, orderId }) {
         const orderRemovedUser = await User.updateOne(
-            {_id: userId},
-            {$pull:{orderList: orderId}},
+            { _id: userId },
+            { $pull: { orderList: orderId } },
         );
         return orderRemovedUser;
     }

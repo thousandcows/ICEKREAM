@@ -107,34 +107,30 @@ authRouter.delete('/:userId', async (req, res, next) => {
     }
 });
 
-authRouter.get('/:userId/orders', async(req,res,next)=>{ //login 이 되어있으면 그 유저의 oreder들을 전부 반환
-    try{
+authRouter.get('/:userId/orders', async (req, res, next) => {
+    //login 이 되어있으면 그 유저의 oreder들을 전부 반환
+    try {
         const { userId } = req.params;
         const orders = await orderService.findOrders(userId);
         res.status(200).json(orders);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-} );
+});
 
-authRouter.delete('/:userId/:orderId', async(req,res,next)=>{
-    try{
-        const { userId } = req.user._id;
-        const { orderId} = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
-        const deletedOrder= await orderService.deleteUserOrder(orderId);
-        console.log(deletedOrder);
-        if(deletedOrder){
+authRouter.delete('/:userId/:orderId', async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const deletedOrder = await orderService.deleteUserOrder(orderId);
+        if (deletedOrder) {
             await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
-            res.status(200).json({result:'success'});
+            res.status(200).json({ result: 'success' });
+        } else {
+            throw new Error('그 주문 기록은 존재하지 않습니다.');
         }
-        else{
-            throw new Error(
-                '그 주문 기록은 존재하지 않습니다.'
-            )
-        }
-
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-})
+});
 export { authRouter };
