@@ -1,26 +1,32 @@
-export default function Product(target, id, product) {
-    this.target = target;
-    this.id = id;
-    this.product = product;
+export default class Product {
+    constructor(target, id, product) {
+        this.target = target;
+        this.id = id;
+        this.product = product;
+    }
 
-    this.template = function (idx) {
+    template(idx) {
         const li = document.createElement('li');
-        idx % 2 ? li.classList.add('items', 'even') : li.classList.add('items');
         li.id = this.id;
+        if (idx % 2 === 0) {
+            li.classList.add('items', 'even');
+        } else {
+            li.classList.add('items');
+        }
         li.innerHTML = `
           <div class="infoWrap">
               <input type="checkbox" class="select-btn"/>
               <div class="cartSection">
                   <img src="./product.png" alt="" class="itemImg" />
-                  <h3>${product.name}</h3>
+                  <h3>${this.product.name}</h3>
                   <p><input type="text" class="qty" placeholder=${
-                      product.quantity
-                  } />x ${product.price}</p>
+                      this.product.quantity
+                  } />x ${this.product.price}</p>
                   <p class="stockStatus">In Stock</p>
               </div>
               <div class="prodTotal cartSection">
                   <p class="prod-total-text">${
-                      product.price * product.quantity
+                      this.product.price * this.product.quantity
                   }</p>
               </div>
               <div class="cartSection remove-btn">
@@ -30,9 +36,9 @@ export default function Product(target, id, product) {
       `;
         this.setEvent(li);
         return li;
-    };
+    }
 
-    this.setEvent = function (elem) {
+    setEvent(elem) {
         elem.querySelector('.qty').addEventListener(
             'input',
             this.update.bind(this),
@@ -45,9 +51,9 @@ export default function Product(target, id, product) {
             'change',
             this.select.bind(this),
         );
-    };
+    }
 
-    this.select = function () {
+    select() {
         const quantity = document.getElementById('quantity');
         const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
@@ -73,9 +79,9 @@ export default function Product(target, id, product) {
                 Number(total.innerText) -
                 this.product.quantity * this.product.price;
         }
-    };
+    }
 
-    this.update = function (e) {
+    update(e) {
         const cart = JSON.parse(localStorage.getItem('cart'));
         const newQty = Number(e.target.value);
         const oldQty = Number(cart[this.id].quantity);
@@ -114,9 +120,9 @@ export default function Product(target, id, product) {
                     this.product.price * (oldQty - newQty);
             }
         }
-    };
+    }
 
-    this.del = function () {
+    del() {
         const quantity = document.getElementById('quantity');
         const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
@@ -137,5 +143,5 @@ export default function Product(target, id, product) {
         delete cart[this.id];
         localStorage.setItem('cart', JSON.stringify(cart));
         this.target.removeChild(document.getElementById(this.id));
-    };
+    }
 }
