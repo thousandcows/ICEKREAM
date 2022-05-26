@@ -85,15 +85,4 @@ userRouter.post('/login', async (req, res, next) => {
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 
 
-userRouter.get('/:userId/orders', loginRequired, async(req,res,next)=>{
-    try{
-        const { userId } = req.params;
-        const orders = await orderService.findOrders(userId)
-        console.log(orders);
-        console.log(orders.length);
-        res.status(200).json(orders);
-    }catch(error){
-        next(error);
-    }
-} )
 export { userRouter };
