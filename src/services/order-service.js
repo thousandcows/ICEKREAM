@@ -1,6 +1,5 @@
 // import bcrypt from 'bcrypt';
-import { orderModel } from '../db';
-
+import { orderModel } from '../db/models/order-model';
 class OrderService {
     // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
     constructor(orderModel) {
@@ -39,8 +38,9 @@ class OrderService {
             productList,
         };
 
+        console.log(newOrderInfo)
         // db에 저장
-        const createdNewOrder = await this.userModel.create(newOrderInfo);
+        const createdNewOrder = await this.orderModel.create(newOrderInfo);
 
         return createdNewOrder;
     }
