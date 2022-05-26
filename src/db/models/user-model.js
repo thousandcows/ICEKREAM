@@ -44,6 +44,14 @@ export class UserModel {
         );
         return updatedUser;
     }
+
+    async deleteOrder({userId, orderId}){
+        const orderRemovedUser = await User.updateOne(
+            {_id: userId},
+            {$pull:{orderList: orderId}},
+        );
+        return orderRemovedUser;
+    }
 }
 
 const userModel = new UserModel();
