@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-
+import { AddressSchema } from './address-schema';
 const OrderSchema = new Schema(
     {
         userId: {
@@ -7,16 +7,7 @@ const OrderSchema = new Schema(
             required: true,
         },
         deliveryAddress: {
-            type: new Schema(
-                {
-                    postalCode: String,
-                    address1: String,
-                    address2: String,
-                },
-                {
-                    _id: false,
-                },
-            ),
+            type: AddressSchema,
             required: true,
         },
         billingMethod: {
@@ -25,7 +16,7 @@ const OrderSchema = new Schema(
         },
         paymentStatus: {
             type: String,
-            required: true,
+            default: "Ok",
         },
         productList: [
             {
@@ -35,7 +26,7 @@ const OrderSchema = new Schema(
         ],
     },
     {
-        collection: 'users',
+        collection: 'orders',
         timestamps: true,
     },
 );
