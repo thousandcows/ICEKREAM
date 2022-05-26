@@ -89,7 +89,6 @@ class UserService {
     async deleteUser(userInfoRequired) {
         // 객체 destructuring
         const { userId, currentPassword } = userInfoRequired;
-        console.log(`userInfoReq ${userId}`);
         // 우선 해당 id의 유저가 db에 있는지 확인
         const user = await this.userModel.findById(userId);
 
@@ -116,9 +115,7 @@ class UserService {
         // 이제 드디어 삭제 시작
         // 여기에 delete 확정인지 확인을 물어봐야 하나?
         // 업데이트 진행
-        console.log(`service id ${userId}`);
         const deletedUser = await this.userModel.deleteById(userId);
-        console.log(`service${deletedUser}`);
         return deletedUser;
     }
 }
