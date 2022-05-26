@@ -16,9 +16,6 @@ productRouter.get('/', async (req, res, next) => {
         
         console.log(productList);
 
-        if (!productList){
-            res.status(200).json({"result": "no results"})
-        }
         res.status(200).json(productList);
     } catch (error) {
         next(error);
@@ -32,16 +29,11 @@ productRouter.get('/:category', async (req, res, next) => {
         
         console.log(productList);
 
-        if (!productList){
-            res.status(200).json({"result": "no results"})
-        }
-
         res.status(200).json(productList);
     } catch (error) {
         next(error);
     }
 });
-
 
 productRouter.post('/add', async (req, res, next) => {
     try {
