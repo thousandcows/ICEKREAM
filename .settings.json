@@ -1,0 +1,12 @@
+{
+    "editor.minimap.enabled": false,
+    "liveServer.settings.CustomBrowser": "chrome",
+    "window.zoomLevel": 1,
+    "editor.formatOnSave": true, 
+    "[javascript]": { 
+    "editor.formatOnSave": true 
+    },
+    "editor.codeActionsOnSave": { 
+        "source.fixAll.eslint": true 
+    }
+}
