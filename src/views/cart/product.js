@@ -31,10 +31,18 @@ export default function Product(target, id, product) {
     };
 
     this.setEvent = function (elem) {
-        const deleteBtn = elem.querySelector('.remove-btn');
-        const selectInput = elem.querySelector('.select-btn');
-        selectInput.addEventListener('change', this.select.bind(this));
-        deleteBtn.addEventListener('click', this.del.bind(this));
+        elem.querySelector('.qty').addEventListener(
+            'input',
+            this.update.bind(this),
+        );
+        elem.querySelector('.remove-btn').addEventListener(
+            'click',
+            this.del.bind(this),
+        );
+        elem.querySelector('.select-btn').addEventListener(
+            'change',
+            this.select.bind(this),
+        );
     };
 
     this.select = function () {
@@ -63,6 +71,18 @@ export default function Product(target, id, product) {
                 Number(total.innerText) -
                 this.product.quantity * this.product.price;
         }
+    };
+
+    this.update = function (e) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const newQty = Number(e.target.value);
+        const oldQty = Number(cart[this.id].quantity);
+        cart[this.id].quantity = newQty;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        const prodTotal = document
+            .getElementById(this.id)
+            .querySelector('.prodTotal');
+        prodTotal.innerText = newQty * this.product.price;
     };
 
     this.del = function () {
