@@ -38,11 +38,15 @@ class OrderService {
             productList,
         };
 
-        console.log(newOrderInfo)
         // db에 저장
         const createdNewOrder = await this.orderModel.create(newOrderInfo);
 
         return createdNewOrder;
+    }
+
+    async findOrders(userId) {
+        const orders = await this.orderModel.findAllForOneUser(userId);
+        return orders;
     }
 }
 
