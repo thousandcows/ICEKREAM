@@ -1,10 +1,10 @@
 import cors from 'cors';
 import express from 'express';
 import passport from 'passport';
-import { viewsRouter, userRouter, orderRouter } from './routers';
+import { viewsRouter, userRouter, orderRouter ,authRouter } from './routers';
 import { errorHandler } from './middlewares';
 import { passportConfiguration, JWTConfiguration } from './services/passport';
-
+import { loginRequired } from './middlewares';
 const app = express();
 
 // CORS 에러 방지
@@ -26,7 +26,8 @@ JWTConfiguration(); // passport.use로 jwt strategy 사용
 // 아래처럼 하면, userRouter 에서 '/login' 으로 만든 것이 실제로는 앞에 /api가 붙어서
 // /api/login 으로 요청을 해야 하게 됨. 백엔드용 라우팅을 구분하기 위함임.
 
-app.use('/api', userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/auth',loginRequired, authRouter);
 app.use('/order', orderRouter);
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
 // 그래야, 에러가 났을 때 next(error) 했을 때 여기로 오게 됨
