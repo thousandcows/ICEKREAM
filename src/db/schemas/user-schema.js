@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-
+import { AddressSchema } from './address-schema';
 const UserSchema = new Schema(
     {
         email: {
@@ -19,16 +19,7 @@ const UserSchema = new Schema(
             required: false,
         },
         address: {
-            type: new Schema(
-                {
-                    postalCode: String,
-                    address1: String,
-                    address2: String,
-                },
-                {
-                    _id: false,
-                },
-            ),
+            type: AddressSchema,
             required: false,
         },
         role: {

@@ -5,7 +5,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
-
+import { orderService } from '../services/order-service';
 const userRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
@@ -42,6 +42,7 @@ userRouter.post('/register', async (req, res, next) => {
 // auth 확인 // passport.authenticate가 middleware로 유저 인증 진행 이 때 http header 확인
 userRouter.post('/auth', loginRequired, async (req, res, next) => {
     try {
+        // login을 성공하면 req.user에 user 정보가 따라옴.
         res.json({ result: 'success, you are User!' });
     } catch (error) {
         next(error);
@@ -184,4 +185,15 @@ userRouter.delete('/:userId', loginRequired, async (req, res, next) => {
     }
 });
 
+userRouter.get('/:userId/orders', loginRequired, async(req,res,next)=>{
+    try{
+        const { userId } = req.params;
+        const orders = await orderService.findOrders(userId)
+        console.log(orders);
+        console.log(orders.length);
+        res.status(200).json(orders);
+    }catch(error){
+        next(error);
+    }
+} )
 export { userRouter };
