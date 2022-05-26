@@ -19,7 +19,9 @@ export default function Product(target, id, product) {
                   <p class="stockStatus">In Stock</p>
               </div>
               <div class="prodTotal cartSection">
-                  <p>${product.price * product.quantity}</p>
+                  <p class="prod-total-text">${
+                      product.price * product.quantity
+                  }</p>
               </div>
               <div class="cartSection remove-btn">
                   <a href="#" class="remove">x</a>
@@ -78,11 +80,40 @@ export default function Product(target, id, product) {
         const newQty = Number(e.target.value);
         const oldQty = Number(cart[this.id].quantity);
         cart[this.id].quantity = newQty;
+        this.product.quantity = newQty;
         localStorage.setItem('cart', JSON.stringify(cart));
         const prodTotal = document
             .getElementById(this.id)
-            .querySelector('.prodTotal');
+            .querySelector('.prod-total-text');
         prodTotal.innerText = newQty * this.product.price;
+
+        const quantity = document.getElementById('quantity');
+        const subTotal = document.getElementById('subtotal');
+        const total = document.getElementById('total');
+        const input = document
+            .getElementById(this.id)
+            .querySelector('.select-btn');
+        if (input.checked) {
+            if (newQty > oldQty) {
+                quantity.innerText =
+                    Number(quantity.innerText) + (newQty - oldQty);
+                subTotal.innerText =
+                    Number(subTotal.innerText) +
+                    this.product.price * (newQty - oldQty);
+                total.innerText =
+                    Number(total.innerText) +
+                    this.product.price * (newQty - oldQty);
+            } else {
+                quantity.innerText =
+                    Number(quantity.innerText) - (oldQty - newQty);
+                subTotal.innerText =
+                    Number(subTotal.innerText) -
+                    this.product.price * (oldQty - newQty);
+                total.innerText =
+                    Number(total.innerText) -
+                    this.product.price * (oldQty - newQty);
+            }
+        }
     };
 
     this.del = function () {
