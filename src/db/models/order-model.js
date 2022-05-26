@@ -20,12 +20,12 @@ export class OrderModel {
         return orders;
     }
 
-    async findOrders(userId){
+    async findAll(userId){
         const orders = await Order.find({userId: userId});
         return orders;
     }
 
-    async deleteOrder(orderId){
+    async deleteById(orderId){
         const deletedOrder = await Order.findOneAndDelete({_id : orderId});
         return deletedOrder;
     }
