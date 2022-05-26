@@ -1,10 +1,12 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 import bcrypt from 'bcrypt';
-const { ExtractJwt, Strategy: JWTStrategy } = require('passport-jwt');
-const LocalStrategy = Strategy;
 
 import { userModel } from '../db';
+
+const { ExtractJwt, Strategy: JWTStrategy } = require('passport-jwt');
+
+const LocalStrategy = Strategy;
 
 const passportConfig = {
     // passport의 username, password field configure
