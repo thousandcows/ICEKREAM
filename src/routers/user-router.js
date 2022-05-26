@@ -5,7 +5,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
-
+import { orderService } from '../services/order-service';
 const userRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
@@ -184,4 +184,15 @@ userRouter.delete('/:userId', loginRequired, async (req, res, next) => {
     }
 });
 
+userRouter.get('/:userId/orders', loginRequired, async(req,res,next)=>{
+    try{
+        const { userId } = req.params;
+        const orders = await orderService.findOrders(userId)
+        console.log(orders);
+        console.log(orders.length);
+        res.status(200).json(orders);
+    }catch(error){
+        next(error);
+    }
+} )
 export { userRouter };
