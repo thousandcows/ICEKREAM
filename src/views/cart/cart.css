@@ -76,8 +76,6 @@ ul {
 
 .cart {
   padding: 1em 0;
-  height: 400px;
-  overflow: scroll;
 }
 
 .cart .items {
