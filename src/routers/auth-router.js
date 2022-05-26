@@ -107,7 +107,7 @@ authRouter.delete('/:userId', async (req, res, next) => {
     }
 });
 
-authRouter.get('/:userId/orders', async(req,res,next)=>{
+authRouter.get('/:userId/orders', async(req,res,next)=>{ //login 이 되어있으면 그 유저의 oreder들을 전부 반환
     try{
         const { userId } = req.params;
         const orders = await orderService.findOrders(userId);
