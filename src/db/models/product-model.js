@@ -48,6 +48,24 @@ export class ProductModel {
         const deletedProduct = await Product.deleteOne({ _id: productId });
         return deletedProduct;
     }
+
+    // 7. 상품 조회 페이지네이션 기능
+    async getPaginatedProducts (query, page, perPage) {
+
+        const [total, productList] = await Promise.all([
+            Product.countDocuments(query),
+            Product
+                .find(query)
+                .sort({views: -1})
+                .skip(perPage * (page - 1))
+                .limit(perPage)
+        ]);
+        
+        const totalPage = Math.ceil(total / perPage);
+
+        return [productList, totalPage];
+        
+    }
 }
 
 const productModel = new ProductModel();
