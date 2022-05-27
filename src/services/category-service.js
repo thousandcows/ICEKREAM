@@ -47,6 +47,6 @@ class CategoryService {
 
 }
 
-const categoryService = new categoryService(categoryModel);
+const categoryService = new CategoryService();
 
 export { categoryService }
