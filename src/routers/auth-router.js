@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
 import { orderService } from '../services/order-service';
+import res from 'express/lib/response';
 
 // import { productService } from "../services/product-service"  나중에 추가 !!!
 
@@ -139,8 +140,9 @@ authRouter.delete('/:userId/:orderId', async (req, res, next) => {
 
 // 할거 auth + product get/patch/delete api : user의 상품 관련 기능
 
-authRouter.get('/:userId/product/add', async (req, res, next) => {
+authRouter.post('/:userId/product/add', async (req, res, next) => {
     try {
+        //password 확인이 필요한가?
         //상품 DB에 등록
         //Category의 상품 리스트에 등록 - 이건 addproduct에서 해줌
         if (is.emptyObject(req.body)) {
@@ -199,4 +201,42 @@ authRouter.get('/:userId/product/add', async (req, res, next) => {
         next(error);
     }
 });
+
+authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
+    // 일단은 둘다 url에서 받는다 했을 경우
+    const { userId, productId } = req.params;
+    if (is.emptyObject(req.body)) {
+        throw new Error(
+            'headers의 Content-Type을 application/json으로 설정해주세요',
+        );
+    }
+    // 위 patch와 거의 동일한 구조를 가지게 작성함.
+    // 유저확인 절차가 더 필요할까 고민 필요.
+    const { category } = req.body;
+    const { brand } = req.body;
+    const { productName } = req.body;
+    const { price } = req.body;
+    const { launchDate } = req.body;
+    const { img } = req.body;
+    const { quantity } = req.body;
+    const { size } = req.body;
+
+    const toUpdate = {
+        ...(category && { category }),
+        ...(brand && { brand }),
+        ...(productName && { productName }),
+        ...(price && { price }),
+        ...(launchDate && { launchDate }),
+        ...(img && { img }),
+        ...(quantity && { quantity }),
+        ...(size && { size }),
+    };
+
+    const updatedProduct = await productService.updateProduct(
+        productId,
+        toUpdate,
+    );
+    res.status(200).json(updatedProduct);
+});
+
 export { authRouter };
