@@ -91,7 +91,7 @@ productRouter.post('/add', async (req, res, next) => {
         } else {
             await Category.create({
                 name: category,
-                products: [],
+                products: [newProduct._id],
                 size: [],
             });
         }
