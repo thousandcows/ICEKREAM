@@ -37,7 +37,7 @@ JWTConfiguration(); // passport.use로 jwt strategy 사용
 
 app.use('/api/users', userRouter);
 app.use('/api/auth', loginRequired, authRouter);
-app.use('/api/order', orderRouter);
+app.use('/api/order', loginRequired, orderRouter);
 app.use('/api/admin', loginRequired, adminRequired, adminRouter);
 app.use('/api/product', productRouter);
 app.use('/api/category', categoryRouter);

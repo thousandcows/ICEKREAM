@@ -131,16 +131,17 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const {
-            category,
-            brand,
-            productName,
-            price,
-            launchDate,
-            img,
-            quantity,
-            size,
-        } = req.body;
+        const { category } = req.body;
+        const { brand } = req.body;
+        const { productName } = req.body;
+        const { price } = req.body;
+        const { launchDate } = req.body;
+        const { img } = req.body;
+        const { views } = req.body;
+        const { quantity } = req.body;
+        const { purchaseCount } = req.body;
+        const sellerId = req.user._id;
+
         if (!category) {
             throw new Error('카테고리 정보를 입력해주세요.');
         }
@@ -165,18 +166,23 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
         if (!size) {
             throw new Error('사이즈 정보를 입력해주세요');
         }
-        const purchasedUsers = [];
-        const newProductInfo = {
-            category,
-            brand,
-            productName,
-            price,
-            launchDate,
-            img,
-            quantity,
-            purchasedUsers,
+        const productInfo = {
+            brand: brand,
+            productName: productName,
+            price: price,
+            launchDate: launchDate,
+            img: img,
+            views: views,
+            quantity: quantity,
+            purchaseCount: purchaseCount,
+            sellerId: sellerId,
         };
-        const newProduct = await prodcutService.addProduct(newProductInfo);
+
+        const newProduct = await productService.addProduct(
+            category,
+            productInfo,
+        );
+        console.log(newProduct);
         res.status(200).json(newProduct);
     } catch (error) {
         next(error);
