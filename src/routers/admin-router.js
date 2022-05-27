@@ -26,4 +26,13 @@ adminRouter.get('/userlist', async (req, res, next) => {
     }
 }); //admin 전용
 
+adminRouter.get('/orders', async (req, res, next) => {
+    try {
+        const orders = await orderService.findAllOrders();
+        res.status(200).json(orders);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export { adminRouter };
