@@ -24,14 +24,14 @@ productRouter.get('/:page/:perPage', async (req, res, next) => {
 });
 
 // 2. 카테고리별 상품 조회 기능
-productRouter.get('/:category', async (req, res, next) => {
+productRouter.get('/:category/:page/:perPage', async (req, res, next) => {
     try {
-        const category = req.params.category;
-        const productList = await productService.findByCategory(category);
+        const {category, page, perPage} = req.params;
+        const [productList, totalPage] = await productService.findAllProducts(category, page, perPage);
 
         console.log(productList);
 
-        res.status(200).json(productList);
+        res.status(200).json({productList, totalPage});
     } catch (error) {
         next(error);
     }

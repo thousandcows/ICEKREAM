@@ -17,9 +17,10 @@ class ProductService {
     // 2. 카테고리별 상품 조회 기능
     // a. pagination 추가하기
     // b. views 순으로 정렬하기
-    async findByCategory(category){
-        const productList = await this.productModel.findByCategory({category: category});
-        return productList;
+    async findByCategory(category, page, perPage){
+        const query = {category: category};
+        const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
+        return [productList, totalPage];
     }
     // 3. 상품 상세 정보 조회 기능
     // a. 요청 올 때마다 views += 1
