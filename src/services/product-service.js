@@ -7,16 +7,12 @@ class ProductService {
     }
     
     // 1. 전체 상품 목록 조회 기능
-    // a. pagination 추가하기
-    // b. views 순으로 정렬하기
     async findAllProducts(page, perPage){
         const [productList, totalPage] = await this.productModel.getPaginatedProducts({}, page, perPage);
         return [productList, totalPage];
     }
     
     // 2. 카테고리별 상품 조회 기능
-    // a. pagination 추가하기
-    // b. views 순으로 정렬하기
     async findByCategory(category, page, perPage){
         const query = {category: category};
         const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
@@ -30,7 +26,7 @@ class ProductService {
     }
 
     // 4. 상품 추가 기능
-    async addProduct(productInfo){
+    async addProduct(categoryName, productInfo){
         const { productName }= productInfo
 
         const product = await this.productModel.findByName(productName);
@@ -41,11 +37,10 @@ class ProductService {
 
         const addedProduct = await this.productModel.create(productInfo);
         
-        const categoryName = addedProduct.category;
-        const productId = addedProduct.productId;
+        const productId = addedProduct._id;
         
-        await categoryModel.updateCategory(categoryName, productId)
-
+        const updatedCategory = await categoryModel.updateCategory(categoryName, productId)
+        console.log(updatedCategory);
         return addedProduct;
     }
     
@@ -56,7 +51,7 @@ class ProductService {
     }
     // 6. 상품 삭제 기능
     async deleteProduct(productId){
-        const deletedProduct = productModel.deleteProduct(productId);
+        const deletedProduct = await productModel.deleteProduct(productId);
         
         return deletedProduct;
     }
