@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
 import { orderService } from '../services/order-service';
+// import { categoryService } from ''; 나중에 추가 필요
 import res from 'express/lib/response';
 
 // import { productService } from "../services/product-service"  나중에 추가 !!!
@@ -34,5 +35,50 @@ adminRouter.get('/orders', async (req, res, next) => {
         next(error);
     }
 });
+
+adminRouter.delete('/orders/:orderId', async (req, res, next) => {
+    try {
+        //auth-router 내용을 복붙해서 다시 한번 생각해 보아야겠다.
+        const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const deletedOrder = await orderService.deleteUserOrder(orderId);
+        if (deletedOrder) {
+            await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
+            res.status(200).json({ result: 'success' });
+        } else {
+            throw new Error('그 주문 기록은 존재하지 않습니다.');
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.get('/orders/:userId', async (req, res, next) => {
+    try {
+        //이것도 그냥 가져옴... 뭔가 auth랑 admin이 비슷한 경우가 많은 듯함..
+        const { userId } = req.params;
+        const orders = await orderService.findOrders(userId);
+        res.status(200).json(orders);
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.post('/product/category/add', async (req, res, next) => {
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const { categoryName } = req.body;
+        const { products } = req.body; // 처음에 이게 있는지 확신이 안든다.....
+        const { size } = req.body;
+        const newCategoryInfo = { categoryName, products, size };
+        const newCategory = await categoryService.addCategory(newCategoryInfo);
+        res.status(200).json(newCategory);
+    } catch (error) {}
+});
+
+// adminRouter.delete('/')
 
 export { adminRouter };

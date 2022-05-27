@@ -108,6 +108,7 @@ authRouter.get('/:userId/orders', async (req, res, next) => {
 
 authRouter.delete('/:userId/:orderId', async (req, res, next) => {
     try {
+        //이 때 유저 아이디가 주문아이디랑 일치하나 확인을 해야할까?
         const userId = req.user._id;
         const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
         const deletedOrder = await orderService.deleteUserOrder(orderId);
