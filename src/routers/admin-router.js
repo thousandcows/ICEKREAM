@@ -63,6 +63,7 @@ adminRouter.get('/orders/:userId', async (req, res, next) => {
     }
 });
 
+////// 카테고리 schema등과 같이 있을 때 잘 동작하나 확인 해야함.
 adminRouter.post('/product/category/add', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -79,6 +80,18 @@ adminRouter.post('/product/category/add', async (req, res, next) => {
     } catch (error) {}
 });
 
-// adminRouter.delete('/')
+adminRouter.delete('/product/:categoryId', async (req, res, next) => {
+    try {
+        const { categoryId } = req.params;
+        const deletedCategory = await categoryService.deleteCategory(
+            categoryId,
+        ); //상품의 카테고리에도 수정이 되어야하나?
+        if (deletedCategory) {
+            res.status(200).json({ result: 'success' });
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 
 export { adminRouter };
