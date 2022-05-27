@@ -247,10 +247,17 @@ authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
 });
 
 authRouter.delete('/:userId/:productId/delete', async (req, res, next) => {
-    const { productId } = req.params;
-    const deletedProduct = await productService.deleteProduct(productId);
-    if (deletedProduct) {
-        res.status(200).json({ result: 'success' });
+    try {
+        //userId가 필요할까?
+        const { productId } = req.params;
+        const result = await productService.deleteProduct(productId);
+        if (result) {
+            res.status(200).json({ result: 'success' });
+        } else {
+            throw new Error('이 상품은 존재하지 않습니다.');
+        }
+    } catch (error) {
+        next(error);
     }
 });
 export { authRouter };
