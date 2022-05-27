@@ -67,9 +67,9 @@ productRouter.post('/add', async (req, res, next) => {
         const { views } = req.body;
         const { quantity } = req.body;
         const { purchaseCount } = req.body;
-        const sellerId = req.user.role
-        
-        const newProduct = await productService.addProduct({
+        const { sellerId }= req.body;
+
+        const productInfo = {
             brand: brand,
             productName: productName,
             price: price,
@@ -79,24 +79,11 @@ productRouter.post('/add', async (req, res, next) => {
             quantity: quantity,
             purchaseCount: purchaseCount,
             sellerId: sellerId,
-        });
-        console.log(newProduct);
-        
-        // Category atomicity check
-        const isCategoryExist = await Category.findOne({ name: category });
-        
-        if (isCategoryExist) {
-            await Category.updateOne(
-                { name: category },
-                { $push: { products: newProduct._id } },
-            );
-        } else {
-            await Category.create({
-                name: category,
-                products: [newProduct._id],
-                size: [],
-            });
         }
+        
+        const newProduct = await productService.addProduct(category, productInfo);
+        console.log(newProduct);
+
         res.status(200).json(newProduct);
     } catch (error) {
         next(error);
@@ -106,12 +93,11 @@ productRouter.post('/add', async (req, res, next) => {
 // 5. 상품 수정 기능
 productRouter.patch('/edit', async (req, res, next) => {
     try{
-        const {productId} = req.query;
-        const {price, img, quantity} = req.body;
+        const {productId, price, img, quantity} = req.query;
         const update = {price : price, img: img, quantity: quantity}
-
-        const updatedProduct = productService.updateProduct(productId, update)
-        
+        console.log(update)
+        const updatedProduct = await productService.updateProduct(productId, update)
+        console.log(updatedProduct)
         res.status(200).json(updatedProduct);
 
     } catch (error) {
