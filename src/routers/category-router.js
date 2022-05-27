@@ -47,9 +47,9 @@ const categoryRouter = Router();
         }
     });
     // 5. 카테고리 검색
-    categoryRouter.get('/', async (req, res, next) => {
+    categoryRouter.get('/search', async (req, res, next) => {
         try {
-            const categoryName = req.params.categoryName;
+            const {categoryName} = req.query;
             const category = await categoryService.findOne(categoryName);
             res.status(200).json(category);
         } catch (error) {
