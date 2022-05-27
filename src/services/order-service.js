@@ -44,12 +44,17 @@ class OrderService {
         return createdNewOrder;
     }
 
+    async findAllOrders() {
+        const orders = await this.orderModel.findAll();
+        return orders;
+    }
+
     async findOrders(userId) {
         const orders = await this.orderModel.findAllForOneUser(userId);
         return orders;
     }
-    
-    async deleteUserOrder(orderId){
+
+    async deleteUserOrder(orderId) {
         const deletedOrder = await this.orderModel.deleteById(orderId);
         return deletedOrder;
     }
