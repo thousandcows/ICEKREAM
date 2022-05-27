@@ -67,7 +67,7 @@ productRouter.post('/add', async (req, res, next) => {
         const { views } = req.body;
         const { quantity } = req.body;
         const { purchaseCount } = req.body;
-        const { sellerId }= req.body;
+        const  sellerId = req.user._id;
 
         const productInfo = {
             brand: brand,
