@@ -6,7 +6,7 @@ async function get(endpoint, params = '') {
   const res = await fetch(apiUrl, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     },
   });
 
@@ -24,6 +24,7 @@ async function get(endpoint, params = '') {
 }
 
 // api 로 POST 요청 (/endpoint 로, JSON 데이터 형태로 요청함)
+// debugger;
 async function post(endpoint, data) {
   const apiUrl = endpoint;
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
@@ -31,12 +32,13 @@ async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
-
+  // console.log('sessionStorage')
+  // debugger;
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     },
     body: bodyData,
   });
@@ -68,7 +70,7 @@ async function patch(endpoint, params = '', data) {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     },
     body: bodyData,
   });
@@ -99,7 +101,7 @@ async function del(endpoint, params = '', data = {}) {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     },
     body: bodyData,
   });
