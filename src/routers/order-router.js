@@ -6,7 +6,7 @@ import { userService } from '../services';
 import { productService } from '../services/product-service';
 const orderRouter = Router();
 
-// 로그인 확인이 미리 필요한가?
+// 로그인 확인이 미리 필요한가? // 주문이 들어왔을 때의 상품 목록의 수량이 줄어야 하는가? 그럼 어떻게?
 orderRouter.post('/', async (req, res, next) => {
     try {
         // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.

@@ -120,7 +120,7 @@ authRouter.delete('/:userId/:orderId', async (req, res, next) => {
 });
 
 // 할거 auth + product get/patch/delete api : user의 상품 관련 기능
-
+// userId 가 url에 필요 없을 거 같은데...
 authRouter.post('/:userId/product/add', async (req, res, next) => {
     try {
         //password 확인이 필요한가?
@@ -151,7 +151,7 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
         if (!productName) {
             throw new Error('상품 이름을 입력해주세요.');
         }
-        if (!price || pirce <= 0) {
+        if (!price || price <= 0) {
             throw new Error('가격을 다시 입력해주세요.');
         }
         //launch date를 어떻게 할까...
@@ -160,11 +160,8 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
                 '상품 이미지 정보를 입력해주세요.', // 이게 url인데 생각해봅시다.
             );
         }
-        if (!quantity || qunatity <= 0) {
+        if (!quantity || quantity <= 0) {
             ('상품 수량/재고를 다시 입력해주세요.');
-        }
-        if (!size) {
-            throw new Error('사이즈 정보를 입력해주세요');
         }
         const productInfo = {
             brand: brand,
@@ -173,7 +170,7 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
             launchDate: launchDate,
             img: img,
             views: views,
-            quantity: quantity,
+            quantity: quantity, // views 랑 purchaseCount는 굳이 여기 넣어야 할까요?
             purchaseCount: purchaseCount,
             sellerId: sellerId,
         };
@@ -189,41 +186,64 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
     }
 });
 
+// authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
+//     // 일단은 둘다 url에서 받는다 했을 경우
+//     const { userId, productId } = req.params;
+//     if (is.emptyObject(req.body)) {
+//         throw new Error(
+//             'headers의 Content-Type을 application/json으로 설정해주세요',
+//         );
+//     }
+//     // 위 patch와 거의 동일한 구조를 가지게 작성함.
+//     // 유저확인 절차가 더 필요할까 고민 필요.
+//     const { category } = req.body;
+//     const { brand } = req.body;
+//     const { productName } = req.body;
+//     const { price } = req.body;
+//     const { launchDate } = req.body;
+//     const { img } = req.body;
+//     const { quantity } = req.body;
+//     const { size } = req.body;
+
+//     const toUpdate = {
+//         ...(category && { category }),
+//         ...(brand && { brand }),
+//         ...(productName && { productName }),
+//         ...(price && { price }),
+//         ...(launchDate && { launchDate }),
+//         ...(img && { img }),
+//         ...(quantity && { quantity }),
+//         ...(size && { size }),
+//     };
+
+//     const updatedProduct = await productService.updateProduct(
+//         productId,
+//         toUpdate,
+//     );
+//     res.status(200).json(updatedProduct);
+// });
+
 authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
-    // 일단은 둘다 url에서 받는다 했을 경우
-    const { userId, productId } = req.params;
-    if (is.emptyObject(req.body)) {
-        throw new Error(
-            'headers의 Content-Type을 application/json으로 설정해주세요',
+    try {
+        //product Id는 client에서 받는게 맞는 거 같다.
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const { productId } = req.params;
+        const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
+        const update = { price: price, img: img, quantity: quantity };
+        console.log(update);
+        const updatedProduct = await productService.updateProduct(
+            productId,
+            update,
         );
+        console.log(updatedProduct);
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        next(error);
     }
-    // 위 patch와 거의 동일한 구조를 가지게 작성함.
-    // 유저확인 절차가 더 필요할까 고민 필요.
-    const { category } = req.body;
-    const { brand } = req.body;
-    const { productName } = req.body;
-    const { price } = req.body;
-    const { launchDate } = req.body;
-    const { img } = req.body;
-    const { quantity } = req.body;
-    const { size } = req.body;
-
-    const toUpdate = {
-        ...(category && { category }),
-        ...(brand && { brand }),
-        ...(productName && { productName }),
-        ...(price && { price }),
-        ...(launchDate && { launchDate }),
-        ...(img && { img }),
-        ...(quantity && { quantity }),
-        ...(size && { size }),
-    };
-
-    const updatedProduct = await productService.updateProduct(
-        productId,
-        toUpdate,
-    );
-    res.status(200).json(updatedProduct);
 });
 
 authRouter.delete('/:userId/:productId/delete', async (req, res, next) => {
