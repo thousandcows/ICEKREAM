@@ -4,7 +4,11 @@
     "window.zoomLevel": 1,
     "editor.formatOnSave": true, 
     "[javascript]": { 
+<<<<<<< HEAD
         "editor.formatOnSave": true 
+=======
+    "editor.formatOnSave": true 
+>>>>>>> 7e09ceaf80ffadf19c07061c4ab84bef3bd584b0
     },
     "editor.codeActionsOnSave": { 
         "source.fixAll.eslint": true 
