@@ -5,6 +5,7 @@ import passport from 'passport';
 import { loginRequired } from '../middlewares';
 import { orderService } from '../services/order-service';
 import { userService } from '../services';
+// import { productService } from '..'
 const orderRouter = Router();
 
 // 로그인 확인이 미리 필요한가?
@@ -25,7 +26,6 @@ orderRouter.post('/', async (req, res, next) => {
         const { billingMethod } = req.body;
         const { productList } = req.body;
 
-        
         const newOrder = await orderService.addOrder({
             userId,
             postalCode,
@@ -41,29 +41,27 @@ orderRouter.post('/', async (req, res, next) => {
     }
 });
 
-// orderRouter.get('/',async(req,res,next)=>{
-//     try{
-//         if (is.emptyObject(req.body)) {
-//             throw new Error(
-//                 'headers의 Content-Type을 application/json으로 설정해주세요',
-//             );
-//         }
-//         const { productList } =req.body;
-//         if(productList.length===0){
-//             throw new Error(
-//                 '장바구니에 상품이 없습니다'
-//             )
-//         }
-//         productList.forEach( item =>{
-//             const productId= item.productId; // 예
-//             const orederedQuantity = item.quantity;
-
-
-//         })
-//     }
-//     catch(error){
-//         next(error);
-//     }
-// })
+orderRouter.get('/', async (req, res, next) => { //다시 확인 꼭 필요... 장바구니와 소통시 사용
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        // client에서 상품 아이디 리스트를 받는다고 가정
+        const { productList } = req.body;
+        if (productList.length === 0) {
+            throw new Error('장바구니에 상품이 없습니다');
+        }
+        productList.map((item) => {
+            const productId = item.productId; 
+            const productData = await productService.findById(productId);
+            return productData;
+        }); //이러면 아마도 product 객체로 이루어진 리스트로 변환됨.
+        res.status(200).json(productList);
+    } catch (error) {
+        next(error);
+    }
+});
 
 export { orderRouter };
