@@ -7,6 +7,9 @@ import jwt from 'jsonwebtoken';
 import { loginRequired } from '../middlewares';
 import { userService } from '../services';
 import { orderService } from '../services/order-service';
+
+// import { productService } from "../services/product-service"  나중에 추가 !!!
+
 const authRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
@@ -129,6 +132,69 @@ authRouter.delete('/:userId/:orderId', async (req, res, next) => {
         } else {
             throw new Error('그 주문 기록은 존재하지 않습니다.');
         }
+    } catch (error) {
+        next(error);
+    }
+});
+
+// 할거 auth + product get/patch/delete api : user의 상품 관련 기능
+
+authRouter.get('/:userId/product/add', async (req, res, next) => {
+    try {
+        //상품 DB에 등록
+        //Category의 상품 리스트에 등록 - 이건 addproduct에서 해줌
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const {
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        } = req.body;
+        if (!category) {
+            throw new Error('카테고리 정보를 입력해주세요.');
+        }
+        if (!brand) {
+            throw new Error('브랜드 정보를 입력해주세요.');
+        }
+        if (!productName) {
+            throw new Error('상품 이름을 입력해주세요.');
+        }
+        if (!price || pirce <= 0) {
+            throw new Error('가격을 다시 입력해주세요.');
+        }
+        //launch date를 어떻게 할까...
+        if (!img) {
+            throw new Error(
+                '상품 이미지 정보를 입력해주세요.', // 이게 url인데 생각해봅시다.
+            );
+        }
+        if (!quantity || qunatity <= 0) {
+            ('상품 수량/재고를 다시 입력해주세요.');
+        }
+        if (!size) {
+            throw new Error('사이즈 정보를 입력해주세요');
+        }
+        const purchasedUsers = [];
+        const newProductInfo = {
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            purchasedUsers,
+        };
+        const newProduct = await prodcutService.addProduct(newProductInfo);
+        res.status(200).json(newProduct);
     } catch (error) {
         next(error);
     }
