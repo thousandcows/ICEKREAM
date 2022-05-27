@@ -65,6 +65,7 @@ productRouter.post('/add', async (req, res, next) => {
         const { views } = req.body;
         const { quantity } = req.body;
         const { purchaseCount } = req.body;
+        const sellerId = req.user.role
         
         const newProduct = await productService.addProduct({
             brand: brand,
@@ -75,6 +76,7 @@ productRouter.post('/add', async (req, res, next) => {
             views: views,
             quantity: quantity,
             purchaseCount: purchaseCount,
+            sellerId: sellerId,
         });
         console.log(newProduct);
         
