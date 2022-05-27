@@ -1,0 +1,36 @@
+
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.order_title h3 {
+    font-size: 30px;
+    border-bottom: 1px solid black;
+    margin: 25px 0;
+}
+
+.buyer_table,
+.recipient_table {
+    width: 100%;
+    border-top: 2px solid #cecece;
+}
+
+.buyer_title,
+.recipient_title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.buyer_table td,
+.buyer_table th,
+.recipient_table td,
+.recipient_table th {
+    border: 1px solid #cecece;
+}
+
+
+
+
+
