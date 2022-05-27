@@ -77,7 +77,9 @@ adminRouter.post('/product/category/add', async (req, res, next) => {
         const newCategoryInfo = { categoryName, products, size };
         const newCategory = await categoryService.addCategory(newCategoryInfo);
         res.status(200).json(newCategory);
-    } catch (error) {}
+    } catch (error) {
+        next(error);
+    }
 });
 
 adminRouter.delete('/product/:categoryId', async (req, res, next) => {
@@ -88,6 +90,8 @@ adminRouter.delete('/product/:categoryId', async (req, res, next) => {
         ); //상품의 카테고리에도 수정이 되어야하나?
         if (deletedCategory) {
             res.status(200).json({ result: 'success' });
+        } else {
+            throw new Error('그 카테고리는 존재하지 않습니다.');
         }
     } catch (error) {
         next(error);
