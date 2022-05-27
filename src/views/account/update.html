@@ -22,12 +22,11 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
   </nav>
 
-
   <div class="user_update_container">
     <section class="user_update">
       <h1 class="user_update_title">회원정보 수정</h1>
       <table class="user_update_table">
-        <tr id="email_area">
+        <tr class="show_area" id="email_area">
           <th scope="row">이메일</th>
           <td>
             <strong>
@@ -36,22 +35,19 @@
           </td>
           <td><button>이메일 변경</button></td>
         </tr>
-        <tr id="change_email_area" class="hide">
+        <tr class="change_area hide" id="email">
           <th scope="row">이메일</th>
           <td>
-            <strong>
-              현재 이메일을 보여줍니다.
-            </strong>
-            <div class="input"><input type="text"></div>
+            <div class="input"><input type="text" class="email_input inputEl"></div>
           </td>
           <td>
             <div class="btn_group">
-              <button>변경</button>
-              <button>취소</button>
+              <button id="change_email_btn">변경완료</button>
+              <button id="cancel_email_btn">취소</button>
             </div>
           </td>
         </tr>
-        <tr id="name_area">
+        <tr class="show_area" id="name_area">
           <th scope="row">이름</th>
           <td>
             <strong>
@@ -60,22 +56,19 @@
           </td>
           <td><button>이름 변경</button></td>
         </tr>
-        <tr id="change_name_area" class="hide">
+        <tr class="change_area hide" id="name">
           <th scope="row">이름</th>
           <td>
-            <strong>
-              현재 이름을 보여줍니다.
-            </strong>
-            <div class="input"><input type="text"></div>
+            <div class="input"><input type="text" class="name_input inputEl"></div>
           </td>
           <td>
             <div class="btn_group">
-              <button>변경</button>
-              <button>취소</button>
+              <button id="change_name_btn">변경완료</button>
+              <button id="cancel_name_btn">취소</button>
             </div>
           </td>
         </tr>
-        <tr id="password_area">
+        <tr class="show_area" id="password_area">
           <th scope="row">비밀번호 변경</th>
           <td>
             <strong>
@@ -84,22 +77,19 @@
           </td>
           <td><button>비밀번호 변경</button></td>
         </tr>
-        <tr id="change_password_area" class="hide">
+        <tr class="change_area hide" id="password">
           <th scope="row">비밀번호</th>
           <td>
-            <strong>
-              현재 비밀번호를 보여줍니다.
-            </strong>
-            <div class="input"><input type="text"></div>
+            <div class="input"><input type="text" class="password_input inputEl"></div>
           </td>
           <td>
             <div class="btn_group">
-              <button>변경</button>
-              <button>취소</button>
+              <button id="change_password_btn">변경완료</button>
+              <button id="cancel_password_btn">취소</button>
             </div>
           </td>
         </tr>
-        <tr id="location_area">
+        <tr class="show_area" id="location_area">
           <th scope="row">배송지</th>
           <td>
             <strong>
@@ -108,22 +98,19 @@
           </td>
           <td><button>배송지 변경</button></td>
         </tr>
-        <tr id="change_location_area" class="hide">
+        <tr class="change_area hide" id="location">
           <th scope="row">배송지</th>
           <td>
-            <strong>
-              현재 배송지 목록을 보여줍니다.
-            </strong>
-            <div class="input"><input type="text"></div>
+            <div class="input"><input type="text" class="location_input inputEl"></div>
           </td>
           <td>
             <div class="btn_group">
-              <button>변경</button>
-              <button>취소</button>
+              <button id="change_location_btn">변경완료</button>
+              <button id="cancel_location_btn">취소</button>
             </div>
           </td>
         </tr>
-        <tr id="number_area">
+        <tr class="show_area" id="number_area">
           <th scope="row">전화번호</th>
           <td>
             <strong>
@@ -132,25 +119,35 @@
           </td>
           <td><button>번호 변경</button></td>
         </tr>
-        <tr id="change_number_area" class="hide">
+        <tr class="change_area hide" id="number">
           <th scope="row">전화번호</th>
           <td>
-            <strong>
-              현재 전화번호를 보여줍니다.
-            </strong>
-            <div class="input"><input type="text"></div>
+            <div class="input"><input type="text" class="number_input inputEl"></div>
           </td>
           <td>
             <div class="btn_group">
-              <button>변경</button>
-              <button>취소</button>
+              <button id="change_number_btn">변경완료</button>
+              <button id="cancel_number_btn">취소</button>
             </div>
           </td>
         </tr>
-        <tr id="withdraw_area">
+        <tr class="show_area" id="withdraw_area">
           <th scope="row">회원 탈퇴</th>
           <td><strong>탈퇴하시려면 오른쪽 버튼을 클릭</strong></td>
           <td><button>탈퇴 버튼</button></td>
+        </tr>
+        <tr class="change_area hide" id="withdraw">
+          <th scope="row">회원 탈퇴</th>
+          <td>
+            <strong>비밀 번호를 입력해주세요.</strong>
+            <input type="text">
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_withdraw_btn">탈퇴 요청</button>
+              <button id="cancel_withdraw_btn">취소</button>
+            </div>
+          </td>
         </tr>
       </table>
     </section>

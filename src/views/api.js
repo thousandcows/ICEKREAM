@@ -33,7 +33,7 @@ async function post(endpoint, data) {
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
   // console.log('sessionStorage')
-  debugger;
+  // debugger;
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {

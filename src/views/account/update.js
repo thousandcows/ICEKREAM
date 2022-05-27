@@ -5,66 +5,126 @@ import * as Api from '/api.js';
 
 common_nav('update');
 
-const emailBtn = document.querySelector('#email_area button');
-const nameBtn = document.querySelector('#name_area button');
-const passwordBtn = document.querySelector('#password_area button');
-const locationBtn = document.querySelector('#location_area button');
-const numberBtn = document.querySelector('#number_area button');
-
 
 /*
 
+    페이지가 로드되었을 때 서버에서 데이터를 받아서 화면에 보여줌
     사용자 정보를 수정할 경우 input으로 데이터 받고 post 요청을 보내서 현재 상태 변경
-
+    
 */
 
 
-// 페이지가 로드되었을 때 서버에서 데이터를 받아서 화면에 보여줌
+fetchUserData();
+   
+async function fetchUserData() {
+    const domList = ['email', 'name', 'password', 'number', 'location']
+        .map((e) => {
+            return document.querySelector(`#${e}_area td strong`);
+        })
+    const [email, name, password, number, location] = [...domList];
 
-
-
-// 백엔드에서 정보를 받아와야 함( user-router 폴더에서 만들어줘야 함)
-async function getUserInfo() {
-    // 현재 로그인 된 유저 이름를 저장함.
-    // const userId;
+    // patch api가 정해지면 진행예정
     try {
-        const data = await Api.get('/api/user~~', `:${userId}`);
-        // 이메일, 이름 영역 등에 정보가 기입됨
-        
+        // const data = await Api.patch('/api/auth/${userId}', 'userId', {});
+        email.textContent = 'data.email';
+        name.textContent = 'data.name';
+        password.textContent = 'data.password';
+        number.textContent = 'data.number';
+        location.textContent = 'data.location';
+
     } catch (error) {
-        throw new Error(error);
+        console.log(error);
+    }
+}
+
+
+// 요청 데이터를 data로 전달하고 서버 데이터 patch
+async function patchUserData(data) {
+    try {
+        // const patchData = await Api.patch('/api/auth/${userId}', 'userId', data);
+        fetchUserData();
+    } catch (error) {
+        console.log(error);
     }
 }
 
 
 
-// 변경 버튼을 클릭했을 때 변경 요소가 보임
-emailBtn.addEventListener('click',(e) => {
-    document.querySelector('#email_area').classList.add('hide');
-    document.querySelector('#change_email_area').classList.remove('hide');
+
+const showArea = document.querySelectorAll('.show_area button');
+const changeArea = document.querySelectorAll('.change_area');
+// const withdrawBtn = document.querySelector('.withdraw_area button');
+
+// 정보 변경 클릭 시 인풋 박스가 뜨는 화면 구성
+showArea.forEach((element) => {
+    element.addEventListener('click', (e) => {
+        const trElement = e.target.parentNode.parentNode;
+        trElement.classList.add('hide');
+        const changeTrElment = trElement.nextElementSibling;
+        changeTrElment.classList.remove('hide');
+    })
 })
 
-nameBtn.addEventListener('click',(e) => {
-    document.querySelector('#name_area').classList.add('hide');
-    document.querySelector('#change_name_area').classList.remove('hide');
+
+// 정보 변경 완료 버튼 클릭시 서버로 post 요청하며 hide 전환
+changeArea.forEach((element) => {
+    const select = element.getAttribute('id');
+    const changeBtn = element.querySelector(`#change_${select}_btn`);
+    const cancelBtn = element.querySelector(`#cancel_${select}_btn`);
+    const inputEl = element.querySelector('.inputEl');
+    console.log(changeBtn);
+    // 변경 완료 버튼 클릭시 수정된 데이터가 서버로 전송됨
+    changeBtn.addEventListener('click', () => {
+        element.classList.add('hide');
+        element.previousElementSibling.classList.remove('hide');
+        const inputValue = inputEl?.value;
+        
+        
+        // 여기서 patchUserData()를 사용
+
+        // switch (select) {
+        //     case 'name':
+        //         patchUserData({name: inputValue});
+        //         break;
+        
+        //     case 'password':
+                
+        //         break;
+        
+        //     case 'location':
+                
+        //         break;
+        
+        //     case 'number':
+                
+        //         break;
+        
+        //     case 'email':
+                
+        //         break;
+
+        //     case 'withdraw':
+
+        //     // 여기서 Api.delete 요청을 해야 함.
+        //          break;
+        
+        //     default:
+        //         break;
+        // }
+
+        
+    })
+
+    cancelBtn.addEventListener('click', () => {
+        element.classList.add('hide');
+        element.previousElementSibling.classList.remove('hide');
+    })
 })
 
-passwordBtn.addEventListener('click',(e) => {
-    document.querySelector('#password_area').classList.add('hide');
-    document.querySelector('#change_password_area').classList.remove('hide');
-})
 
 
-numberBtn.addEventListener('click',(e) => {
-    document.querySelector('#number_area').classList.add('hide');
-    document.querySelector('#change_number_area').classList.remove('hide');
-})
 
-// 배송지 수정하는 인풋박스를 보여줌
-locationBtn.addEventListener('click',(e) => {
-    document.querySelector('#location_area').classList.add('hide');
-    document.querySelector('#change_location_area').classList.remove('hide');
-})
+
 
 
 
