@@ -15,22 +15,6 @@ const authRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 
-// 전체 유저 목록을 가져옴 (배열 형태임)
-// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-
-// userRouter.get('/userlist', loginRequired, async (req, res, next) => {
-//     try {
-//         // 전체 사용자 목록을 얻음
-//         const users = await userService.getUsers();
-
-//         // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
-//         res.status(200).json(users);
-//     } catch (error) {
-//         next(error);
-//     }
-// }); //admin 전용
-// 나중에 꼭 admin에 수정할 것
-
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 authRouter.patch('/:userId', async (req, res, next) => {
