@@ -45,6 +45,10 @@ const ProductSchema = new Schema(
         purchasedUsers: [String],
         size:{
             type: [String],
+        },
+        sellerId:{
+            type: Schema.Types.ObjectId,
+            ref: 'users',
         }
     },
     {
