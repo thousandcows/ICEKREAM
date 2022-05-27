@@ -40,9 +40,9 @@ productRouter.get('/category', async (req, res, next) => {
 });
 
 // 3. 상품 상세 정보 조회 기능
-productRouter.get('/search', async (req, res, next) => {
+productRouter.get('/:productId', async (req, res, next) => {
     try {
-        const { productId } = req.query;
+        const { productId } = req.params;
         const product = await productService.findById(productId);
         res.status(200).json(product);
     } catch (error) {

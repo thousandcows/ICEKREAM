@@ -10,7 +10,7 @@ const adminRouter = Router();
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 
-adminRouter.get('/userlist', async (req, res, next) => {
+adminRouter.get('/users', async (req, res, next) => {
     try {
         // 전체 사용자 목록을 얻음
         const users = await userService.getUsers();
@@ -46,7 +46,7 @@ adminRouter.delete('/orders/:orderId', async (req, res, next) => {
     }
 });
 
-adminRouter.get('/orders/:userId', async (req, res, next) => {
+adminRouter.get('/users/:userId/orders', async (req, res, next) => {
     try {
         //이것도 그냥 가져옴... 뭔가 auth랑 admin이 비슷한 경우가 많은 듯함..
         const { userId } = req.params;
@@ -58,7 +58,7 @@ adminRouter.get('/orders/:userId', async (req, res, next) => {
 });
 
 ////// 카테고리 schema등과 같이 있을 때 잘 동작하나 확인 해야함.
-adminRouter.post('/product/category/add', async (req, res, next) => {
+adminRouter.post('/product/category', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -73,7 +73,7 @@ adminRouter.post('/product/category/add', async (req, res, next) => {
     }
 });
 
-adminRouter.delete('/product/:categoryId', async (req, res, next) => {
+adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
     try {
         const categoryId = req.params.categoryId;
         const deletedCategory = await categoryService.deleteCategory(

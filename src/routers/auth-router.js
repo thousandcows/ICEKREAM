@@ -102,7 +102,7 @@ authRouter.get('/:userId/orders', async (req, res, next) => {
     }
 });
 
-authRouter.delete('/:userId/:orderId', async (req, res, next) => {
+authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
     try {
         //이 때 유저 아이디가 주문아이디랑 일치하나 확인을 해야할까?
         const userId = req.user._id;
@@ -121,7 +121,7 @@ authRouter.delete('/:userId/:orderId', async (req, res, next) => {
 
 // 할거 auth + product get/patch/delete api : user의 상품 관련 기능
 // userId 가 url에 필요 없을 거 같은데...
-authRouter.post('/:userId/product/add', async (req, res, next) => {
+authRouter.post('/:userId/product', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
             throw new Error(
@@ -183,7 +183,7 @@ authRouter.post('/:userId/product/add', async (req, res, next) => {
     }
 });
 
-authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
+authRouter.patch('/:userId/:productId', async (req, res, next) => {
     try {
         //product Id는 client에서 받는게 맞는 거 같다.
         if (is.emptyObject(req.body)) {
@@ -206,7 +206,7 @@ authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
     }
 });
 
-authRouter.delete('/:userId/:productId/delete', async (req, res, next) => {
+authRouter.delete('/:userId/:productId', async (req, res, next) => {
     try {
         //userId가 필요할까?
         const { productId } = req.params;
