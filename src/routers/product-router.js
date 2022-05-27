@@ -10,9 +10,11 @@ const Category = model('categories', CategorySchema);
 const productRouter = Router();
 
 // 1. 전체 상품 목록 조회 기능
-productRouter.get('/:page/:perPage', async (req, res, next) => {
+productRouter.get('/', async (req, res, next) => {
+
     try {
-        const {page, perPage} = req.params;
+        const {page, perPage} = req.query;
+
         const [productList, totalPage] = await productService.findAllProducts(page, perPage);
 
         console.log(productList);
@@ -24,9 +26,9 @@ productRouter.get('/:page/:perPage', async (req, res, next) => {
 });
 
 // 2. 카테고리별 상품 조회 기능
-productRouter.get('/:category/:page/:perPage', async (req, res, next) => {
+productRouter.get('/category', async (req, res, next) => {
     try {
-        const {category, page, perPage} = req.params;
+        const {category, page, perPage} = req.query;
         const [productList, totalPage] = await productService.findAllProducts(category, page, perPage);
 
         console.log(productList);
@@ -38,10 +40,9 @@ productRouter.get('/:category/:page/:perPage', async (req, res, next) => {
 });
 
 // 3. 상품 상세 정보 조회 기능
-productRouter.get('/:productId', async (req, res, next) => {
+productRouter.get('/search', async (req, res, next) => {
     try{
-        const productId = req.params.productId;
-        console.log(productId);
+        const {productId} = req.query;
         const product = await productService.findById(productId);
         res.status(200).json(product);
     } catch (error) {
@@ -103,9 +104,9 @@ productRouter.post('/add', async (req, res, next) => {
 });
 
 // 5. 상품 수정 기능
-productRouter.put('/:productId', async (req, res, next) => {
+productRouter.patch('/edit', async (req, res, next) => {
     try{
-        const productId = req.params.productId;
+        const {productId} = req.query;
         const {price, img, quantity} = req.body;
         const update = {price : price, img: img, quantity: quantity}
 
@@ -118,10 +119,9 @@ productRouter.put('/:productId', async (req, res, next) => {
     }
 })
 // 6. 상품 삭제 기능
-productRouter.delete('/:productId', async (req, res, next) => {
+productRouter.delete('/delete', async (req, res, next) => {
     try{
-        const productId = req.params.productId;
-
+        const {productId} = req.query;
         const result = productService.deleteProduct(productId);
 
         res.status(200).json(result);
