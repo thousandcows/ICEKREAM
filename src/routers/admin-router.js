@@ -65,11 +65,8 @@ adminRouter.post('/product/category/add', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { categoryName } = req.body;
-        const { products } = req.body; // 처음에 이게 있는지 확신이 안든다.....
-        const { size } = req.body;
-        const newCategoryInfo = { categoryName, products, size };
-        const newCategory = await categoryService.addCategory(newCategoryInfo);
+        const categoryInfo = req.body;
+        const newCategory = await categoryService.addCategory(categoryInfo);
         res.status(200).json(newCategory);
     } catch (error) {
         next(error);
@@ -78,10 +75,10 @@ adminRouter.post('/product/category/add', async (req, res, next) => {
 
 adminRouter.delete('/product/:categoryId', async (req, res, next) => {
     try {
-        const { categoryId } = req.params;
+        const categoryId = req.params.categoryId;
         const deletedCategory = await categoryService.deleteCategory(
             categoryId,
-        ); //상품의 카테고리에도 수정이 되어야하나?
+        );
         if (deletedCategory) {
             res.status(200).json({ result: 'success' });
         } else {

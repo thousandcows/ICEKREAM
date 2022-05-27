@@ -9,7 +9,7 @@ import {
     adminRouter,
 } from './routers';
 import { productRouter } from './routers/product-router';
-import { categoryRouter } from './routers/category-router';
+
 import { errorHandler } from './middlewares';
 import { passportConfiguration, JWTConfiguration } from './services/passport';
 import { loginRequired } from './middlewares';
@@ -40,7 +40,11 @@ app.use('/api/auth', loginRequired, authRouter);
 app.use('/api/order', loginRequired, orderRouter);
 app.use('/api/admin', loginRequired, adminRequired, adminRouter);
 app.use('/api/product', productRouter);
-app.use('/api/category', categoryRouter);
+
+//해야할게 order.get 요청시 상품 데이터, 관리자가 카테고리 수정 (구현할 API)
+//상품 삭제시 카테고리 반영 ...
+// 상품이 구매되면, quantity -1 해야함. orderSchema에 구매시 상품이 확실히 반영..
+//상품 조회하면 view 올라가야함 +1
 
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
 // 그래야, 에러가 났을 때 next(error) 했을 때 여기로 오게 됨

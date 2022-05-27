@@ -48,7 +48,7 @@ orderRouter.post('/', async (req, res, next) => {
 //         }
 //         // client에서 상품 아이디 리스트를 받는다고 가정
 //         const { productList } = req.body;
-//         if (productList.length === 0) {
+//         if (productList.length === 0) { //any 같은 query를 써야하나?
 //             throw new Error('장바구니에 상품이 없습니다');
 //         }
 //         productList.map((item) => {
