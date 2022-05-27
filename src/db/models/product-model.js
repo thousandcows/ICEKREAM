@@ -60,7 +60,7 @@ export class ProductModel {
                 .skip(perPage * (page - 1))
                 .limit(perPage)
         ]);
-        
+
         const totalPage = Math.ceil(total / perPage);
 
         return [productList, totalPage];
