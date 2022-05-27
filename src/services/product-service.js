@@ -9,9 +9,9 @@ class ProductService {
     // 1. 전체 상품 목록 조회 기능
     // a. pagination 추가하기
     // b. views 순으로 정렬하기
-    async findAllProducts(){
-        const productList = await this.productModel.findAllProducts();
-        return productList;
+    async findAllProducts(page, perPage){
+        const [productList, totalPage] = await this.productModel.getPaginatedProducts({}, page, perPage);
+        return [productList, totalPage];
     }
     
     // 2. 카테고리별 상품 조회 기능

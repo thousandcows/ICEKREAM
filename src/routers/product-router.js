@@ -10,13 +10,14 @@ const Category = model('categories', CategorySchema);
 const productRouter = Router();
 
 // 1. 전체 상품 목록 조회 기능
-productRouter.get('/', async (req, res, next) => {
+productRouter.get('/:page/:perPage', async (req, res, next) => {
     try {
-        const productList = await productService.findAllProducts();
+        const {page, perPage} = req.params;
+        const [productList, totalPage] = await productService.findAllProducts(page, perPage);
 
         console.log(productList);
 
-        res.status(200).json(productList);
+        res.status(200).json({productList, totalPage});
     } catch (error) {
         next(error);
     }
