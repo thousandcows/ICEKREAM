@@ -29,7 +29,9 @@ export class ProductModel {
     }
     // b. 상품 추가
     async create(productInfo) {
+        console.log(productInfo);
         const createdNewProduct = await Product.create(productInfo);
+        console.log(createdNewProduct);
 
         // c. 카테코리에 상품 정보 업데이트
 

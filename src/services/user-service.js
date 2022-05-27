@@ -118,6 +118,19 @@ class UserService {
         const deletedUser = await this.userModel.deleteById(userId);
         return deletedUser;
     }
+
+    async pushUserOrderList(userId, orderId) {
+        const updatedUser = await this.userModel.updateOrder({
+            userId,
+            orderId,
+        });
+        return updatedUser;
+    }
+
+    async pullUserOrderList(userId,orderId){
+        const updatedUser = await this.userModel.deleteOrder({userId, orderId});
+        return updatedUser;
+    }
 }
 
 const userService = new UserService(userModel);

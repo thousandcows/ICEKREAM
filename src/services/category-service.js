@@ -16,14 +16,16 @@ class CategoryService {
     async addCategory(categoryInfo){
 
         const {name, products, size} = categoryInfo;
+        console.log(name, products, size);
 
-        const isCategoryExist = await categoryModel.findOne({name: name});
-
+        const isCategoryExist = await categoryModel.findOne(name);
+        
         if (isCategoryExist){
             throw new Error('이미 존재하는 카테고리입니다.');
         }
 
-        const newCategory = await categoryModel.addCategory({name, products, size});
+        const newCategory = await categoryModel.addCategory({name: name, products: products, size: size});
+
         return newCategory;
     }
 
