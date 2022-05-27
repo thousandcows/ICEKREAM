@@ -1,0 +1,41 @@
+
+
+.hide {
+    display: none;
+}
+
+
+.user_update_container {
+    margin: 1.2em;
+    padding: 3rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.user_update_title {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.user_update_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+    text-align: center;
+}
+
+.user_update_table tr{
+    background-color: red;
+    border-bottom: 1px solid black;
+}
+
+.user_update_table th {
+    width: 10rem;
+    text-align: center;
+    padding: 1.2rem;
+}
+
+.user_update_table td{
+    background-color: coral;
+    vertical-align: middle;
+}

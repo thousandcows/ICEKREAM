@@ -1,5 +1,6 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
+import { common_nav } from '../common_nav/common_nav.js';
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
@@ -63,3 +64,15 @@ async function handleSubmit(e) {
         );
     }
 }
+
+
+/*
+
+      헤더에 nav에 공통적인 부분을 common_nav로 빼서 불러옴
+
+*/
+common_nav('register');
+// const nav = document.querySelector('.navbar');
+// const content = common_nav('register');
+
+// nav.insertAdjacentHTML('beforeend', content);
