@@ -1,11 +1,9 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import passport from 'passport';
-import { loginRequired } from '../middlewares';
 import { orderService } from '../services/order-service';
 import { userService } from '../services';
-// import { productService } from '..'
+import { productService } from '../services/product-service';
 const orderRouter = Router();
 
 // 로그인 확인이 미리 필요한가?
