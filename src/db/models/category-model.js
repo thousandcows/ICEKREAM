@@ -7,8 +7,9 @@ export class CategoryModel {
     
     // 1. 카테고리 업데이트: 상품 추가
     async updateCategory(categoryName, productId){
-        const filter = {categoryName: categoryName};
-        const update = { $push : {products : productId}};
+
+        const filter = { name: categoryName};
+        const update = { $push : { products : productId}};
         const option = { returnOriginal : false };
 
         const updatedCategory = await Category.updateOne(filter, update, option);
