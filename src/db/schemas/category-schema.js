@@ -14,7 +14,10 @@ const CategorySchema = new Schema({
     size: {
         type: [String],
         required: true,
-    },
-});
+    }
+},{
+    collection: 'category',
+    timestamps: true,
+},);
 
 export { CategorySchema };
