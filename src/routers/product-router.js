@@ -9,11 +9,11 @@ const Category = model('categories', CategorySchema);
 
 const productRouter = Router();
 
+// 1. 전체 상품 목록 조회 기능
 productRouter.get('/', async (req, res, next) => {
     try {
-
         const productList = await productService.findAllProducts();
-        
+
         console.log(productList);
 
         res.status(200).json(productList);
@@ -22,11 +22,12 @@ productRouter.get('/', async (req, res, next) => {
     }
 });
 
+// 2. 카테고리별 상품 조회 기능
 productRouter.get('/:category', async (req, res, next) => {
     try {
         const category = req.params.category;
         const productList = await productService.findByCategory(category);
-        
+
         console.log(productList);
 
         res.status(200).json(productList);
@@ -35,6 +36,19 @@ productRouter.get('/:category', async (req, res, next) => {
     }
 });
 
+// 3. 상품 상세 정보 조회 기능
+productRouter.get('/:productId', async (req, res, next) => {
+    try{
+        const productId = req.params.productId;
+        console.log(productId);
+        const product = await productService.findById(productId);
+        res.status(200).json(product);
+    } catch (error) {
+        next(error);
+    }
+})
+
+// 4. 상품 추가 기능
 productRouter.post('/add', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -52,15 +66,8 @@ productRouter.post('/add', async (req, res, next) => {
         const { quantity } = req.body;
         const { purchaseCount } = req.body;
         
-        // Product atomicity check
-        const isProductExist = await productService.findOne({productName: productName});
-
-        if (isProductExist){
-            throw new Error('해당 상품은 이미 존재합니다. 다시 한 번 확인해주세요.');
-        }
-
         const newProduct = await productService.addProduct({
-            brand : brand,
+            brand: brand,
             productName: productName,
             price: price,
             launchDate: launchDate,
@@ -70,27 +77,53 @@ productRouter.post('/add', async (req, res, next) => {
             purchaseCount: purchaseCount,
         });
         console.log(newProduct);
-
+        
         // Category atomicity check
-        const isCategoryExist = await Category.findOne({name: category});
-
-        if (isCategoryExist){
+        const isCategoryExist = await Category.findOne({ name: category });
+        
+        if (isCategoryExist) {
             await Category.updateOne(
                 { name: category },
                 { $push: { products: newProduct._id } },
             );
-        } else{
+        } else {
             await Category.create({
                 name: category,
                 products: [],
-                size: []
-            })
+                size: [],
+            });
         }
-
         res.status(200).json(newProduct);
     } catch (error) {
         next(error);
     }
 });
 
+// 5. 상품 수정 기능
+productRouter.put('/:productId', async (req, res, next) => {
+    try{
+        const productId = req.params.productId;
+        const {price, img, quantity} = req.body;
+        const update = {price : price, img: img, quantity: quantity}
+
+        const updatedProduct = productService.updateProduct(productId, update)
+        
+        res.status(200).json(updatedProduct);
+
+    } catch (error) {
+        next(error);
+    }
+})
+// 6. 상품 삭제 기능
+productRouter.delete('/:productId', async (req, res, next) => {
+    try{
+        const productId = req.params.productId;
+
+        const result = productService.deleteProduct(productId);
+
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+})
 export { productRouter };
