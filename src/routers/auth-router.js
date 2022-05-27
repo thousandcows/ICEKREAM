@@ -239,4 +239,11 @@ authRouter.patch('/:userId/:productId/update', async (req, res, next) => {
     res.status(200).json(updatedProduct);
 });
 
+authRouter.delete('/:userId/:productId/delete', async (req, res, next) => {
+    const { productId } = req.params;
+    const deletedProduct = await productService.deleteProduct(productId);
+    if (deletedProduct) {
+        res.status(200).json({ result: 'success' });
+    }
+});
 export { authRouter };
