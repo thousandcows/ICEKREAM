@@ -9,17 +9,19 @@ class ProductService {
     // 1. 전체 / 카테고리 상품 목록 조회 기능
     async findAllProducts(category, page, perPage){
         const query = {}
-
-        const isCategoryExist = await categoryModel.findOne(category);
         
-        if (isCategoryExist){
-            query = {category: category}
-        }
+        if (category !== null && category !== undefined){
+
+            const isCategoryExist = await categoryModel.findOne(category);
+
+            if(isCategoryExist){
+                query = {category: category}
+            }
 
         const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
         return [productList, totalPage];
+        }
     }
-    
     // 3. 상품 상세 정보 조회 기능
     // a. 요청 올 때마다 views += 1
     async findById(productId){
