@@ -4,7 +4,7 @@ import is from '@sindresorhus/is';
 import { userService } from '../services';
 import { orderService } from '../services/order-service';
 import { categoryService } from '../services/category-service';
-
+import { productService } from '../services/product-service';
 const adminRouter = Router();
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
@@ -171,13 +171,11 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
         }
         const { productId } = req.params;
         const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
-        const update = { price: price, img: img, quantity: quantity };
-        console.log(update);
+        const update = { price: price, img: img, quantity: quantity }; //정보 유효성 check
         const updatedProduct = await productService.updateProduct(
             productId,
             update,
         );
-        console.log(updatedProduct);
         res.status(200).json(updatedProduct);
     } catch (error) {
         next(error);
