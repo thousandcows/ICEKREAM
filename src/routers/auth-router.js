@@ -9,9 +9,29 @@ import { productService } from '../services/product-service';
 
 const authRouter = Router();
 
-// 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
+//사용자 아이디 api
+authRouter.get('/', async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        console.log(userId);
+        res.status(200).json({ userId });
+    } catch (error) {
+        next(error);
+    }
+});
 
-// 사용자 정보 수정
+//사용자 정보 api
+authRouter.get('/:userId', async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const userData = await userService.getUser(userId);
+        res.status(200).json(userData);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// 사용자 정보 수정 //정보 유효성에 new 비밀번호와 현재 일치도 봐야할 듯.
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 authRouter.patch('/:userId', async (req, res, next) => {
     try {
@@ -120,7 +140,7 @@ authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
 });
 
 // 할거 auth + product get/patch/delete api : user의 상품 관련 기능
-// userId 가 url에 필요 없을 거 같은데...
+
 authRouter.post('/:userId/product', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -137,7 +157,7 @@ authRouter.post('/:userId/product', async (req, res, next) => {
         const { views } = req.body;
         const { quantity } = req.body;
         const { purchaseCount } = req.body;
-        const { sellerId } = req.user._id;
+        const sellerId = req.user._id;
         if (!category) {
             throw new Error('카테고리 정보를 입력해주세요.');
         }

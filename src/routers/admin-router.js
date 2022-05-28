@@ -21,6 +21,7 @@ adminRouter.get('/users', async (req, res, next) => {
     }
 }); //admin 전용
 
+//관리자가 전체 주문을 가져오는 api
 adminRouter.get('/orders', async (req, res, next) => {
     try {
         const orders = await orderService.findAllOrders();
@@ -30,10 +31,12 @@ adminRouter.get('/orders', async (req, res, next) => {
     }
 });
 
+// 관리자가 한 주문을 취소하는 api
 adminRouter.delete('/orders/:orderId', async (req, res, next) => {
     try {
         //auth-router 내용을 복붙해서 다시 한번 생각해 보아야겠다.
         const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const userId = await orderService.findUser(orderId);
         const deletedOrder = await orderService.deleteUserOrder(orderId);
         if (deletedOrder) {
             await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
@@ -46,6 +49,7 @@ adminRouter.delete('/orders/:orderId', async (req, res, next) => {
     }
 });
 
+//관리자가 한유저의 주문을  전체가져오는 api
 adminRouter.get('/users/:userId/orders', async (req, res, next) => {
     try {
         //이것도 그냥 가져옴... 뭔가 auth랑 admin이 비슷한 경우가 많은 듯함..
@@ -57,7 +61,7 @@ adminRouter.get('/users/:userId/orders', async (req, res, next) => {
     }
 });
 
-////// 카테고리 schema등과 같이 있을 때 잘 동작하나 확인 해야함.
+////// 새 카테고리 추가 api
 adminRouter.post('/product/category', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -73,6 +77,7 @@ adminRouter.post('/product/category', async (req, res, next) => {
     }
 });
 
+// 카테고리 아이디로 카테고리 삭제
 adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
     try {
         const categoryId = req.params.categoryId;
