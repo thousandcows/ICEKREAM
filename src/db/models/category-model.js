@@ -38,10 +38,10 @@ export class CategoryModel {
         return catagory;
     }
     // 6. 카테고리 수정
-    async updateCategory(name, size){
-
-        const filter = {name: name};
-        const update = {size : size};
+    async updateCategory(categoryId, name, size){
+        
+        const filter = {_id: categoryId};
+        const update = {name: name, size : size};
         const option = { returnOriginal : false };
 
         const updateCategory = await Category.updateOne(filter, update, option);
