@@ -47,6 +47,11 @@ class CategoryService {
         return category;
     }
 
+    // 6. 카테고리 수정
+    async updateCategory(name, size){
+        const updatedCategory = await categoryModel.updateCategory(name, size);
+        return updatedCategory;
+    }
 }
 
 const categoryService = new CategoryService();

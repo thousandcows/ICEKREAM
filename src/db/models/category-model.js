@@ -37,7 +37,17 @@ export class CategoryModel {
         const catagory = await Category.findOne({name: categoryName});
         return catagory;
     }
+    // 6. 카테고리 수정
+    async updateCategory(name, size){
 
+        const filter = {name: name};
+        const update = {size : size};
+        const option = { returnOriginal : false };
+
+        const updateCategory = await Category.updateOne(filter, update, option);
+        return updateCategory;
+
+    }
 
 }
 
