@@ -94,10 +94,6 @@ adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
     }
 });
 
-//admin/product .. post
-//admin/product/:productId .. patch
-//admin/product/:productId .. delete
-
 // 복사 붙여넣기 인점을 확인... 함수로 정의해야하나?
 // 아래 상품관련 기능은 유저와 다를 이유도 없는 것 같고 추가를 할거면 유저의 권한 축소 정도인 것 같다.
 adminRouter.post('/product', async (req, res, next) => {

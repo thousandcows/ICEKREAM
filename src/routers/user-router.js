@@ -4,6 +4,7 @@ import is from '@sindresorhus/is';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { userService } from '../services';
+import { registerSchema } from '../db/schemas/joi-schemas/register-schema';
 const userRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
@@ -21,7 +22,12 @@ userRouter.post('/register', async (req, res, next) => {
         const { fullName } = req.body;
         const { email } = req.body;
         const { password } = req.body;
-
+        const isValid = await registerSchema.validateAsync({
+            email,
+            fullName,
+            password,
+        });
+        console.log('is valid ' + isValid);
         // 위 데이터를 유저 db에 추가하기
         const newUser = await userService.addUser({
             fullName,
