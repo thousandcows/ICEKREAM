@@ -6,18 +6,20 @@ class ProductService {
         this.productModel = productModel;
     }
     
-    // 1. 전체 상품 목록 조회 기능
-    async findAllProducts(page, perPage){
-        const [productList, totalPage] = await this.productModel.getPaginatedProducts({}, page, perPage);
-        return [productList, totalPage];
-    }
-    
-    // 2. 카테고리별 상품 조회 기능
-    async findByCategory(category, page, perPage){
-        const query = {category: category};
+    // 1. 전체 / 카테고리 상품 목록 조회 기능
+    async findAllProducts(category, page, perPage){
+        const query = {}
+
+        const isCategoryExist = await categoryModel.findOne(category);
+        
+        if (isCategoryExist){
+            query = {category: category}
+        }
+
         const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
         return [productList, totalPage];
     }
+    
     // 3. 상품 상세 정보 조회 기능
     // a. 요청 올 때마다 views += 1
     async findById(productId){
@@ -58,7 +60,7 @@ class ProductService {
 
     // 7. 장바구니 내에 있는 상품 상세 정보 조회
     async getProductsInCart(productIds){
-
+        console.log(productIds.length)
         const productList = []
 
         for (let i = 0; i < productIds.length; i++){
@@ -69,7 +71,6 @@ class ProductService {
 
             productList.push(productInfo);
         }
-
         return productList;
 
     }
