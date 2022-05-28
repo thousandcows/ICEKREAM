@@ -9,7 +9,15 @@ import { productService } from '../services/product-service';
 
 const authRouter = Router();
 
-// 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
+authRouter.get('/', async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        console.log(userId);
+        res.status(200).json({ userId });
+    } catch (error) {
+        next(error);
+    }
+});
 
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
