@@ -32,7 +32,10 @@ class UserService {
 
         return createdNewUser;
     }
-
+    async getUser(userId) {
+        const user = await this.userModel.findById(userId);
+        return user;
+    }
     // 사용자 목록을 받음.
     async getUsers() {
         const users = await this.userModel.findAll();
@@ -127,8 +130,11 @@ class UserService {
         return updatedUser;
     }
 
-    async pullUserOrderList(userId,orderId){
-        const updatedUser = await this.userModel.deleteOrder({userId, orderId});
+    async pullUserOrderList(userId, orderId) {
+        const updatedUser = await this.userModel.deleteOrder({
+            userId,
+            orderId,
+        });
         return updatedUser;
     }
 }

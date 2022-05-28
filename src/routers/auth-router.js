@@ -9,11 +9,23 @@ import { productService } from '../services/product-service';
 
 const authRouter = Router();
 
+//사용자 아이디 api
 authRouter.get('/', async (req, res, next) => {
     try {
         const userId = req.user._id;
         console.log(userId);
         res.status(200).json({ userId });
+    } catch (error) {
+        next(error);
+    }
+});
+
+//사용자 정보 api
+authRouter.get('/:userId', async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const userData = await userService.getUser(userId);
+        res.status(200).json(userData);
     } catch (error) {
         next(error);
     }
