@@ -5,8 +5,8 @@ const Category = model('catagory', CategorySchema);
 
 export class CategoryModel {
     
-    // 1. 카테고리 업데이트: 상품 추가
-    async updateCategory(categoryName, productId){
+    // 1. 상품 추가 시 카테고리에 반영
+    async addProductToCategory(categoryName, productId){
         console.log(categoryName);
         const filter = { name: categoryName};
         const update = { $push : { products : productId}};

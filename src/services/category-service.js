@@ -6,8 +6,8 @@ class CategoryService {
         this.categoryModel = categoryModel;
     }
     
-    // 1. 카테고리 업데이트: 상품 추가
-    async updateCategory(categoryName, productId){
+    // 1. 상품 추가 시 카테고리에 반영
+    async addProductToCategory(categoryName, productId){
         const updatedCategory = await categoryModel.updateCategory(categoryName, productId);
         return updatedCategory;
     }
