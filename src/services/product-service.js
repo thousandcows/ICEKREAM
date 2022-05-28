@@ -46,14 +46,32 @@ class ProductService {
     
     // 5. 상품 수정 기능
     async updateProduct(productId, update){
-        const updatedProduct = await productModel.updateProduct(productId, update);
+        const updatedProduct = await this.productModel.updateProduct(productId, update);
         return updatedProduct;
     }
     // 6. 상품 삭제 기능
     async deleteProduct(productId){
-        const deletedProduct = await productModel.deleteProduct(productId);
+        const deletedProduct = await this.productModel.deleteProduct(productId);
         
         return deletedProduct;
+    }
+
+    // 7. 장바구니 내에 있는 상품 상세 정보 조회
+    async getProductsInCart(productIds){
+
+        const productList = []
+
+        for (let i = 0; i < productIds.length; i++){
+            
+            const productId = productIds[i];
+
+            const productInfo = await this.productModel.findById(productId);
+
+            productList.push(productInfo);
+        }
+
+        return productList;
+
     }
 
 }
