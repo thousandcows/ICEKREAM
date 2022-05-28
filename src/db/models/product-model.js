@@ -19,7 +19,15 @@ export class ProductModel {
     // 3. 상품 상세 정보 조회 기능
     async findById(productId) {
         const product = await Product.findOne({_id: productId});
-        return product;
+        
+        const views = product.views + 1;
+        const filter = {_id: productId};
+        const update = {views: views};
+        const option = { returnOriginal : false };
+
+        const updatedProduct = await Product.findOneAndUpdate(filter, update, option);
+
+        return updatedProduct;
     }
     // 4. 상품 추가 기능
     // a. 상품 이름 중복 확인
