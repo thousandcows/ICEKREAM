@@ -94,4 +94,108 @@ adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
     }
 });
 
+//admin/product .. post
+//admin/product/:productId .. patch
+//admin/product/:productId .. delete
+
+// 복사 붙여넣기 인점을 확인... 함수로 정의해야하나?
+// 아래 상품관련 기능은 유저와 다를 이유도 없는 것 같고 추가를 할거면 유저의 권한 축소 정도인 것 같다.
+adminRouter.post('/product', async (req, res, next) => {
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const { category } = req.body;
+        const { brand } = req.body;
+        const { productName } = req.body;
+        const { price } = req.body;
+        const { launchDate } = req.body;
+        const { img } = req.body;
+        const { views } = req.body;
+        const { quantity } = req.body;
+        const { purchaseCount } = req.body;
+        const sellerId = req.user._id;
+        if (!category) {
+            throw new Error('카테고리 정보를 입력해주세요.');
+        }
+        if (!brand) {
+            throw new Error('브랜드 정보를 입력해주세요.');
+        }
+        if (!productName) {
+            throw new Error('상품 이름을 입력해주세요.');
+        }
+        if (!price || price <= 0) {
+            throw new Error('가격을 다시 입력해주세요.');
+        }
+        //launch date를 어떻게 할까...
+        if (!img) {
+            throw new Error(
+                '상품 이미지 정보를 입력해주세요.', // 이게 url인데 생각해봅시다.
+            );
+        }
+        if (!quantity || quantity <= 0) {
+            ('상품 수량/재고를 다시 입력해주세요.');
+        }
+        const productInfo = {
+            brand: brand,
+            productName: productName,
+            price: price,
+            launchDate: launchDate,
+            img: img,
+            views: views,
+            quantity: quantity,
+            purchaseCount: purchaseCount,
+            sellerId: sellerId,
+        };
+
+        const newProduct = await productService.addProduct(
+            category,
+            productInfo,
+        );
+        console.log(newProduct);
+
+        res.status(200).json(newProduct);
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.patch('/product/:productId', async (req, res, next) => {
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const { productId } = req.params;
+        const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
+        const update = { price: price, img: img, quantity: quantity };
+        console.log(update);
+        const updatedProduct = await productService.updateProduct(
+            productId,
+            update,
+        );
+        console.log(updatedProduct);
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.delete('/product/:productId', async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+        const result = await productService.deleteProduct(productId);
+        if (result) {
+            res.status(200).json({ result: 'success' });
+        } else {
+            throw new Error('이 상품은 존재하지 않습니다.'); //삭제되면 카테고리에 영향을 주어야함. 추가해야함.
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
 export { adminRouter };
