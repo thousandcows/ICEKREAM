@@ -7,7 +7,8 @@ async function loginAuth() {
     const authMsg = '로그인 인증';
     if (hasTokenCheck) {
         try {
-            await Api.post('/api/auth', {authMsg});
+            // await Api.post('/api/auth/', {authMsg});
+            await Api.get('/api/auth/628fa1111ebfd1b6dddd69e8', 'orders');
             return true;
         } catch (error) {
             alert('로그인이 유효하지 않습니다..');
