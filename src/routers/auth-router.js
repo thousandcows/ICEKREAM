@@ -11,6 +11,7 @@ import {
     productUpdateJoiSchema,
 } from '../db/schemas/joi-schemas/product-joi-schema';
 
+import { userUpdateSchema } from '../db/schemas/joi-schemas/user-joi-schema';
 const authRouter = Router();
 
 //사용자 아이디 api
@@ -59,13 +60,21 @@ authRouter.patch('/:userId', async (req, res, next) => {
 
         // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
         const { currentPassword } = req.body;
-
+        const isValid = await userUpdateSchema.validateAsync({
+            fullName,
+            password,
+            address,
+            role,
+            phoneNumber,
+            currentPassword,
+        });
         // currentPassword 없을 시, 진행 불가
-        if (!currentPassword) {
-            throw new Error('정보를 변경하려면, 현재의 비밀번호가 필요합니다.');
+        if (currentPassword === password) {
+            throw new Error('새 비밀번호는 현재 비밀번호와 같을 수 없습니다.');
         }
 
         const userInfoRequired = { userId, currentPassword };
+        //user current password와 password가 다른지 확인해야하나?
 
         // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
         // 보내주었다면, 업데이트용 객체에 삽입함.
@@ -129,7 +138,7 @@ authRouter.get('/:userId/orders', async (req, res, next) => {
 authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
     try {
         //이 때 유저 아이디가 주문아이디랑 일치하나 확인을 해야할까?
-        const userId = req.user._id;
+        const { userId } = req.params;
         const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
         const deletedOrder = await orderService.deleteUserOrder(orderId);
         if (deletedOrder) {

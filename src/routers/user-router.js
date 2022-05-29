@@ -4,7 +4,7 @@ import is from '@sindresorhus/is';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import { userService } from '../services';
-import { registerSchema } from '../db/schemas/joi-schemas/register-schema';
+import { registerSchema } from '../db/schemas/joi-schemas/user-joi-schema';
 const userRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
