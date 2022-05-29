@@ -6,7 +6,10 @@ import { userService } from '../services';
 import { orderService } from '../services/order-service';
 
 import { productService } from '../services/product-service';
-import { productJoiSchema } from '../db/schemas/joi-schemas/product-joi-schema';
+import {
+    productJoiSchema,
+    productUpdateJoiSchema,
+} from '../db/schemas/joi-schemas/product-joi-schema';
 
 const authRouter = Router();
 
@@ -204,6 +207,12 @@ authRouter.patch('/:userId/:productId', async (req, res, next) => {
         }
         const { productId } = req.params;
         const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
+        const isValid = await productUpdateJoiSchema.validateAsync({
+            price,
+            img,
+            quantity,
+        });
+        console.log(isValid);
         const update = { price: price, img: img, quantity: quantity };
         console.log(update);
         const updatedProduct = await productService.updateProduct(

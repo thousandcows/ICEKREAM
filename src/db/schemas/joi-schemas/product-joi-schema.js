@@ -10,5 +10,9 @@ const productJoiSchema = joi.object({
     quantity: joi.number().required().greater(1),
     size: joi.array().items(joi.string().required()),
 });
-
-export { productJoiSchema };
+const productUpdateJoiSchema = joi.object({
+    price: joi.number().required().greater(500), //500원?
+    img: joi.string().required().uri(), //맞나 확인.
+    quantity: joi.number().required().greater(1),
+});
+export { productJoiSchema, productUpdateJoiSchema };
