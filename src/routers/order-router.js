@@ -3,7 +3,7 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { orderService } from '../services/order-service';
 import { userService } from '../services';
-import { productService } from '../services/product-service';
+import { orderJoiSchema } from '../db/schemas/joi-schemas/order-joi-schema';
 const orderRouter = Router();
 
 // 로그인 확인이 미리 필요한가? // 주문이 들어왔을 때의 상품 목록의 수량이 줄어야 하는가? 그럼 어떻게?
@@ -23,6 +23,14 @@ orderRouter.post('/', async (req, res, next) => {
         const { address2 } = req.body;
         const { billingMethod } = req.body;
         const { productList } = req.body;
+
+        const isValid = await orderJoiSchema.validateAsync({
+            postalCode,
+            address1,
+            address2,
+            billingMethod,
+            productList,
+        });
 
         const newOrder = await orderService.addOrder({
             userId,
