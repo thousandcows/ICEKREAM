@@ -15,8 +15,6 @@ productRouter.get('/', async (req, res, next) => {
             perPage,
         );
 
-        console.log(productList);
-
         res.status(200).json({ productList, totalPage });
     } catch (error) {
         next(error);
