@@ -9,17 +9,19 @@ class ProductService {
     
     // 1. 전체 / 카테고리 상품 목록 조회 기능
     async findAllProducts(category, page, perPage){
-        const query = {}
+
+        let query = ""
         
         if (category !== null && category !== undefined){
-
+            
             const isCategoryExist = await categoryModel.findOne(category);
-
+            
             if(isCategoryExist){
-                query = {category: category}
+                query = {category: isCategoryExist._id}
             }
 
         const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
+
         return [productList, totalPage];
         }
     }
@@ -39,8 +41,11 @@ class ProductService {
         if(product){
             throw new Error("이미 존재하는 상품명입니다. 새로운 이름을 등록해주세요.");
         }
+        const categoryId = await categoryModel.findOne(categoryName);
 
-        const addedProduct = await this.productModel.create(productInfo);
+        const newProductInfo = {category: categoryId,...productInfo}
+
+        const addedProduct = await this.productModel.create(newProductInfo);
         
         const productId = addedProduct._id;
         
@@ -81,7 +86,7 @@ class ProductService {
         return productList;
 
     }
-
+    
 }
 
 const productService = new ProductService(productModel);
