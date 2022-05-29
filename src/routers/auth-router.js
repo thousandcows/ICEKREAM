@@ -128,17 +128,9 @@ authRouter.post('/:userId/product', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { category } = req.body;
-        const { brand } = req.body;
-        const { productName } = req.body;
-        const { price } = req.body;
-        const { launchDate } = req.body;
-        const { img } = req.body;
-        const { views } = req.body;
-        const { quantity } = req.body;
-        const { purchaseCount } = req.body;
-        const { size } = req.body;
+        const { category, brand, productName, price, launchDate, img, views, quantity, purchaseCount, size } = req.body;
         const { sellerId } = req.user._id;
+        
         if (!category) {
             throw new Error('카테고리 정보를 입력해주세요.');
         }
