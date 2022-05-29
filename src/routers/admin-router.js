@@ -5,6 +5,8 @@ import { userService } from '../services';
 import { orderService } from '../services/order-service';
 import { categoryService } from '../services/category-service';
 import { productService } from '../services/product-service';
+import { categoryJoiSchema } from '../db/schemas/joi-schemas/category-joi-schema';
+import { productJoiSchema } from '../db/schemas/joi-schemas/product-joi-schema';
 const adminRouter = Router();
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
@@ -69,7 +71,11 @@ adminRouter.post('/product/category', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const categoryInfo = req.body;
+        const { name } = req.body;
+        const { size } = req.body;
+        const products = [];
+        const categoryInfo = { name, products, size };
+        const isValid = await categoryJoiSchema.validateAsync({ name, size });
         const newCategory = await categoryService.addCategory(categoryInfo);
         res.status(200).json(newCategory);
     } catch (error) {
@@ -109,40 +115,27 @@ adminRouter.post('/product', async (req, res, next) => {
         const { price } = req.body;
         const { launchDate } = req.body;
         const { img } = req.body;
-        const { views } = req.body;
         const { quantity } = req.body;
-        const { purchaseCount } = req.body;
+        const { size } = req.body;
         const sellerId = req.user._id;
-        if (!category) {
-            throw new Error('카테고리 정보를 입력해주세요.');
-        }
-        if (!brand) {
-            throw new Error('브랜드 정보를 입력해주세요.');
-        }
-        if (!productName) {
-            throw new Error('상품 이름을 입력해주세요.');
-        }
-        if (!price || price <= 0) {
-            throw new Error('가격을 다시 입력해주세요.');
-        }
-        //launch date를 어떻게 할까...
-        if (!img) {
-            throw new Error(
-                '상품 이미지 정보를 입력해주세요.', // 이게 url인데 생각해봅시다.
-            );
-        }
-        if (!quantity || quantity <= 0) {
-            ('상품 수량/재고를 다시 입력해주세요.');
-        }
+        const isValid = await productJoiSchema.validateAsync({
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        });
         const productInfo = {
             brand: brand,
             productName: productName,
             price: price,
             launchDate: launchDate,
             img: img,
-            views: views,
             quantity: quantity,
-            purchaseCount: purchaseCount,
+            size: size,
             sellerId: sellerId,
         };
 
@@ -167,7 +160,12 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
         }
         const { productId } = req.params;
         const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
-        const update = { price: price, img: img, quantity: quantity }; //정보 유효성 check
+        const isValid = await productUpdateJoiSchema.validateAsync({
+            price,
+            img,
+            quantity,
+        });
+        const update = { price: price, img: img, quantity: quantity };
         const updatedProduct = await productService.updateProduct(
             productId,
             update,

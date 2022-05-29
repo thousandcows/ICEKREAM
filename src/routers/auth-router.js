@@ -221,14 +221,11 @@ authRouter.patch('/:userId/:productId', async (req, res, next) => {
             img,
             quantity,
         });
-        console.log(isValid);
         const update = { price: price, img: img, quantity: quantity };
-        console.log(update);
         const updatedProduct = await productService.updateProduct(
             productId,
             update,
         );
-        console.log(updatedProduct);
         res.status(200).json(updatedProduct);
     } catch (error) {
         next(error);
