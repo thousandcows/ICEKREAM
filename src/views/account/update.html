@@ -11,8 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
   <link rel="stylesheet" href="./update.css">
   <!-- 폰트 어썸: 아이콘 -->
-  <script min-height: 900px; padding: 50px; background-color: #fff; border: 1px solid #ccc; defer
-    src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+  <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
   <!-- 커스텀 css, js -->
   <script src="update.js" type="module" defer></script>
 </head>
@@ -20,6 +19,34 @@
 <body>
   <!-- 헤더 -->
   <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container mt-3">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/elice-rabbit.png" width="30" height="30" />
+          <span class="has-text-link">쇼핑-n팀</span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+        <ul id="navSelect">
+          <li class="register_btn"><a href="/register">회원가입</a></li>
+          <li>
+            <a href="#cart" aria-current="page">
+              <span class="icon">
+                <i class="fas fa-cart-shopping"></i>
+              </span>
+              <span>카트</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
 
   <div class="user_update_container">
@@ -38,7 +65,7 @@
         <tr class="change_area hide" id="email">
           <th scope="row">이메일</th>
           <td>
-            <div class="input"><input type="text" class="email_input inputEl"></div>
+            <div class="input"><input type="text" class="email_input input_el"></div>
           </td>
           <td>
             <div class="btn_group">
@@ -59,7 +86,7 @@
         <tr class="change_area hide" id="name">
           <th scope="row">이름</th>
           <td>
-            <div class="input"><input type="text" class="name_input inputEl"></div>
+            <div class="input"><input type="text" class="name_input input_el"></div>
           </td>
           <td>
             <div class="btn_group">
@@ -80,7 +107,7 @@
         <tr class="change_area hide" id="password">
           <th scope="row">비밀번호</th>
           <td>
-            <div class="input"><input type="text" class="password_input inputEl"></div>
+            <div class="input"><input type="text" class="password_input input_el"></div>
           </td>
           <td>
             <div class="btn_group">
@@ -101,7 +128,7 @@
         <tr class="change_area hide" id="location">
           <th scope="row">배송지</th>
           <td>
-            <div class="input"><input type="text" class="location_input inputEl"></div>
+            <div class="input"><input type="text" class="location_input input_el"></div>
           </td>
           <td>
             <div class="btn_group">
@@ -122,7 +149,7 @@
         <tr class="change_area hide" id="number">
           <th scope="row">전화번호</th>
           <td>
-            <div class="input"><input type="text" class="number_input inputEl"></div>
+            <div class="input"><input type="text" class="number_input input_el"></div>
           </td>
           <td>
             <div class="btn_group">

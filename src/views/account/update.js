@@ -1,9 +1,9 @@
 
-import { common_nav } from "../common_nav/common_nav.js";
+import { navTransition } from "../navTransition/navTransition.js";
 import * as Api from '/api.js';
 
 
-common_nav('update');
+navTransition('update');
 
 
 /*
@@ -39,6 +39,7 @@ async function fetchUserData() {
 
 
 // 요청 데이터를 data로 전달하고 서버 데이터 patch
+// 피드백 try catch 없어도 됨.
 async function patchUserData(data) {
     try {
         // const patchData = await Api.patch('/api/auth/${userId}', 'userId', data);
@@ -71,7 +72,7 @@ changeArea.forEach((element) => {
     const select = element.getAttribute('id');
     const changeBtn = element.querySelector(`#change_${select}_btn`);
     const cancelBtn = element.querySelector(`#cancel_${select}_btn`);
-    const inputEl = element.querySelector('.inputEl');
+    const inputEl = element.querySelector('.input_el');
     console.log(changeBtn);
     // 변경 완료 버튼 클릭시 수정된 데이터가 서버로 전송됨
     changeBtn.addEventListener('click', () => {

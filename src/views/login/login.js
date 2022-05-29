@@ -1,14 +1,10 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
-import { common_nav } from '../common_nav/common_nav.js';
+import { navTransition } from '../navTransition/navTransition.js';
 
-/*
 
-      헤더에 nav에 공통적인 부분을 common_nav로 빼서 불러옴
+navTransition('home');
 
-*/
-
-common_nav('login');
 
 
 // 요소(element), input 혹은 상수
@@ -54,11 +50,7 @@ async function handleSubmit(e) {
     )
   }
 
-  // if (!isEmailValid || !isPasswordValid) {
-  //   return alert(
-  //     '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.'
-  //   );
-  // }
+
 
   // 로그인 api 요청
   try {
@@ -86,11 +78,5 @@ async function handleSubmit(e) {
 }
 
 
-
-
-// const nav = document.querySelector('.navbar');
-// const content = common_nav('login');
-
-// nav.insertAdjacentHTML('beforeend', content);
 
 

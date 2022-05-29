@@ -4,51 +4,10 @@
 
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
-import { common_nav } from "../common_nav/common_nav.js";
+import { navTransition } from '../navTransition/navTransition.js';
 
 
-
-// const navBar = document.querySelector('.navbar');
-// const content = common_nav();
-// navBar.insertAdjacentHTML('beforeend', content);
-console.log('확인');
-common_nav('home');
-console.log('확인2');
-
-// 로그인 상태일 시 로그인, 회원가입 항목 제거
-// 로그아웃 상태일 시 현재 유저 이름 보여줌
-// async function loginAuth() {
-//   const hasTokenCheck = sessionStorage.getItem('token');
-//   if (hasTokenCheck) {
-//     try {
-//       await Api.post('api/auth');
-
-//       // 회원 가입 버튼 삭제
-//       const registerBtn = document.querySelector('.register_btn');
-//       registerBtn.parentNode.removeChild(registerBtn);
-
-//       // 계정 관리 요소 추가
-//       const navSelect = document.querySelector('#navSelect');
-//       const account = `<li><a href="/account">계정관리</a></li>`
-//       navSelect.insertAdjacentHTML('afterbegin', account);
-
-//       // 로그아웃 버튼 클릭 시 토큰이 삭제되며 기본 페이지로 이동
-//       const logoutBtn = document.querySelector('.logout');
-//       logoutBtn.addEventListener('click', () => {
-//         sessionStorage.removeItem('token');
-//         window.location.href = '/';
-//       })
-
-//     } catch (error) {
-//       alert(error, '로그인이 유효하지 않습니다..');
-//       sessionStorage.removeItem('token');
-//       window.location.href = '/';
-//     }
-//   }
-// }
-
-// loginAuth();
-
+navTransition('home');
 
 
 
