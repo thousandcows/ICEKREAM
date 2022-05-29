@@ -6,6 +6,7 @@ import { userService } from '../services';
 import { orderService } from '../services/order-service';
 
 import { productService } from '../services/product-service';
+import { productJoiSchema } from '../db/schemas/joi-schemas/product-joi-schema';
 
 const authRouter = Router();
 
@@ -154,40 +155,30 @@ authRouter.post('/:userId/product', async (req, res, next) => {
         const { price } = req.body;
         const { launchDate } = req.body;
         const { img } = req.body;
-        const { views } = req.body;
         const { quantity } = req.body;
-        const { purchaseCount } = req.body;
+        const { size } = req.body;
         const sellerId = req.user._id;
-        if (!category) {
-            throw new Error('카테고리 정보를 입력해주세요.');
-        }
-        if (!brand) {
-            throw new Error('브랜드 정보를 입력해주세요.');
-        }
-        if (!productName) {
-            throw new Error('상품 이름을 입력해주세요.');
-        }
-        if (!price || price <= 0) {
-            throw new Error('가격을 다시 입력해주세요.');
-        }
-        //launch date를 어떻게 할까...
-        if (!img) {
-            throw new Error(
-                '상품 이미지 정보를 입력해주세요.', // 이게 url인데 생각해봅시다.
-            );
-        }
-        if (!quantity || quantity <= 0) {
-            ('상품 수량/재고를 다시 입력해주세요.');
-        }
+
+        const isValid = await productJoiSchema.validateAsync({
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        });
+        //isValid가 형식에 맞지 않으면 error를 throw함.
+
         const productInfo = {
             brand: brand,
             productName: productName,
             price: price,
             launchDate: launchDate,
             img: img,
-            views: views,
             quantity: quantity,
-            purchaseCount: purchaseCount,
+            size: size,
             sellerId: sellerId,
         };
 
