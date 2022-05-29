@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const registerSchema = joi.object({
+const registerJoiSchema = joi.object({
     email: joi.string().email().lowercase().required(),
     fullName: joi
         .string()
@@ -9,7 +9,7 @@ const registerSchema = joi.object({
     password: joi.string().required().min(4), // 우선 4글자 이상이라고 register.js에 되어있는데 수정도 가능할 듯...
 });
 
-const userUpdateSchema = joi.object({
+const userUpdateJoiSchema = joi.object({
     fullName: joi
         .string()
         .pattern(/^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/), //한글 이름, 영문 이름 regex;
@@ -27,4 +27,4 @@ const userUpdateSchema = joi.object({
     currentPassword: joi.string().required().min(4),
 });
 
-export { registerSchema, userUpdateSchema };
+export { registerJoiSchema, userUpdateJoiSchema };

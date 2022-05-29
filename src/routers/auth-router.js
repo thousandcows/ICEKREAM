@@ -11,7 +11,7 @@ import {
     productUpdateJoiSchema,
 } from '../db/schemas/joi-schemas/product-joi-schema';
 
-import { userUpdateSchema } from '../db/schemas/joi-schemas/user-joi-schema';
+import { userUpdateJoiSchema } from '../db/schemas/joi-schemas/user-joi-schema';
 const authRouter = Router();
 
 //사용자 아이디 api
@@ -60,7 +60,7 @@ authRouter.patch('/:userId', async (req, res, next) => {
 
         // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
         const { currentPassword } = req.body;
-        const isValid = await userUpdateSchema.validateAsync({
+        const isValid = await userUpdateJoiSchema.validateAsync({
             fullName,
             password,
             address,
