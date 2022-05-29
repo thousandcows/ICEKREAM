@@ -63,7 +63,8 @@ userRouter.post('/login', async (req, res, next) => {
                     //인증 성공을 해야 유저 객체가 생겨서 JOI로 검증하기 어려움...
                     // passport 인증 실패 or 유저가 없으면 error
                     res.status(400).json({
-                        message: info.message,
+                        result: 'error',
+                        reason: info.message,
                     });
                     return; // throw로 여러개를 시도해 보았는데, throw로는 에러 해결이 잘 안됨.
                 }
