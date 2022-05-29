@@ -1,5 +1,15 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
+import { common_nav } from '../common_nav/common_nav.js';
+
+/*
+
+      헤더에 nav에 공통적인 부분을 common_nav로 빼서 불러옴
+
+*/
+
+common_nav('login');
+
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector('#emailInput');
@@ -28,6 +38,7 @@ async function handleSubmit(e) {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = password.length >= 4;
 
+<<<<<<< HEAD
     if (!isEmailValid || !isPasswordValid) {
         return alert(
             '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.',
@@ -37,6 +48,33 @@ async function handleSubmit(e) {
     // 로그인 api 요청
     try {
         const data = { email, password };
+=======
+  /* 
+
+    비밀번호 글자수 제한 오류와 이메일 형태 오류를 구분함
+
+  */
+
+  if (!isEmailValid) {
+    return alert(
+      '이메일 형태가 맞는지 확인해 주세요.'
+    )
+  } else if (!isPasswordValid) {
+    return alert(
+      '비밀번호가 4글자 이상인지 확인해 주세요.'
+    )
+  }
+
+  // if (!isEmailValid || !isPasswordValid) {
+  //   return alert(
+  //     '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.'
+  //   );
+  // }
+
+  // 로그인 api 요청
+  try {
+    const data = { email, password };
+>>>>>>> 39a2bd1ca08d3468a470a57893d7353e120bb42b
 
         const result = await Api.post('/api/login', data);
         const { token } = result;
@@ -47,6 +85,7 @@ async function handleSubmit(e) {
 
         alert(`정상적으로 로그인되었습니다.`);
 
+<<<<<<< HEAD
         // 로그인 성공
 
         // 기본 페이지로 이동
@@ -57,4 +96,26 @@ async function handleSubmit(e) {
             `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
         );
     }
+=======
+    // 로그인 성공
+    
+
+    // 기본 페이지로 이동
+    window.location.href = '/';
+  } catch (err) {
+    console.error(err.stack);
+    alert(`${err.message}`);
+    // alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  }
+>>>>>>> 39a2bd1ca08d3468a470a57893d7353e120bb42b
 }
+
+
+
+
+// const nav = document.querySelector('.navbar');
+// const content = common_nav('login');
+
+// nav.insertAdjacentHTML('beforeend', content);
+
+

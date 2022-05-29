@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>쇼핑-n팀</title>
+  <!-- 아이콘 -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+  <!-- bulma css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+  <link rel="stylesheet" href="./update.css">
+  <!-- 폰트 어썸: 아이콘 -->
+  <script min-height: 900px; padding: 50px; background-color: #fff; border: 1px solid #ccc; defer
+    src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+  <!-- 커스텀 css, js -->
+  <script src="update.js" type="module" defer></script>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+  </nav>
+
+  <div class="user_update_container">
+    <section class="user_update">
+      <h1 class="user_update_title">회원정보 수정</h1>
+      <table class="user_update_table">
+        <tr class="show_area" id="email_area">
+          <th scope="row">이메일</th>
+          <td>
+            <strong>
+              현재 이메일
+            </strong>
+          </td>
+          <td><button>이메일 변경</button></td>
+        </tr>
+        <tr class="change_area hide" id="email">
+          <th scope="row">이메일</th>
+          <td>
+            <div class="input"><input type="text" class="email_input inputEl"></div>
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_email_btn">변경완료</button>
+              <button id="cancel_email_btn">취소</button>
+            </div>
+          </td>
+        </tr>
+        <tr class="show_area" id="name_area">
+          <th scope="row">이름</th>
+          <td>
+            <strong>
+              현재 이름
+            </strong>
+          </td>
+          <td><button>이름 변경</button></td>
+        </tr>
+        <tr class="change_area hide" id="name">
+          <th scope="row">이름</th>
+          <td>
+            <div class="input"><input type="text" class="name_input inputEl"></div>
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_name_btn">변경완료</button>
+              <button id="cancel_name_btn">취소</button>
+            </div>
+          </td>
+        </tr>
+        <tr class="show_area" id="password_area">
+          <th scope="row">비밀번호 변경</th>
+          <td>
+            <strong>
+              현재 비밀번호
+            </strong>
+          </td>
+          <td><button>비밀번호 변경</button></td>
+        </tr>
+        <tr class="change_area hide" id="password">
+          <th scope="row">비밀번호</th>
+          <td>
+            <div class="input"><input type="text" class="password_input inputEl"></div>
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_password_btn">변경완료</button>
+              <button id="cancel_password_btn">취소</button>
+            </div>
+          </td>
+        </tr>
+        <tr class="show_area" id="location_area">
+          <th scope="row">배송지</th>
+          <td>
+            <strong>
+              현재 배송지 목록
+            </strong>
+          </td>
+          <td><button>배송지 변경</button></td>
+        </tr>
+        <tr class="change_area hide" id="location">
+          <th scope="row">배송지</th>
+          <td>
+            <div class="input"><input type="text" class="location_input inputEl"></div>
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_location_btn">변경완료</button>
+              <button id="cancel_location_btn">취소</button>
+            </div>
+          </td>
+        </tr>
+        <tr class="show_area" id="number_area">
+          <th scope="row">전화번호</th>
+          <td>
+            <strong>
+              현재 번호
+            </strong>
+          </td>
+          <td><button>번호 변경</button></td>
+        </tr>
+        <tr class="change_area hide" id="number">
+          <th scope="row">전화번호</th>
+          <td>
+            <div class="input"><input type="text" class="number_input inputEl"></div>
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_number_btn">변경완료</button>
+              <button id="cancel_number_btn">취소</button>
+            </div>
+          </td>
+        </tr>
+        <tr class="show_area" id="withdraw_area">
+          <th scope="row">회원 탈퇴</th>
+          <td><strong>탈퇴하시려면 오른쪽 버튼을 클릭</strong></td>
+          <td><button>탈퇴 버튼</button></td>
+        </tr>
+        <tr class="change_area hide" id="withdraw">
+          <th scope="row">회원 탈퇴</th>
+          <td>
+            <strong>비밀 번호를 입력해주세요.</strong>
+            <input type="text">
+          </td>
+          <td>
+            <div class="btn_group">
+              <button id="change_withdraw_btn">탈퇴 요청</button>
+              <button id="cancel_withdraw_btn">취소</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+
+
+</body>
+
+</html>

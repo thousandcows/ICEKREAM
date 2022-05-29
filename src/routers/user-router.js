@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from '../middlewares';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
 import { userService } from '../services';
-
 const userRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
@@ -46,6 +46,7 @@ userRouter.post('/login', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
+<<<<<<< HEAD
 
         // req (request) 에서 데이터 가져오기
         const { email } = req.body;
@@ -56,6 +57,34 @@ userRouter.post('/login', async (req, res, next) => {
 
         // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
         res.status(200).json(userToken);
+=======
+        passport.authenticate(
+            'local',
+            { session: false },
+            (error, user, info) => {
+                // local 이라는 이름의 strategy로, session을 안쓴다.
+                if (error || !user) {
+                    // passport 인증 실패 or 유저가 없으면 error
+                    res.status(400).json({ message: info.reason });
+                    return;
+                }
+                req.login(user, { session: false }, (loginError) => {
+                    // login을 하면
+                    if (loginError) {
+                        res.send(loginError);
+                        return;
+                    }
+                    const secretKey =
+                        process.env.JWT_SECRET_KEY || 'secret-key'; // login 성공시 key값을 써서 토큰 생성
+                    const token = jwt.sign(
+                        { userId: user._id, role: user.role },
+                        secretKey,
+                    );
+                    res.json({ token });
+                });
+            },
+        )(req, res); // 이 부분은 수업 때나 지금이나 이해가 잘 안되지만 필요함.
+>>>>>>> 39a2bd1ca08d3468a470a57893d7353e120bb42b
     } catch (error) {
         next(error);
     }
@@ -63,6 +92,7 @@ userRouter.post('/login', async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+<<<<<<< HEAD
 userRouter.get('/userlist', loginRequired, async (req, res, next) => {
     try {
         // 전체 사용자 목록을 얻음
@@ -129,5 +159,7 @@ userRouter.patch('/users/:userId', loginRequired, async (req, res, next) => {
         next(error);
     }
 });
+=======
+>>>>>>> 39a2bd1ca08d3468a470a57893d7353e120bb42b
 
 export { userRouter };
