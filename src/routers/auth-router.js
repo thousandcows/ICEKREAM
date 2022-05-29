@@ -137,6 +137,7 @@ authRouter.post('/:userId/product', async (req, res, next) => {
         const { views } = req.body;
         const { quantity } = req.body;
         const { purchaseCount } = req.body;
+        const { size } = req.body;
         const { sellerId } = req.user._id;
         if (!category) {
             throw new Error('카테고리 정보를 입력해주세요.');
@@ -157,7 +158,11 @@ authRouter.post('/:userId/product', async (req, res, next) => {
             );
         }
         if (!quantity || quantity <= 0) {
-            ('상품 수량/재고를 다시 입력해주세요.');
+            throw new Error('상품 수량/재고를 다시 입력해주세요.');
+        }
+
+        if (size.length == 0){
+            throw new Error('사이즈를 하나 이상 입력해주세요')
         }
         const productInfo = {
             brand: brand,
@@ -169,6 +174,7 @@ authRouter.post('/:userId/product', async (req, res, next) => {
             quantity: quantity,
             purchaseCount: purchaseCount,
             sellerId: sellerId,
+            size: size,
         };
 
         const newProduct = await productService.addProduct(
