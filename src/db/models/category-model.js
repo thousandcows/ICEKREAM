@@ -49,6 +49,23 @@ export class CategoryModel {
         return updatedCategory;
     }
 
+    // 7. 상품 삭제 시 카테고리에 반영
+    async removeProductFromCategory(categoryName, productId){
+        const filter = { name: categoryName};
+        const update = { $pull : { products : productId}};
+        const option = { returnOriginal : false };
+
+        const updatedCategory = await Category.updateOne(filter, update, option);
+        return updatedCategory;
+    }
+
+    // 8. 상품의 카테고리 명 검색
+    async findCategoryName(productId){
+        const category = await Category.find({products: productId}).populate({path: 'products', select : 'name'});
+        const categoryName = category[0].name;
+        return categoryName;
+    }
+
 }
 
 const categoryModel = new CategoryModel();

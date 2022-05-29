@@ -1,5 +1,6 @@
 const { productModel } = require('../db/models/product-model');
 const {categoryModel} = require('../db/models/category-model');
+
 class ProductService {
     
     constructor(productModel){
@@ -43,7 +44,7 @@ class ProductService {
         
         const productId = addedProduct._id;
         
-        const updatedCategory = await categoryModel.updateCategory(categoryName, productId)
+        const updatedCategory = await categoryModel.addProductToCategory(categoryName, productId)
         console.log(updatedCategory);
         return addedProduct;
     }
@@ -55,9 +56,13 @@ class ProductService {
     }
     // 6. 상품 삭제 기능
     async deleteProduct(productId){
-        const deletedProduct = await this.productModel.deleteProduct(productId);
+        const categoryName = await categoryModel.findCategoryName(productId);
+
+        const updatedCategory = await categoryModel.removeProductFromCategory(categoryName, productId);
         
-        return deletedProduct;
+        const deletedProduct = await this.productModel.deleteProduct(productId);
+
+        return updatedCategory, deletedProduct;
     }
 
     // 7. 장바구니 내에 있는 상품 상세 정보 조회
