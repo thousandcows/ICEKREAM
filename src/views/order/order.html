@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>쇼핑-n팀</title>
+    <!-- 아이콘 -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+    <!-- bulma css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <link rel="stylesheet" href="order.css">
+    <!-- 폰트 어썸: 아이콘 -->
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 커스텀 css, js -->
+    <script src="order.js" type="module" defer></script>
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+    </nav>
+
+
+
+    <div class="container">
+        <div class="order_title">
+            <h3>주문/결제</h3>
+            <span></span>
+        </div>
+        <h2 class="buyer_title">구매자 정보</h2>
+        <div class="buyer">
+            <table class="buyer_table">
+                <tbody>
+                    <tr>
+                        <th scope="row" class="name_th">
+                            이름
+                        </th>
+                        <td class="buyer_name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="email_th">
+                            이메일
+                        </th>
+                        <td class="buyer_email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="phone_th">
+                            전화번호
+                        </th>
+                        <td class="buyer_phone">
+                            <form action="/">
+                                <div>
+                                    <input type="tel" class="customer_phone ">
+                                    <button type="submit">
+                                        수정
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="recipient_title">수령인 정보</h2>
+        <div class="recipient">
+            <table class="recipient_table">
+                <tbody>
+                    <tr>
+                        <th scope="row" class="name_th">
+                            이름
+                        </th>
+                        <td class="recipient_name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="email_th">
+                            배송주소
+                        </th>
+                        <td class="recipient_email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="phone_th">
+                            연락처
+                        </th>
+                        <td class="recipient_phone">
+                            <form action="/">
+                                <div>
+                                    <input type="tel" class="customer_phone ">
+                                    <button type="submit">
+                                        수정
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="orderlist">
+            <h2>배송 정보</h2>
+            <table></table>
+        </div>
+        <div class="payment">
+            <h2>결제 정보</h2>
+            <table></table>
+        </div>
+        <div class="orderbox">
+            <button>임시저장</button>
+            <button>결제하기</button>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
