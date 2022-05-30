@@ -20,19 +20,19 @@ async function addAllElements() {}
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  submitButton.addEventListener('click', handleSubmit);
+    submitButton.addEventListener('click', handleSubmit);
 }
 
 // 로그인 진행
 async function handleSubmit(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  const email = emailInput.value;
-  const password = passwordInput.value;
+    const email = emailInput.value;
+    const password = passwordInput.value;
 
-  // 잘 입력했는지 확인
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
+    // 잘 입력했는지 확인
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = password.length >= 4;
 
   /* 
 

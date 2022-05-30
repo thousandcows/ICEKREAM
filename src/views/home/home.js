@@ -1,12 +1,66 @@
-// 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
-// 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
-// 코드 예시를 남겨 두었습니다.
+import Product from './product.js';
 
+<<<<<<< HEAD
+const testCase = [
+    { id: 1, name: 'apple', price: 1000 },
+    { id: 2, name: 'banana', price: 2000 },
+    { id: 3, name: 'apple', price: 1000 },
+    { id: 4, name: 'banana', price: 2000 },
+    { id: 5, name: 'apple', price: 1000 },
+    { id: 6, name: 'banana', price: 2000 },
+    { id: 7, name: 'apple', price: 1000 },
+    { id: 8, name: 'banana', price: 2000 },
+    { id: 9, name: 'apple', price: 1000 },
+    { id: 10, name: 'banana', price: 2000 },
+    { id: 11, name: 'apple', price: 1000 },
+    { id: 12, name: 'banana', price: 2000 },
+    { id: 13, name: 'apple', price: 1000 },
+    { id: 14, name: 'banana', price: 2000 },
+    { id: 15, name: 'apple', price: 1000 },
+    { id: 16, name: 'banana', price: 2000 },
+];
+=======
 import * as Api from '/api.js';
 import { randomId } from '/useful-functions.js';
 import { navTransition } from '../navTransition/navTransition.js';
+>>>>>>> 363aa21aca8120b2410190aef51e78b455d3b6d8
 
+const ref = {
+    productContainer: document.getElementById('product-container'),
+};
 
+<<<<<<< HEAD
+const option = {
+    root: null,
+    rootMargin: '0px 0px 0px 0px',
+    thredhold: 1,
+};
+
+const render = (target, products) => {
+    products.forEach((product, i) => {
+        const productUI = new Product(product);
+        const productHTML = productUI.template();
+        if (i === 15) {
+            // 새로운 관찰자 지정
+            const observer = new IntersectionObserver((entries, observer) => {
+                if (entries[0].isIntersecting) {
+                    observer.unobserve(entries[0].target);
+                    getData();
+                }
+            }, option);
+            observer.observe(productHTML);
+        }
+        target.appendChild(productHTML);
+    });
+};
+
+const getData = () => {
+    const newData = [...testCase];
+    render(ref.productContainer, newData);
+};
+
+getData();
+=======
 navTransition('home');
 
 
@@ -65,3 +119,4 @@ async function getDataFromApi() {
   console.log({ data });
   console.log({ random });
 }
+>>>>>>> 363aa21aca8120b2410190aef51e78b455d3b6d8
