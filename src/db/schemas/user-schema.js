@@ -19,7 +19,7 @@ const UserSchema = new Schema(
             required: false,
         },
         address: {
-            type: AddressSchema,
+            type: AddressSchema, //address 부분을 수정해야하는지 토론
             required: false,
         },
         role: {
