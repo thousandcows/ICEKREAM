@@ -90,7 +90,11 @@ class ProductService {
         return productList;
 
     }
-    
+
+    // 7. 주문 시 구매자/재고/주문량 변경
+    async manageProductQuantity(){
+        
+    }
 }
 
 const productService = new ProductService(productModel);
