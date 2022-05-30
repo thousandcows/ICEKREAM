@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 
+
 const viewsRouter = express.Router();
 
 // 페이지별로 html, css, js 파일들을 라우팅함

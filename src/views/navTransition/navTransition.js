@@ -13,13 +13,6 @@ async function navTransition(pageName) {
 
   const isLogined = await loginCheck();
 
-  // 인증이 필요한 페이지 : 계정관리, 주문 결제, 주문 조회 등, 추후에 추가 가능
-  // if (!isLogined && (pageName === 'account' || 'order')) {
-  //   alert('로그인이 필요한 페이지 입니다...');
-  //   window.location.href = '/';
-  // }
-
-  // console.log(isLogined);
   const navSelect = document.querySelector('#navSelect');
   if (pageName !== 'login') {
     const content = isLogined ?
