@@ -4,7 +4,9 @@ import is from '@sindresorhus/is';
 import { userService } from '../services';
 import { orderService } from '../services/order-service';
 import { categoryService } from '../services/category-service';
-
+import { productService } from '../services/product-service';
+import { categoryJoiSchema } from '../db/schemas/joi-schemas/category-joi-schema';
+import { productJoiSchema } from '../db/schemas/joi-schemas/product-joi-schema';
 const adminRouter = Router();
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
@@ -69,7 +71,10 @@ adminRouter.post('/product/category', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const categoryInfo = req.body;
+        const { name, size } = req.body;
+        const products = [];
+        const categoryInfo = { name, products, size };
+        const isValid = await categoryJoiSchema.validateAsync({ name, size });
         const newCategory = await categoryService.addCategory(categoryInfo);
         res.status(200).json(newCategory);
     } catch (error) {
@@ -88,6 +93,98 @@ adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
             res.status(200).json({ result: 'success' });
         } else {
             throw new Error('그 카테고리는 존재하지 않습니다.');
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
+// 복사 붙여넣기 인점을 확인... 함수로 정의해야하나?
+// 아래 상품관련 기능은 유저와 다를 이유도 없는 것 같고 추가를 할거면 유저의 권한 축소 정도인 것 같다.
+adminRouter.post('/product', async (req, res, next) => {
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+
+        const sellerId = req.user._id;
+        const {
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        } = req.body;
+        const isValid = await productJoiSchema.validateAsync({
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        });
+        const productInfo = {
+            brand: brand,
+            productName: productName,
+            price: price,
+            launchDate: launchDate,
+            img: img,
+            quantity: quantity,
+            size: size,
+            sellerId: sellerId,
+        };
+
+        const newProduct = await productService.addProduct(
+            category,
+            productInfo,
+        );
+
+        res.status(200).json(newProduct);
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.patch('/product/:productId', async (req, res, next) => {
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const { productId } = req.params;
+        const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
+        const isValid = await productUpdateJoiSchema.validateAsync({
+            price,
+            img,
+            quantity,
+        });
+        const update = { price: price, img: img, quantity: quantity };
+        const updatedProduct = await productService.updateProduct(
+            productId,
+            update,
+        );
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        next(error);
+    }
+});
+
+adminRouter.delete('/product/:productId', async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+        const result = await productService.deleteProduct(productId);
+        if (result) {
+            res.status(200).json({ result: 'success' });
+        } else {
+            throw new Error('이 상품은 존재하지 않습니다.'); //삭제되면 카테고리에 영향을 주어야함. 추가해야함.
         }
     } catch (error) {
         next(error);
