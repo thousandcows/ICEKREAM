@@ -29,11 +29,11 @@ async function post(endpoint, data) {
   const apiUrl = endpoint;
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
+  // debugger
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
-  // console.log('sessionStorage')
-  // debugger;
+  
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {
@@ -44,9 +44,13 @@ async function post(endpoint, data) {
   });
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
+  // 로그인 정보 없는 사실도 기입해야 함
+
+
   if (!res.ok) {
     const errorContent = await res.json();
-    const { reason } = errorContent;
+    // console.log(res);
+    const reason = errorContent.message;
 
     throw new Error(reason);
   }
