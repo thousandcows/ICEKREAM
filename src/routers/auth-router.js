@@ -190,7 +190,6 @@ authRouter.post('/:userId/product', async (req, res, next) => {
             size,
         });
         //isValid가 형식에 맞지 않으면 error를 throw함.
-
         const productInfo = {
             brand: brand,
             productName: productName,
@@ -200,6 +199,7 @@ authRouter.post('/:userId/product', async (req, res, next) => {
             quantity: quantity,
             size: size,
             sellerId: sellerId,
+            size: size,
         };
 
         const newProduct = await productService.addProduct(
