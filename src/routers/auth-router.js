@@ -173,7 +173,6 @@ authRouter.post('/:userId/product', async (req, res, next) => {
             category,
             productInfo,
         );
-        console.log(newProduct);
 
         res.status(200).json(newProduct);
     } catch (error) {
@@ -192,12 +191,10 @@ authRouter.patch('/:userId/:productId', async (req, res, next) => {
         const { productId } = req.params;
         const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
         const update = { price: price, img: img, quantity: quantity };
-        console.log(update);
         const updatedProduct = await productService.updateProduct(
             productId,
             update,
         );
-        console.log(updatedProduct);
         res.status(200).json(updatedProduct);
     } catch (error) {
         next(error);
