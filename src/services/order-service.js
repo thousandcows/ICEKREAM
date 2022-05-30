@@ -58,6 +58,11 @@ class OrderService {
         const deletedOrder = await this.orderModel.deleteById(orderId);
         return deletedOrder;
     }
+    async findUser(orderId) {
+        const order = await this.orderModel.findById(orderId);
+        const userId = order.userId;
+        return userId;
+    }
 }
 
 const orderService = new OrderService(orderModel);

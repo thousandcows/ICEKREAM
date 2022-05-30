@@ -5,18 +5,11 @@ class CategoryService {
     constructor(categoryModel){
         this.categoryModel = categoryModel;
     }
-    
-    // 1. 카테고리 업데이트: 상품 추가
-    async updateCategory(categoryName, productId){
-        const updatedCategory = await categoryModel.updateCategory(categoryName, productId);
-        return updatedCategory;
-    }
 
-    // 2. 새 카테고리 추가
+    // 1. 새 카테고리 추가
     async addCategory(categoryInfo){
 
         const {name, products, size} = categoryInfo;
-        console.log(name, products, size);
 
         const isCategoryExist = await categoryModel.findOne(name);
         
@@ -29,24 +22,41 @@ class CategoryService {
         return newCategory;
     }
 
-    // 3. 카테고리 삭제
+    // 2. 카테고리 삭제
     async deleteCategory(categoryId){
         const result = await categoryModel.deleteCategory(categoryId);
         return result;
     }
 
-    // 4. 카테고리 목록 조회
+    // 3. 카테고리 목록 조회
     async findAllCategories(){
         const categoryList = await categoryModel.findAllCategories();
         return categoryList;
     }
 
-    // 5. 카테고리 검색
+    // 4. 카테고리 검색
     async findOne(categoryName){
         const category = await categoryModel.findOne(categoryName);
         return category;
     }
 
+    // 5. 카테고리 수정
+    async updateCategory(categoryId, name, size){
+        const updatedCategory = await categoryModel.updateCategory(categoryId, name, size);
+        return updatedCategory;
+    }
+
+    // 6. 상품 추가 시 카테고리에 반영
+    async addProductToCategory(categoryName, productId){
+        const updatedCategory = await categoryModel.addProductToCategory(categoryName, productId);
+        return updatedCategory;
+    }
+
+    // 7. 상품 삭제 시 카테고리에 반영
+    async removeProductFromCategory(categoryName, productId){
+        const updatedCategory = await Category.updateOne(categoryName,productId);
+        return updatedCategory;
+    }
 }
 
 const categoryService = new CategoryService();
