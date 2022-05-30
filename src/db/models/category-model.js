@@ -7,7 +7,6 @@ export class CategoryModel {
 
     // 1. 새 카테고리 추가
     async addCategory(categoryInfo){
-        console.log("info: " + categoryInfo);
         const newCategory = await Category.create(categoryInfo);
         return newCategory;
     }
@@ -40,7 +39,6 @@ export class CategoryModel {
 
     // 6. 상품 추가 시 카테고리에 반영
     async addProductToCategory(categoryName, productId){
-        console.log(categoryName);
         const filter = { name: categoryName};
         const update = { $push : { products : productId}};
         const option = { returnOriginal : false };
