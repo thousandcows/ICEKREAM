@@ -16,7 +16,6 @@ userRouter.post('/register', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-
         // req (request)의 body 에서 데이터 가져오기
         const { fullName } = req.body;
         const { email } = req.body;
@@ -28,7 +27,7 @@ userRouter.post('/register', async (req, res, next) => {
             email,
             password,
         });
-
+        
         // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
         // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
         res.status(201).json(newUser);

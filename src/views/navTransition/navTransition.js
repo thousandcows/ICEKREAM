@@ -42,10 +42,11 @@ async function navTransition(pageName) {
   }
 
 
-  // 로그아웃 시 토큰이 삭제되며 홈페이지로 이동
+  // 로그아웃 시 토큰, userId이 삭제되며 홈페이지로 이동
   if (isLogined) {
     document.querySelector('#logout').addEventListener('click', () => {
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('userId');
     })
   }
 

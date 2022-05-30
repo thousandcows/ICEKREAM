@@ -1,6 +1,8 @@
 import * as Api from '/api.js';
 import { navTransition } from '../navTransition/navTransition.js';
+import {fetchOrderData} from './fetch-orderdata.js';
 
+fetchOrderData();
 
 navTransition('order').then( isLogined => {
     if (!isLogined) {
