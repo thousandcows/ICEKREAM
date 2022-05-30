@@ -32,8 +32,16 @@ adminRouter.patch('/:userId', async (req, res, next) => {
         // params로부터 id를 가져옴
         const { userId } = req.params;
         const user = await userService.getUser(userId);
+
         if (!user) {
             throw new Error('그 유저는 존재하지 않습니다.');
+        }
+        const currentUserId = req.user._id.toString();
+
+        if (currentUserId === userId) {
+            throw new Error(
+                '현재 관리자로 로그인된 계정은 권한 변환 할 수 없습니다.',
+            );
         }
         const role = user.role;
         let newRole = '';

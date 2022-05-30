@@ -3,13 +3,12 @@ import * as Api from '/api.js';
 
 async function handleSwitchRole() {
     const userId = this.id.slice(4);
+    const updatedUser = await Api.patch('', `api/admin/${userId}`, {});
     if (this.innerHTML === 'basic-user') {
         this.innerHTML = 'admin';
     } else {
         this.innerHTML = 'basic-user';
     }
-    const updatedUser = await Api.patch('', `api/admin/${userId}`, {});
-    console.log(updatedUser);
 }
 
 const users = await Api.get('', 'api/admin/users');

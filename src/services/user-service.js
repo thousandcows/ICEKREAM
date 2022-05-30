@@ -99,7 +99,6 @@ class UserService {
             userId,
             update: toUpdate,
         });
-        console.log(newUser);
         return newUser;
     }
 
