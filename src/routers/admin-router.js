@@ -71,8 +71,7 @@ adminRouter.post('/product/category', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { name } = req.body;
-        const { size } = req.body;
+        const { name, size } = req.body;
         const products = [];
         const categoryInfo = { name, products, size };
         const isValid = await categoryJoiSchema.validateAsync({ name, size });
@@ -109,15 +108,18 @@ adminRouter.post('/product', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { category } = req.body;
-        const { brand } = req.body;
-        const { productName } = req.body;
-        const { price } = req.body;
-        const { launchDate } = req.body;
-        const { img } = req.body;
-        const { quantity } = req.body;
-        const { size } = req.body;
+
         const sellerId = req.user._id;
+        const {
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        } = req.body;
         const isValid = await productJoiSchema.validateAsync({
             category,
             brand,
@@ -143,7 +145,6 @@ adminRouter.post('/product', async (req, res, next) => {
             category,
             productInfo,
         );
-        console.log(newProduct);
 
         res.status(200).json(newProduct);
     } catch (error) {

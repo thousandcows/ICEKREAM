@@ -19,9 +19,7 @@ userRouter.post('/register', async (req, res, next) => {
         }
 
         // req (request)의 body 에서 데이터 가져오기
-        const { fullName } = req.body;
-        const { email } = req.body;
-        const { password } = req.body;
+        const { fullName, email, password } = req.body;
         const isValid = await registerJoiSchema.validateAsync({
             email,
             fullName,

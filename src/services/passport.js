@@ -26,16 +26,17 @@ const passportVerify = async (email, password, done) => {
             return;
         }
         const isPasswordCorrect = await bcrypt.compare(password, user.password); // password 일치 확인
-        if (isPasswordCorrect) {
-            // 일치하면,
-            done(null, user); // user에 user반환
-
+        if (!isPasswordCorrect) {
+            //비밀번호가 불일치 한다면..
+            done(null, false, {
+                message:
+                    '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
+            });
             return;
         }
-        // 불일치 한다면
-        done(null, false, {
-            message: '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
-        });
+        // 위 조건을 모두 통과 한다면
+        done(null, user); // user에 user반환
+        return;
     } catch (error) {
         done(error);
     }

@@ -18,11 +18,8 @@ orderRouter.post('/', async (req, res, next) => {
         }
         // req (request)의 body 에서 데이터 가져오기
         const userId = req.user._id;
-        const { postalCode } = req.body;
-        const { address1 } = req.body;
-        const { address2 } = req.body;
-        const { billingMethod } = req.body;
-        const { productList } = req.body;
+        const { postalCode, address1, address2, billingMethod, productList } =
+            req.body;
 
         const isValid = await orderJoiSchema.validateAsync({
             postalCode,

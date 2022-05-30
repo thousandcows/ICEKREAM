@@ -18,7 +18,6 @@ const authRouter = Router();
 authRouter.get('/', async (req, res, next) => {
     try {
         const userId = req.user._id;
-        console.log(userId);
         res.status(200).json({ userId });
     } catch (error) {
         next(error);
@@ -52,14 +51,14 @@ authRouter.patch('/:userId', async (req, res, next) => {
         const { userId } = req.params;
 
         // body data 로부터 업데이트할 사용자 정보를 추출함.
-        const { fullName } = req.body;
-        const { password } = req.body;
-        const { address } = req.body;
-        const { phoneNumber } = req.body;
-        const { role } = req.body;
-
-        // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
-        const { currentPassword } = req.body;
+        const {
+            fullName,
+            password,
+            address,
+            phoneNumber,
+            role,
+            currentPassword,
+        } = req.body;
         const isValid = await userUpdateJoiSchema.validateAsync({
             fullName,
             password,
@@ -138,8 +137,14 @@ authRouter.get('/:userId/orders', async (req, res, next) => {
 authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
     try {
         //이 때 유저 아이디가 주문아이디랑 일치하나 확인을 해야할까?
-        const { userId } = req.params;
-        const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const { userId, orderId } = req.params;
+        //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const checkUserId = await orderService.findUser(orderId);
+        if (checkUserId !== userId) {
+            throw new Error(
+                '유저 아이디 정보와 주문 아이디 정보가 일치하지 않습니다.',
+            );
+        }
         const deletedOrder = await orderService.deleteUserOrder(orderId);
         if (deletedOrder) {
             await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
@@ -161,15 +166,18 @@ authRouter.post('/:userId/product', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { category } = req.body;
-        const { brand } = req.body;
-        const { productName } = req.body;
-        const { price } = req.body;
-        const { launchDate } = req.body;
-        const { img } = req.body;
-        const { quantity } = req.body;
-        const { size } = req.body;
+
         const sellerId = req.user._id;
+        const {
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        } = req.body;
 
         const isValid = await productJoiSchema.validateAsync({
             category,
@@ -198,7 +206,6 @@ authRouter.post('/:userId/product', async (req, res, next) => {
             category,
             productInfo,
         );
-        console.log(newProduct);
 
         res.status(200).json(newProduct);
     } catch (error) {
