@@ -10,7 +10,6 @@ class CategoryService {
     async addCategory(categoryInfo){
 
         const {name, products, size} = categoryInfo;
-        console.log(name, products, size);
 
         const isCategoryExist = await categoryModel.findOne(name);
         
