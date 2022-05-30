@@ -71,8 +71,7 @@ adminRouter.post('/product/category', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { name, size } = req.body;
-        const products = [];
+        const { name, products, size } = req.body;
         const categoryInfo = { name, products, size };
         const isValid = await categoryJoiSchema.validateAsync({ name, size });
         const newCategory = await categoryService.addCategory(categoryInfo);
