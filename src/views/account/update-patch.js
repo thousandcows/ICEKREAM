@@ -25,7 +25,7 @@ async function deleteUser() {
         // alert(result);
         alert('정상 처리되었습니다.');
         sessionStorage.clear();
-        window.location.href = '/';
+        // window.location.href = '/';
     } catch (error) {
         console.error(error.stack);
         alert(`${error.message}`);
@@ -60,7 +60,27 @@ async function patchEmail() {
 }
 
 async function patchName() {
+    const nameInput = document.querySelector('.name_input').value;
+    const passwordInput = getPasswordCheckValue();
+    const userId = sessionStorage.getItem('userId');
 
+    const data = { 
+        fullName: nameInput,
+        currentPassword: passwordInput
+     };
+    try {
+        await Api.patch(`/api/auth`, userId, data);
+        // alert(result);
+        alert('정상 처리되었습니다.');
+        // fetchUserData();       
+        window.location.reload();
+    } catch (error) {
+        console.error(error.stack);
+        alert(`${error.message}`);
+        // return false;
+    }
+
+    return false;
 }
 
 async function patchPassword() {

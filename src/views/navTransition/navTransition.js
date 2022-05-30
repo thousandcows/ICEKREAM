@@ -21,7 +21,6 @@ async function navTransition(pageName) {
 
   // console.log(isLogined);
   const navSelect = document.querySelector('#navSelect');
-
   if (pageName !== 'login') {
     const content = isLogined ?
       '<li><a href="/" id="logout">로그아웃</a></li>'

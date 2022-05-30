@@ -1,7 +1,11 @@
 import Product from './product.js';
 // import * as Api from '/api.js';
-// import { navTransition } from '../navTransition/navTransition.js';
+import { navTransition } from '../navTransition/navTransition.js';
 import { randomId } from '/useful-functions.js';
+
+
+navTransition('home');
+
 
 const testCase = [
     { id: 1, name: 'apple', price: 1000 },
@@ -57,4 +61,3 @@ const getData = () => {
 };
 
 getData();
-// navTransition('home');
