@@ -86,6 +86,7 @@ const KakaoConfig = {
 
 const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
     try {
+        //여기서 profile에 유저 정보가 있는게 정상 같은데....?
         const email = profile.provider + profile.id + '@email.com';
         const user = await userModel.findByEmail(email);
         if (!user) {
@@ -93,7 +94,7 @@ const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
             const userInfo = {
                 email: email, // profile email를 얻는 법?
                 password: 'whateverpassword',
-                fullName: '아무개', //우선 유저 정보를 모르겠어서 이렇게 해봄.
+                fullName: 'kakao user', //우선 유저 정보를 모르겠어서 이렇게 해봄.
                 role: 'basic-user',
             };
             const user = await userModel.create(userInfo);
