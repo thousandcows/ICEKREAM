@@ -63,7 +63,31 @@ adminRouter.get('/users/:userId/orders', async (req, res, next) => {
     }
 });
 
-////// 새 카테고리 추가 api
+// 카테고리 전체 목록 조회
+adminRouter.get('/product/category', async(req, res, next) => {
+    try {
+
+        const categoryList = await categoryService.findAllCategories();
+        res.status(200).json(categoryList);
+    } catch (error) {
+        next(error);
+    }
+})
+
+// 카테고리 사이즈 조회
+adminRouter.get('/product/category/size/:categoryName',  async(req, res, next) => {
+    try {
+        const {categoryName} = req.params;
+        const category = await categoryService.findOne(categoryName);
+        res.status(200).json(category);
+    } catch (error) {
+        next(error);
+    }
+})
+
+
+
+// 새 카테고리 추가 api
 adminRouter.post('/product/category', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -97,6 +121,7 @@ adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
         next(error);
     }
 });
+
 
 // 복사 붙여넣기 인점을 확인... 함수로 정의해야하나?
 // 아래 상품관련 기능은 유저와 다를 이유도 없는 것 같고 추가를 할거면 유저의 권한 축소 정도인 것 같다.
