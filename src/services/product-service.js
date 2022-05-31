@@ -21,7 +21,7 @@ class ProductService {
                 }
             }
             const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
-
+            
             return [ productList, totalPage ];
             
 
@@ -62,8 +62,6 @@ class ProductService {
     
     // 4. 상품 수정 기능
     async updateProduct(productId, update){
-        console.log(productId)
-        console.log(update)
         const updatedProduct = await this.productModel.updateProduct(productId, update);
         return updatedProduct;
     }
