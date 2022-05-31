@@ -28,7 +28,7 @@ viewsRouter.use('/admin/product', serveStatic('admin-product'));
 viewsRouter.use('/admin/product/add', serveStatic('admin-product-add'));
 
 
-viewsRouter.use('/admin/category/add', serveStatic('category'));
+viewsRouter.use('/admin/category/add', serveStatic('admin-category-add'));
 
 viewsRouter.get('/category/edit', (req, res) => {
   res.sendFile(path.join(__dirname, "../views/category/edit.html"));
