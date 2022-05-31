@@ -305,7 +305,7 @@ async function fetchUserData() {
         name.textContent = data.fullName;
         password.textContent = '변경하시려면 클릭하세요';
         number.textContent = data.phoneNumber ? data.phoneNumber : '저장된 번호가 없습니다.';
-        address.textContent = data.address;
+        address.textContent = `우편변호: ${String(data.address.postalCode)} 주소: ${String(data.address.address1)}`;
 
     } catch (error) {
         console.log(error);

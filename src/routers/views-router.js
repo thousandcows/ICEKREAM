@@ -27,6 +27,16 @@ viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/cart', serveStatic('cart'));
 
 
+viewsRouter.use('/admin', serveStatic('admin'));
+
+// viewsRouter.get('/admin/users', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../views/account/update.html'));
+// });
+// viewsRouter.get('/admin/orders', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+// } );
+
+
 
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
