@@ -35,6 +35,9 @@ viewsRouter.use('/admin', serveStatic('admin'));
 //   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 // } );
 
+//임시
+viewsRouter.use('/admin/users', serveStatic('admin-user'));
+viewsRouter.use('/admin/orders', serveStatic('admin-order'));
 
 //임시
 viewsRouter.use('/admin/users', serveStatic('admin-user'));
