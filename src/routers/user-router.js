@@ -77,7 +77,7 @@ userRouter.post('/login', async (req, res, next) => {
                         { userId: user._id, role: user.role },
                         secretKey,
                     );
-                    res.json({ token, userId: user._id });
+                    res.json({ token, userId: user._id, role: user.role });
                 });
             },
         )(req, res); // 이 부분은 수업 때나 지금이나 이해가 잘 안되지만 필요함.
