@@ -34,15 +34,21 @@ class CategoryService {
         return categoryList;
     }
 
-    // 4. 카테고리 검색
+    // 4. 카테고리 검색 - 이름
     async findOne(categoryName){
         const category = await categoryModel.findOne(categoryName);
         return category;
     }
 
+    // 5. 카테고리 검색 - 아이디
+    async findById(categoryId){
+        const category = await categoryModel.findById(categoryId);
+        return category;
+    }
+
     // 5. 카테고리 수정
-    async updateCategory(categoryId, name, size){
-        const updatedCategory = await categoryModel.updateCategory(categoryId, name, size);
+    async updateCategory({categoryId, name, size}){
+        const updatedCategory = await categoryModel.updateCategory({categoryId, name, size});
         return updatedCategory;
     }
 
