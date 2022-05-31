@@ -1,0 +1,23 @@
+#section-container {
+    display: grid;
+    width:100%;
+    gap:10px;
+    grid-template-columns: repeat(5, 1fr) ;
+    grid-auto-rows: 50px;
+  }
+main{
+    display:flex;
+    width: 100vw;
+    margin:15px;
+}
+.table-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.title-column.table-column{
+    background-color:white;
+    border-bottom: 1px solid black;
+}

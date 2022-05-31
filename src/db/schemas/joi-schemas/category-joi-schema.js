@@ -1,8 +1,11 @@
 import joi from 'joi';
 
 const categoryJoiSchema = joi.object({
-    name: joi.string().required(),
-    size: joi.array().items(joi.string().required()), // 우선 4글자 이상이라고 register.js에 되어있는데 수정도 가능할 듯...
+    name: joi.string().required().messages({
+        'string.empty': `카테고리 이름은 비어있을 수 없습니다.`,
+        'any.required': '카테고리 이름은 반드시 입력해야 합니다.',
+    }),
+    size: joi.array().items(joi.string().required()),
 });
 
 export { categoryJoiSchema };

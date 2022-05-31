@@ -23,6 +23,60 @@ adminRouter.get('/users', async (req, res, next) => {
     }
 }); //admin 전용
 
+//회원에게 관리자 권한 부여하는 api
+adminRouter.patch('/:userId', async (req, res, next) => {
+    try {
+        // content-type 을 application/json 로 프론트에서
+        // 설정 안 하고 요청하면, body가 비어 있게 됨.
+
+        // params로부터 id를 가져옴
+        const { userId } = req.params;
+        const user = await userService.getUser(userId);
+
+        if (!user) {
+            throw new Error('그 유저는 존재하지 않습니다.');
+        }
+        const currentUserId = req.user._id.toString();
+
+        if (currentUserId === userId) {
+            throw new Error(
+                '현재 관리자로 로그인된 계정은 권한 변환 할 수 없습니다.',
+            );
+        }
+        const role = user.role;
+        let newRole = '';
+        if (role === 'admin') {
+            newRole = 'basic-user';
+        } else {
+            newRole = 'admin';
+        }
+        const { fullName, password, address, phoneNumber } = user;
+        const toUpdate = {
+            ...(fullName && { fullName }),
+            ...(password && { password }),
+            ...(address && { address }),
+            ...(phoneNumber && { phoneNumber }),
+            role: newRole,
+        };
+
+        //user current password와 password가 다른지 확인해야하나?
+
+        // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
+        // 보내주었다면, 업데이트용 객체에 삽입함.
+
+        // 사용자 정보를 업데이트함.
+        const updatedUserInfo = await userService.userRoleUpdate(
+            userId,
+            toUpdate,
+        );
+
+        // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
+        res.status(200).json(updatedUserInfo);
+    } catch (error) {
+        next(error);
+    }
+});
+
 //관리자가 전체 주문을 가져오는 api
 adminRouter.get('/orders', async (req, res, next) => {
     try {
