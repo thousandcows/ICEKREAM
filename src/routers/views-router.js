@@ -23,17 +23,20 @@ viewsRouter.get('/account/delete', (req, res) => {
 /* 관리자 페이지 라우팅 */
 viewsRouter.use('/admin', serveStatic('admin'));
 
-viewsRouter.use('/product', serveStatic('product'));
-viewsRouter.get('/product/add', (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/product/product-add.html"));
-});
 
-viewsRouter.use('/category', serveStatic('category'));
+viewsRouter.use('/admin/product', serveStatic('admin-product'));
+viewsRouter.use('/admin/product/add', serveStatic('admin-product-add'));
+
+
+viewsRouter.use('/admin/category/add', serveStatic('admin-category-add'));
+
 viewsRouter.get('/category/edit', (req, res) => {
   res.sendFile(path.join(__dirname, "../views/category/edit.html"));
 });
 
-
+//임시
+viewsRouter.use('/admin/users', serveStatic('admin-user'));
+viewsRouter.use('/admin/orders', serveStatic('admin-order'));
 
 /*  결제 페이지 라우팅 (임시)  */
 viewsRouter.use('/order', serveStatic('order'));
@@ -50,13 +53,7 @@ viewsRouter.use('/admin', serveStatic('admin'));
 //   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 // } );
 
-//임시
-viewsRouter.use('/admin/users', serveStatic('admin-user'));
-viewsRouter.use('/admin/orders', serveStatic('admin-order'));
 
-//임시
-viewsRouter.use('/admin/users', serveStatic('admin-user'));
-viewsRouter.use('/admin/orders', serveStatic('admin-order'));
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
