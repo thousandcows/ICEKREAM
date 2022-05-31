@@ -7,6 +7,9 @@ import { userModel } from '../db';
 const { ExtractJwt, Strategy: JWTStrategy } = require('passport-jwt');
 
 const LocalStrategy = Strategy;
+// import { ExtractJwt } from 'passport-jwt'; //이부분이 질문..
+// const LocalStrategy = Strategy;
+// const JWTStrategy = Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy; //implement Kakao Strategy;
 
 const passportConfig = {
