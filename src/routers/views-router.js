@@ -27,12 +27,8 @@ viewsRouter.use('/admin', serveStatic('admin'));
 viewsRouter.use('/admin/product', serveStatic('admin-product'));
 viewsRouter.use('/admin/product/add', serveStatic('admin-product-add'));
 
-
+viewsRouter.use('/admin/category', serveStatic('admin-category'));
 viewsRouter.use('/admin/category/add', serveStatic('admin-category-add'));
-
-viewsRouter.get('/category/edit', (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/category/edit.html"));
-});
 
 //임시
 viewsRouter.use('/admin/users', serveStatic('admin-user'));
