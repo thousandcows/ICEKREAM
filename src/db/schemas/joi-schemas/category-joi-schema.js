@@ -6,6 +6,7 @@ const categoryJoiSchema = joi.object({
         'any.required': '카테고리 이름은 반드시 입력해야 합니다.',
     }),
     size: joi.array().items(joi.string().required()),
+
 });
 
 export { categoryJoiSchema };

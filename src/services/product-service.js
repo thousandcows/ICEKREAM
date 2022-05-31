@@ -8,21 +8,30 @@ class ProductService {
     }
     
     // 1. 전체 / 카테고리 상품 목록 조회 기능
-    async findAllProducts(category, page, perPage){
+    async findAllProducts(role, category, page, perPage){
+        // 1-1. 유저의 경우 paginated 된 결과를 반환
+        console.log("role: " + role);
+        if (role === "basic-user") {
 
-        let query = ""
+            let query = ""
         
-        if (category !== null && category !== undefined){
+            if (category !== null && category !== undefined){
+                
+                const isCategoryExist = await categoryModel.findOne(category);
+                
+                if(isCategoryExist){
+                    query = {category: isCategoryExist._id}
+                }
             
-            const isCategoryExist = await categoryModel.findOne(category);
-            
-            if(isCategoryExist){
-                query = {category: isCategoryExist._id}
+            const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
+    
+            return [ productList, totalPage ];
             }
-
-        const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
-
-        return [ productList, totalPage ];
+        // 1-2. 관리자의 경우 전체 목록을 한 번에 반환
+        } else if (role === "admin") {
+            
+            const productList = await this.productModel.findAllProducts();
+            return productList;
         }
     }
     // 2. 상품 상세 정보 조회 기능
@@ -61,6 +70,8 @@ class ProductService {
     
     // 4. 상품 수정 기능
     async updateProduct(productId, update){
+        console.log(productId)
+        console.log(update)
         const updatedProduct = await this.productModel.updateProduct(productId, update);
         return updatedProduct;
     }

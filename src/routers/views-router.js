@@ -20,6 +20,21 @@ viewsRouter.get('/account/delete', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 });
 
+/* 관리자 페이지 라우팅 */
+viewsRouter.use('/admin', serveStatic('admin'));
+
+viewsRouter.use('/product', serveStatic('product'));
+viewsRouter.get('/product/add', (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/product/product-add.html"));
+});
+
+viewsRouter.use('/category', serveStatic('category'));
+viewsRouter.get('/category/edit', (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/category/edit.html"));
+});
+
+
+
 /*  결제 페이지 라우팅 (임시)  */
 viewsRouter.use('/order', serveStatic('order'));
 

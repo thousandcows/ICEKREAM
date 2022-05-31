@@ -7,6 +7,7 @@ import { categoryService } from '../services/category-service';
 import { productService } from '../services/product-service';
 import { categoryJoiSchema } from '../db/schemas/joi-schemas/category-joi-schema';
 import { productJoiSchema } from '../db/schemas/joi-schemas/product-joi-schema';
+import { productUpdateJoiSchema } from '../db/schemas/joi-schemas/product-joi-schema';
 const adminRouter = Router();
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
@@ -117,7 +118,31 @@ adminRouter.get('/users/:userId/orders', async (req, res, next) => {
     }
 });
 
-////// 새 카테고리 추가 api
+// 카테고리 전체 목록 조회
+adminRouter.get('/product/category', async(req, res, next) => {
+    try {
+
+        const categoryList = await categoryService.findAllCategories();
+        res.status(200).json(categoryList);
+    } catch (error) {
+        next(error);
+    }
+})
+
+// 카테고리 사이즈 조회
+adminRouter.get('/product/category/size/:categoryName',  async(req, res, next) => {
+    try {
+        const {categoryName} = req.params;
+        const category = await categoryService.findOne(categoryName);
+        res.status(200).json(category);
+    } catch (error) {
+        next(error);
+    }
+})
+
+
+
+// 새 카테고리 추가 api
 adminRouter.post('/product/category', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -125,8 +150,7 @@ adminRouter.post('/product/category', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { name, size } = req.body;
-        const products = [];
+        const { name, products, size } = req.body;
         const categoryInfo = { name, products, size };
         const isValid = await categoryJoiSchema.validateAsync({ name, size });
         const newCategory = await categoryService.addCategory(categoryInfo);
@@ -152,6 +176,19 @@ adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
         next(error);
     }
 });
+
+// 상품 전체 목록 조회
+adminRouter.get('/product', async (req, res, next) => {
+    try {
+        const role = req.user.role;
+        const products = await productService.findAllProducts(role, null, null, null);
+        res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+    
+})
+
 
 // 복사 붙여넣기 인점을 확인... 함수로 정의해야하나?
 // 아래 상품관련 기능은 유저와 다를 이유도 없는 것 같고 추가를 할거면 유저의 권한 축소 정도인 것 같다.
@@ -220,7 +257,9 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
             img,
             quantity,
         });
+
         const update = { price: price, img: img, quantity: quantity };
+        
         const updatedProduct = await productService.updateProduct(
             productId,
             update,
@@ -234,6 +273,7 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
 adminRouter.delete('/product/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
+        console.log(productId);
         const result = await productService.deleteProduct(productId);
         if (result) {
             res.status(200).json({ result: 'success' });
