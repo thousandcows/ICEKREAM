@@ -1,6 +1,5 @@
 
 .container {
-    flex-grow: 1;
     margin: 0 auto;
     position: relative;
     width: auto;
@@ -8,14 +7,12 @@
 
 .account_header {
     border-bottom: 1px solid #ddd;
-    display: block;
     padding-bottom: 0.7rem;
     margin-bottom: 1.5rem;
 }
 
 .menu_container {
     grid-gap: 2rem;
-    /* cursor: pointer; */
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(25rem,1fr));
     text-decoration: none;
@@ -24,18 +21,18 @@
 .menu_container a {
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 
 .menu_container a:hover {
     color: #485fc7;
-    cursor: pointer;
 }
 
 .menu_card {
-    align-items: center;
     border: 1px solid #d5d9d9;
     border-radius: 6px;
     display: flex;
+    align-items: center;
     font-size: 1.25rem;
     padding: 0.5rem;
 }

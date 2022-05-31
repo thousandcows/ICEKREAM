@@ -19,6 +19,21 @@ viewsRouter.get('/account/delete', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 } );
 
+/* 관리자 페이지 라우팅 */
+viewsRouter.use('/admin', serveStatic('admin'));
+
+viewsRouter.use('/product', serveStatic('product'));
+viewsRouter.get('/product/add', (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/product/product-add.html"));
+});
+
+viewsRouter.use('/category', serveStatic('category'));
+viewsRouter.get('/category/edit', (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/category/edit.html"));
+});
+
+
+
 /*  결제 페이지 라우팅 (임시)  */
 viewsRouter.use('/order', serveStatic('order'));
 
@@ -31,11 +46,11 @@ viewsRouter.use('/', serveStatic(''));
 // views폴더 내의 ${resource} 폴더 내의 모든 파일을 웹에 띄우며,
 // 이 때 ${resource}.html 을 기본 파일로 설정함.
 function serveStatic(resource) {
-  const resourcePath = path.join(__dirname, `../views/${resource}`);
-  const option = { index: `${resource}.html` };
+    const resourcePath = path.join(__dirname, `../views/${resource}`);
+    const option = { index: `${resource}.html` };
 
-  // express.static 은 express 가 기본으로 제공하는 함수임
-  return express.static(resourcePath, option);
+    // express.static 은 express 가 기본으로 제공하는 함수임
+    return express.static(resourcePath, option);
 }
 
 export { viewsRouter };

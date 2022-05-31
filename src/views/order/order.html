@@ -19,103 +19,200 @@
 <body>
     <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container mt-3">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="/elice-rabbit.png" width="30" height="30" />
+                    <span class="has-text-link">쇼핑-n팀</span>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                <ul id="navSelect">
+                    <li class="register_btn"><a href="/register">회원가입</a></li>
+                    <li>
+                        <a href="#cart" aria-current="page">
+                            <span class="icon">
+                                <i class="fas fa-cart-shopping"></i>
+                            </span>
+                            <span>카트</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
 
 
     <div class="container">
-        <div class="order_title">
-            <h3>주문/결제</h3>
-            <span></span>
+        <div class="order_body">
+            <div class="order_title">
+                <h3>주문/결제</h3>
+                <span></span>
+            </div>
+            <h2 class="buyer_title h2_title">구매자 정보</h2>
+            <div class="buyer">
+                <table class="buyer_table table_element">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="name_th">
+                                이름
+                            </th>
+                            <td class="buyer_name">
+                                <strong></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="email_th">
+                                이메일
+                            </th>
+                            <td class="buyer_email">
+                                <strong></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="phone_th">
+                                전화번호
+                            </th>
+                            <td class="buyer_phone">
+                                <strong></strong>
+                                <form action="/">
+                                    <div>
+                                        <input type="tel" class="customer_phone ">
+                                        <button type="submit">
+                                            변경
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2 class="recipient_title h2_title">수령인 정보</h2>
+            <div class="recipient">
+                <table class="recipient_table table_element">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="name_th">
+                                이름
+                            </th>
+                            <td class="recipient_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="email_th">
+                                배송주소
+                            </th>
+                            <td class="recipient_email">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="phone_th">
+                                연락처
+                            </th>
+                            <td class="recipient_phone">
+                                <form action="/">
+                                    <div>
+                                        <input type="tel" class="customer_phone ">
+                                        <button type="submit">
+                                            변경
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <h2 class="h2_title">배송 정보</h2>
+            <div class="orderlist">
+                <table></table>
+            </div> -->
+            <h2 class="payment_title h2_title">결제 정보</h2>
+            <div class="payment">
+                <table class="payment_table table_element">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="total_th">총상품가격</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="discount_th">즉시할인</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="coupon_th">할인쿠폰</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="delivery_th">배송비</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="payment_th">총결제금액</th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="option_th">결제방법</th>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="orderbox">
+                <button>결제하기</button>
+            </div>
         </div>
-        <h2 class="buyer_title">구매자 정보</h2>
-        <div class="buyer">
-            <table class="buyer_table">
-                <tbody>
-                    <tr>
-                        <th scope="row" class="name_th">
-                            이름
-                        </th>
-                        <td class="buyer_name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="email_th">
-                            이메일
-                        </th>
-                        <td class="buyer_email">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="phone_th">
-                            전화번호
-                        </th>
-                        <td class="buyer_phone">
-                            <form action="/">
-                                <div>
-                                    <input type="tel" class="customer_phone ">
-                                    <button type="submit">
-                                        수정
-                                    </button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <footer class="order_footer">
 
-        <h2 class="recipient_title">수령인 정보</h2>
-        <div class="recipient">
-            <table class="recipient_table">
-                <tbody>
-                    <tr>
-                        <th scope="row" class="name_th">
-                            이름
-                        </th>
-                        <td class="recipient_name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="email_th">
-                            배송주소
-                        </th>
-                        <td class="recipient_email">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="phone_th">
-                            연락처
-                        </th>
-                        <td class="recipient_phone">
-                            <form action="/">
-                                <div>
-                                    <input type="tel" class="customer_phone ">
-                                    <button type="submit">
-                                        수정
-                                    </button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="orderlist">
-            <h2>배송 정보</h2>
-            <table></table>
-        </div>
-        <div class="payment">
-            <h2>결제 정보</h2>
-            <table></table>
-        </div>
-        <div class="orderbox">
-            <button>임시저장</button>
-            <button>결제하기</button>
-        </div>
+        </footer>
     </div>
+    <div class="payment_modal hide">
+        <div class="payment_card">
+            <div class="leftside">
+                <img src="https://i.pinimg.com/originals/18/9d/dc/189ddc1221d9c1c779dda4ad37a35fa1.png" class="product"
+                    alt="Shoes" />
+            </div>
+            <div class="rightside">
+                <form action="">
+                    <h1>CheckOut</h1>
+                    <h2>Payment Information</h2>
+                    <p>Cardholder Name</p>
+                    <input type="text" class="inputbox" name="name" required />
+                    <p>Card Number</p>
+                    <input type="number" class="inputbox" name="card_number" id="card_number" required />
 
+                    <p>Card Type</p>
+                    <select class="inputbox" name="card_type" id="card_type" required>
+                        <option value="">--Select a Card Type--</option>
+                        <option value="Visa">Visa</option>
+                        <option value="RuPay">RuPay</option>
+                        <option value="MasterCard">MasterCard</option>
+                    </select>
+                    <div class="expcvv">
 
+                        <p class="expcvv_text">Expiry</p>
+                        <input type="date" class="inputbox" name="exp_date" id="exp_date" required />
+
+                        <p class="expcvv_text2">CVV</p>
+                        <input type="password" class="inputbox" name="cvv" id="cvv" required />
+                    </div>
+                    <p></p>
+                    <button type="submit" class="button">CheckOut</button>
+                    <button type="button" class="button" id="cancel_btn">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div> -->
 
 
 </body>

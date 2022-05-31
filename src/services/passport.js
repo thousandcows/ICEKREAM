@@ -13,28 +13,30 @@ const passportConfig = {
     usernameField: 'email',
     passwordField: 'password',
 };
-
+// 모든 done에 reason=> message로 수정
 const passportVerify = async (email, password, done) => {
     try {
         const user = await userModel.findByEmail(email); // email로 유저확인 check user-model;
         if (!user) {
             // 이메일이 없다면 , user에 false 반환, error로 이메일 없다고 전달
             done(null, false, {
-                reason: '해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.',
+                message:
+                    '해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.',
             });
             return;
         }
         const isPasswordCorrect = await bcrypt.compare(password, user.password); // password 일치 확인
-        if (isPasswordCorrect) {
-            // 일치하면,
-            done(null, user); // user에 user반환
-
+        if (!isPasswordCorrect) {
+            //비밀번호가 불일치 한다면..
+            done(null, false, {
+                message:
+                    '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
+            });
             return;
         }
-        // 불일치 한다면
-        done(null, false, {
-            reason: '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
-        });
+        // 위 조건을 모두 통과 한다면
+        done(null, user); // user에 user반환
+        return;
     } catch (error) {
         done(error);
     }
@@ -61,7 +63,7 @@ const JWTVerify = async (jwtPayload, done) => {
         }
         // user가 없다면,
         done(null, false, {
-            reason: '로그인한 유저만 사용할 수 있는 서비스입니다.',
+            message: '로그인한 유저만 사용할 수 있는 서비스입니다.',
         });
     } catch (error) {
         done(error);
