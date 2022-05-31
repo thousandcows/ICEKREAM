@@ -98,6 +98,14 @@ class ProductService {
     async manageProductQuantity(){
         
     }
+
+    // 8. 관리자 상품 목록 조회 기능
+    async findAllProductsForAdmin(){
+        const productList = await this.productModel.findAllProducts();
+        return productList;
+        
+
+    }
 }
 
 const productService = new ProductService(productModel);
