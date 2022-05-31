@@ -7,6 +7,10 @@ import { userModel } from '../db';
 const { ExtractJwt, Strategy: JWTStrategy } = require('passport-jwt');
 
 const LocalStrategy = Strategy;
+// import { ExtractJwt } from 'passport-jwt'; //이부분이 질문..
+// const LocalStrategy = Strategy;
+// const JWTStrategy = Strategy;
+const KakaoStrategy = require('passport-kakao').Strategy; //implement Kakao Strategy;
 
 const passportConfig = {
     // passport의 username, password field configure
@@ -74,4 +78,38 @@ function JWTConfiguration() {
     passport.use('jwt', new JWTStrategy(JWTConfig, JWTVerify)); // passport에게 쓸 strategy의 이름과 기능을 설명
 }
 
-export { passportConfiguration, JWTConfiguration };
+////Kakao Strategy
+const KakaoConfig = {
+    clientID: process.env.KAKAO_CLIENT_ID, //env에 대하여 물어봐 주세요.
+    callbackURL: 'http://localhost:3000/api/users/kakao/cb',
+};
+
+const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
+    try {
+        //여기서 profile에 유저 정보가 있는게 정상 같은데....?
+        const email = profile.provider + profile.id + '@email.com';
+        const user = await userModel.findByEmail(email);
+        if (!user) {
+            const email = profile.provider + profile.id + '@email.com'; // 우선 유저 정보를 불러오는 법을 모르겠다.
+            const userInfo = {
+                email: email, // profile email를 얻는 법?
+                password: 'whateverpassword',
+                fullName: 'kakao user', //우선 유저 정보를 모르겠어서 이렇게 해봄.
+                role: 'basic-user',
+            };
+            const user = await userModel.create(userInfo);
+            done(null, user);
+            return;
+        }
+        done(null, user);
+        return;
+    } catch (error) {
+        done(error);
+    }
+};
+
+function KakaoConfiguration() {
+    passport.use('kakao-login', new KakaoStrategy(KakaoConfig, KakaoVerify));
+}
+
+export { passportConfiguration, JWTConfiguration, KakaoConfiguration };
