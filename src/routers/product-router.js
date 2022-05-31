@@ -7,9 +7,11 @@ const productRouter = Router();
 // 1. 전체 상품 목록 조회 기능
 productRouter.get('/', async (req, res, next) => {
     try {
+        const role = req.user.role;
         const {category, page, perPage } = req.query;
 
         const [productList, totalPage] = await productService.findAllProducts(
+            role,
             category,
             page,
             perPage,
@@ -36,6 +38,7 @@ productRouter.get('/cart', async(req, res, next) => {
 // 3. 상품 상세 정보 조회 기능 //상품이 존재하지 않으면 null 을 반환... null check를 해야할 것 같음.
 productRouter.get('/:productId', async (req, res, next) => {
     try {
+        console.log("ha!")
         const { productId } = req.params;
         
         const product = await productService.findById(productId);
