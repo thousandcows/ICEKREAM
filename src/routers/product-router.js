@@ -7,11 +7,9 @@ const productRouter = Router();
 // 1. 전체 상품 목록 조회 기능
 productRouter.get('/', async (req, res, next) => {
     try {
-        const role = req.user.role;
         const {category, page, perPage } = req.query;
 
         const [productList, totalPage] = await productService.findAllProducts(
-            role,
             category,
             page,
             perPage,
