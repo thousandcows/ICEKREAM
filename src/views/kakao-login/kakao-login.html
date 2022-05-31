@@ -23,8 +23,8 @@
             crossorigin="anonymous"
         ></script>
         <!-- 커스텀 css, js -->
-        <link rel="stylesheet" href="login.css" />
-        <script src="login.js" type="module" defer></script>
+        <link rel="stylesheet" href="kakao-login.css" />
+        <script src="kakao-login.js" type="module" defer></script>
     </head>
 
     <body>
@@ -74,41 +74,13 @@
         <!-- 로그인 폼(Form) -->
         <div class="login-form-container">
             <form class="box login-form-box" id="loginForm">
-                <p class="title is-5 has-text-info">어서오세요!</p>
-                <div class="field">
-                    <label class="label" for="emailInput">이메일</label>
-                    <div class="control">
-                        <input
-                            class="input"
-                            id="emailInput"
-                            type="email"
-                            placeholder="abc@example.com"
-                            autocomplete="on"
-                        />
-                    </div>
-                </div>
-
-                <div class="field mb-5">
-                    <label class="label" for="passwordInput">비밀번호</label>
-                    <div class="control">
-                        <input
-                            class="input"
-                            id="passwordInput"
-                            type="password"
-                            placeholder="********"
-                            autocomplete="on"
-                        />
-                    </div>
-                </div>
+                <p class="title is-5 has-text-info">
+                    어서오세요! 정상적으로 로그인 되었습니다!
+                </p>
 
                 <button class="button is-info is-fullwidth" id="submitButton">
-                    로그인하기
+                    홈으로 돌아가기
                 </button>
-                <a href="/api/users/kakao">
-                    <img
-                        src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
-                    />
-                </a>
             </form>
         </div>
     </body>
