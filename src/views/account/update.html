@@ -13,12 +13,13 @@
   <!-- 폰트 어썸: 아이콘 -->
   <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
   <!-- 커스텀 css, js -->
-  <script src="update.js" type="module" defer></script>
+  <script src="update.js" type="module" ></script>
+  <script src="update-patch.js" type="module" ></script>
   <!-- <script type="text/javascript" src="update-patch.js" defer></script> -->
-  <script type="module">
-    import {patchUserData} from './update-patch.js';
+  <!-- <script type="module">
+    import { patchUserData } from './update-patch.js';
     window.patchUserData = patchUserData;
-  </script>
+  </script> -->
 </head>
 
 <body>
@@ -42,7 +43,7 @@
         <ul id="navSelect">
           <li class="register_btn"><a href="/register">회원가입</a></li>
           <li>
-            <a href="#cart" aria-current="page">
+            <a href="/cart" aria-current="page">
               <span class="icon">
                 <i class="fas fa-cart-shopping"></i>
               </span>
@@ -64,28 +65,23 @@
             <strong>
               현재 이메일
             </strong>
-            <button type="button" >이메일 변경</button>
+            <button type="button">이메일 변경</button>
           </td>
         </tr>
         <tr class="change_area hide" id="email">
           <th scope="row">이메일</th>
           <td>
-            <!-- <div class="input"><input type="text" class="email_input input_el"></div> -->
-            <form id="email_form" action="#" onsubmit="return patchUserData('email')">
+            <form id="email_form">
               <fieldset>
                 <legend>이메일 입력</legend>
                 email: <input type="text" class="email_input input_el">
+                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
+                <input id="password_check_input" type="text">
                 <button type="submit" id="change_email_btn">변경완료</button>
                 <button type="button" id="cancel_email_btn">취소</button>
               </fieldset>
             </form>
           </td>
-          <!-- <td>
-            <div class="btn_group">
-              <button type="submit" id="change_email_btn">변경완료</button>
-              <button type="submit" id="cancel_email_btn">취소</button>
-            </div>
-          </td> -->
         </tr>
         <tr class="show_area" id="name_area">
           <th scope="row">이름</th>
@@ -99,22 +95,17 @@
         <tr class="change_area hide" id="name">
           <th scope="row">이름</th>
           <td>
-            <!-- <div class="input"><input type="text" class="name_input input_el"></div> -->
-            <form id="email_form" action="#" onsubmit="return patchUserData('name')">
+            <form id="name_form">
               <fieldset>
                 <legend>이름 입력</legend>
-                name: <input type="text" class="name_input input_el">
+                name: <input name="nameInput" type="text" class="name_input input_el">
+                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
+                <input id="password_check_input" name="passwordCheck" type="text">
                 <button type="submit" id="change_name_btn">변경완료</button>
                 <button type="button" id="cancel_name_btn">취소</button>
               </fieldset>
             </form>
           </td>
-          <!-- <td>
-            <div class="btn_group">
-              <button id="change_name_btn">변경완료</button>
-              <button id="cancel_name_btn">취소</button>
-            </div>
-          </td> -->
         </tr>
         <tr class="show_area" id="password_area">
           <th scope="row">비밀번호</th>
@@ -126,28 +117,20 @@
           </td>
         </tr>
         <tr class="change_area hide" id="password">
-          <th scope="row">회원 탈퇴</th>
+          <th scope="row">비밀번호 변경</th>
           <td>
-            <strong>비밀 번호를 입력해주세요.</strong><br>
-            <form id="password_form" action="#" onsubmit="return patchUserData()">
+            <form id="password_form">
               <fieldset>
-                <!-- <legend>비밀번호를 입력해주세요.</legend> -->
-                현재 비밀번호: <input type="text" class="password_input input_el"><br>
-                새로운 비밀번호: <input type="text" class="password_input input_el"><br>
-                새로운 비밀번호 확인: <input type="text" class="password_input input_el">
+                현재 비밀번호: <input type="text" name="currentPwd" class="current_password_input input_el"><br>
+                새로운 비밀번호: <input type="text" name="newPwd" class="new_password_input input_el"><br>
+                새로운 비밀번호 확인: <input type="text" name="checkNewPwd" class="check_password_input input_el">
                 <button type="submit" id="change_password_btn">입력완료</button>
                 <button type="button" id="cancel_password_btn">취소</button>
               </fieldset>
             </form>
           </td>
-          <!-- <td>
-            <div class="btn_group">
-              <button id="change_password_btn">변경완료</button>
-              <button id="cancel_password_btn">취소</button>
-            </div>
-          </td> -->
         </tr>
-        <tr class="show_area" id="location_area">
+        <tr class="show_area" id="address_area">
           <th scope="row">배송지</th>
           <td>
             <strong>
@@ -156,25 +139,21 @@
             <button>배송지 변경</button>
           </td>
         </tr>
-        <tr class="change_area hide" id="location">
+        <tr class="change_area hide" id="address">
           <th scope="row">배송지</th>
           <td>
-            <!-- <div class="input"><input type="text" class="location_input input_el"></div> -->
-            <form action="">
+            <form id="address_form">
               <fieldset>
                 <legend>배송지 입력</legend>
-                location: <input type="text" class="location_input input_el">
-                <button type="submit" id="change_location_btn">변경완료</button>
-                <button type="button" id="cancel_location_btn">취소</button>
+                우편번호: <input type="text" name="post" class="postal_input input_el"><br>
+                address: <input type="text" name="address" class="address_input input_el">
+                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
+                <input id="password_check_input" name="passwordCheck" type="text">
+                <button type="submit" id="change_address_btn">변경완료</button>
+                <button type="button" id="cancel_address_btn">취소</button>
               </fieldset>
             </form>
           </td>
-          <!-- <td>
-            <div class="btn_group">
-              <button id="change_location_btn">변경완료</button>
-              <button id="cancel_location_btn">취소</button>
-            </div>
-          </td> -->
         </tr>
         <tr class="show_area" id="number_area">
           <th scope="row">연락처</th>
@@ -188,22 +167,17 @@
         <tr class="change_area hide" id="number">
           <th scope="row">연락처</th>
           <td>
-            <!-- <div class="input"><input type="text" class="number_input input_el"></div> -->
-            <form action="">
+            <form id="number_form">
               <fieldset>
                 <legend>연락처 입력</legend>
-                PhoneNumber: <input type="text" class="number_input input_el">
+                PhoneNumber: <input type="text" name="number" class="number_input input_el">
+                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
+                <input id="password_check_input" name="passwordCheck" type="text">
                 <button type="submit" id="change_number_btn">변경완료</button>
                 <button type="button" id="cancel_number_btn">취소</button>
               </fieldset>
             </form>
           </td>
-          <!-- <td>
-            <div class="btn_group">
-              <button id="change_number_btn">변경완료</button>
-              <button id="cancel_number_btn">취소</button>
-            </div>
-          </td> -->
         </tr>
         <tr class="show_area" id="withdraw_area">
           <th scope="row">회원 탈퇴</th>
@@ -216,12 +190,9 @@
           <th scope="row">회원 탈퇴</th>
           <td>
             <strong>비밀 번호를 입력해주세요.</strong><br>
-            <form id="withdraw_form" action="#" onsubmit="return patchUserData('withdraw')">
+            <form id="withdraw_form">
               <fieldset>
-                <!-- <legend>비밀번호를 입력해주세요.</legend> -->
-                비밀번호: <input type="text" class="check_password input_el">
-                <!-- 새로운 비밀번호: <input type="text" class="withdraw_input input_el">
-                새로운 비밀번호 확인: <input type="text" class="withdraw_input input_el"> -->
+                비밀번호: <input type="text" name="passwordCheck" class="check_password input_el">
                 <button type="submit" id="change_withdraw_btn">입력완료</button>
                 <button type="button" id="cancel_withdraw_btn">취소</button>
               </fieldset>
@@ -229,11 +200,6 @@
           </td>
         </tr>
       </table>
-      <div class="password_check hide">
-        <p>정보를 변경하려면 아래에 비밀번호를 입력하세요.</p>
-        <input id="password_check_input" type="text">
-        <!-- <button id="password_check_btn">확인</button> -->
-      </div>
     </section>
   </div>
 

@@ -1,160 +1,311 @@
 import * as Api from '/api.js';
 
 
-// 정보 변경하는 버튼을 클릭했을 시 비밀번호 입력 창이 아래에 뜸
-document.querySelector('.password_check').classList.remove('hide');
-const passwordCheckInput = document.querySelector('#password_check_input');
+// async function deleteUser() {
+//     const passwordInput = document.querySelector('.check_password').value;
+//     const userId = sessionStorage.getItem('userId');
+//     const data = { currentPassword: passwordInput };
+//     try {
+//         await Api.delete(`/api/auth`, userId, data);
+//         alert('정상 처리되었습니다.');
+//         sessionStorage.clear();
+//         window.location.href = '/';
+//     } catch (error) {
+//         console.error(error.stack);
+//         alert(`${error.message}`);
+//     }
 
-function getPasswordCheckValue() {
-   return passwordCheckInput.value;
-}
+//     return false;
+// }
 
-async function deleteUser() {
-    const passwordInput = document.querySelector('.check_password').value;
+
+// async function patchName() {
+//     const nameInput = document.querySelector('.name_input').value;
+//     const passwordInput = getPasswordCheckValue();
+//     const userId = sessionStorage.getItem('userId');
+
+//     if (!passwordInput) {
+//         alert('비밀번호가 입력되지 않았습니다.');
+//         return false;
+//     }
+
+//     const data = {
+//         fullName: nameInput,
+//         currentPassword: passwordInput
+//     };
+//     try {
+//         await Api.patch(`/api/auth`, userId, data);
+//         alert('정상 처리되었습니다.');
+//         window.location.reload();
+//     } catch (error) {
+//         console.error(error.stack);
+//         alert(`${error.message}`);
+//     }
+
+//     return false;
+// }
+
+// async function patchPassword() {
+//     const passwordInput = document.querySelectorAll('#password_form .input_el');
+//     const currentPassword = passwordInput[0].value;
+//     const newPassword = passwordInput[1].value;
+//     const checkPassword = passwordInput[2].value;
+
+//     if (newPassword !== checkPassword) {
+//         alert('새로 입력하신 패스워드가 다릅니다. 다시입력하세요!');
+//         return false;
+//     }
+
+//     const userId = sessionStorage.getItem('userId');
+
+//     const data = {
+//         password: newPassword,
+//         currentPassword: currentPassword
+//     };
+
+//     try {
+//         await Api.patch(`/api/auth`, userId, data);
+//         alert('정상 처리되었습니다.');
+//         window.location.reload();
+//     } catch (error) {
+//         console.error(error.stack);
+//         alert(`${error.message}`);
+//     }
+
+//     return false;
+// }
+
+// async function patchAdress() {
+//     const addressInput = document.querySelector('.address_input').value;
+//     const postalInput = document.querySelector('.postal_input').value;
+//     const passwordInput = getPasswordCheckValue();
+//     const userId = sessionStorage.getItem('userId');
+
+//     console.log(passwordInput);
+//     if (!passwordInput) {
+//         alert('비밀번호가 입력되지 않았습니다.');
+//         return false;
+//     }
+
+//     const data = {
+//         address: {
+//             postalCode: postalInput,
+//             address1: addressInput,
+
+//         },
+//         currentPassword: passwordInput
+//     };
+//     try {
+//         await Api.patch(`/api/auth`, userId, data);
+//         alert('정상 처리되었습니다.');
+//         window.location.reload();
+//     } catch (error) {
+//         console.error(error.stack);
+//         alert(`${error.message}`);
+//     }
+
+//     return false;
+// }
+
+// async function patchNumber() {
+//     const numberInput = document.querySelector('.number_input').value;
+//     const passwordInput = getPasswordCheckValue();
+//     const userId = sessionStorage.getItem('userId');
+
+//     const data = {
+//         phoneNumber: numberInput,
+//         currentPassword: passwordInput
+//     };
+
+//     try {
+//         await Api.patch(`/api/auth`, userId, data);
+//         alert('정상 처리되었습니다.');
+//         window.location.reload();
+//     } catch (error) {
+//         console.error(error.stack);
+//         alert(`${error.message}`);
+//     }
+
+//     return false;
+// }
+
+
+async function patchUserInfo(password, data, userDelete = false) {
     const userId = sessionStorage.getItem('userId');
-    // debugger
-    // console.log(userId, sessionStorage);
 
-    // patch 경로 설정
-    // passwordForm.action = `/api/auth/${userId}`;
+    if (!password) {
+        alert('비밀번호가 입력되지 않았습니다.');
+        return false;
+    }
 
-    // Api.patch(`/api/auth`, userId, )
-    const data = { currentPassword: passwordInput };
     try {
-        await Api.delete(`/api/auth`, userId, data);
-        // alert(result);
-        alert('정상 처리되었습니다.');
-        sessionStorage.clear();
-        // window.location.href = '/';
+        if (!userDelete) {
+            await Api.patch(`/api/auth`, userId, data);
+            alert('정상 처리되었습니다.');
+            window.location.reload();
+        } else {
+            await Api.delete(`/api/auth`, userId, data);
+            alert('정상 처리되었습니다.');
+            sessionStorage.clear();
+            window.location.href = '/';
+        }
+        return true;
     } catch (error) {
         console.error(error.stack);
         alert(`${error.message}`);
-        // return false;
+        return false;
     }
-
-    return false;
 }
 
-async function patchEmail() {
-    const emailInput = document.querySelector('.email_input').value;
-    const passwordInput = getPasswordCheckValue();
-    const userId = sessionStorage.getItem('userId');
 
-    const data = { 
-        email: emailInput,
-        currentPassword: passwordInput
-     };
-    try {
-        await Api.patch(`/api/auth`, userId, data);
-        // alert(result);
-        alert('정상 처리되었습니다.');
-        // fetchUserData();       
-        window.location.reload();
-    } catch (error) {
-        console.error(error.stack);
-        alert(`${error.message}`);
-        // return false;
-    }
+const nameForm = document.querySelector('#name_form');
+const passwordForm = document.querySelector('#password_form');
+const addressForm = document.querySelector('#address_form');
+const numberForm = document.querySelector('#number_form');
+const withdrawForm = document.querySelector('#withdraw_form');
 
-    return false;
-}
 
-async function patchName() {
-    const nameInput = document.querySelector('.name_input').value;
-    const passwordInput = getPasswordCheckValue();
-    const userId = sessionStorage.getItem('userId');
+nameForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    new FormData(e.target);
+})
 
-    const data = { 
+nameForm.addEventListener('formdata', async (e) => {
+
+    const formData = e.formData;
+    const nameInput = formData.get('nameInput');
+    const passwordInput = formData.get('passwordCheck');
+
+
+    const data = {
         fullName: nameInput,
         currentPassword: passwordInput
-     };
-    try {
-        await Api.patch(`/api/auth`, userId, data);
-        // alert(result);
-        alert('정상 처리되었습니다.');
-        // fetchUserData();       
-        window.location.reload();
-    } catch (error) {
-        console.error(error.stack);
-        alert(`${error.message}`);
-        // return false;
+    };
+
+    const resetInput = await patchUserInfo(passwordInput, data);
+
+    if (!resetInput) {
+        e.target.reset();
     }
 
-    return false;
-}
+})
 
-async function patchPassword() {
+passwordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // console.log(e, 'ghkrdls');
+    new FormData(e.target);
+})
 
-}
+passwordForm.addEventListener('formdata', async (e) => {
+    const formData = e.formData;
 
-async function patchLocation() {
+    const currentPassword = formData.get('currentPwd');
+    const newPassword = formData.get('newPwd');
+    const checkPassword = formData.get('checkNewPwd');
 
-}
-
-async function patchNumber() {
-
-}
-
-
-
-function patchUserData(patchTitle) {
-
-    switch (patchTitle) {
-        case 'email':
-            patchEmail();
-            break;
-
-        case 'name':
-            patchName();
-            break;
-
-        case 'password':
-            patchPassword();
-            break;
-
-        case 'location':
-            patchLocation();
-            break;
-
-        case 'number':
-            patchNumber();
-            break;
-
-        case 'withdraw':
-            deleteUser();
-            break;
-
-        default:
-            break;
+    if (newPassword !== checkPassword) {
+        alert('새로 입력하신 패스워드가 다릅니다. 다시입력하세요!');
+        return false;
     }
-    // fetchUserData();
 
 
+    const data = {
+        password: newPassword,
+        currentPassword: currentPassword
+    };
+
+    const resetInput = await patchUserInfo(currentPassword, data);
+
+    if (!resetInput) {
+        e.target.reset();
+    }
+
+})
+
+addressForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    new FormData(e.target);
+})
+
+addressForm.addEventListener('formdata', async (e) => {
+    const formData = e.formData;
+    const addressInput = formData.get('address');
+    const postalInput = formData.get('post');
+    const passwordInput = formData.get('passwordCheck');
+
+    const data = {
+        address: {
+            postalCode: postalInput,
+            address1: addressInput,
+
+        },
+        currentPassword: passwordInput
+    };
+
+    const resetInput = await patchUserInfo(passwordInput, data);
+    if (!resetInput) {
+        e.target.reset();
+    }
+
+})
+
+numberForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    new FormData(e.target);
+})
+
+numberForm.addEventListener('formdata', async (e) => {
+    const formData = e.formData;
+    const numberInput = formData.get('number');
+    const passwordInput = formData.get('passwordCheck');
+
+    const data = {
+        phoneNumber: numberInput,
+        currentPassword: passwordInput
+    };
+
+    const resetInput = await patchUserInfo(passwordInput, data);
+    if (!resetInput) {
+        e.target.reset();
+    }
+
+})
+
+withdrawForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    new FormData(e.target);
+})
+
+withdrawForm.addEventListener('formdata', async (e) => {
+    const formData = e.formData;
+    const passwordInput = formData.get('passwordCheck');
+    const data = { currentPassword: passwordInput };
+
+    const resetInput = await patchUserInfo(passwordInput, data, true);
+    if (!resetInput) {
+        e.target.reset();
+    }
+})
 
 
-
-
-
-}
 
 
 async function fetchUserData() {
-    const domList = ['email', 'name', 'password', 'number', 'location']
+    const domList = ['email', 'name', 'password', 'number', 'address']
         .map((e) => {
             return document.querySelector(`#${e}_area td strong`);
         })
-    const [email, name, password, number, location] = [...domList];
+    const [email, name, password, number, address] = [...domList];
     const userId = sessionStorage.getItem('userId');
 
-    // patch api가 정해지면 진행예정
     try {
         const data = await Api.get('/api/auth/', userId);
         console.log(data);
         email.textContent = data.email;
         name.textContent = data.fullName;
         password.textContent = '변경하시려면 클릭하세요';
-        number.textContent = data.phoneNumber ? data.phoneNumber : '저장된 번호가 없습니다.' ;
-        // location.textContent = data.location;
+        number.textContent = data.phoneNumber ? data.phoneNumber : '저장된 번호가 없습니다.';
+        address.textContent = `우편변호: ${String(data.address.postalCode)} 주소: ${String(data.address.address1)}`;
 
     } catch (error) {
         console.log(error);
@@ -164,4 +315,4 @@ async function fetchUserData() {
 
 
 
-export { patchUserData, fetchUserData };
+export { fetchUserData };
