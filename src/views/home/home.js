@@ -1,63 +1,67 @@
-import Product from './product.js';
 // import * as Api from '/api.js';
+import Product from './product.js';
 import { navTransition } from '../navTransition/navTransition.js';
-import { randomId } from '/useful-functions.js';
-
 
 navTransition('home');
 
-
-const testCase = [
-    { id: 1, name: 'apple', price: 1000 },
-    { id: 2, name: 'banana', price: 2000 },
-    { id: 3, name: 'apple', price: 1000 },
-    { id: 4, name: 'banana', price: 2000 },
-    { id: 5, name: 'apple', price: 1000 },
-    { id: 6, name: 'banana', price: 2000 },
-    { id: 7, name: 'apple', price: 1000 },
-    { id: 8, name: 'banana', price: 2000 },
-    { id: 9, name: 'apple', price: 1000 },
-    { id: 10, name: 'banana', price: 2000 },
-    { id: 11, name: 'apple', price: 1000 },
-    { id: 12, name: 'banana', price: 2000 },
-    { id: 13, name: 'apple', price: 1000 },
-    { id: 14, name: 'banana', price: 2000 },
-    { id: 15, name: 'apple', price: 1000 },
-    { id: 16, name: 'banana', price: 2000 },
-];
-
+const categoryList = ['Shoes', 'Clothes', 'Others'];
 
 const ref = {
+    categoryContainer: document.getElementById('category-container'),
     productContainer: document.getElementById('product-container'),
 };
 
-const option = {
-    root: null,
-    rootMargin: '0px 0px 0px 0px',
-    thredhold: 1,
+const drawCategoryList = (target, categoryList) => {
+    const div = document.createElement('div');
+    div.id = 'category';
+    div.innerHTML = categoryList.reduce(
+        (prev, curr) =>
+            prev +
+            `<a href="#product-container">
+                <button 
+                    class="category-btn" 
+                    onclick=${categoryHandler()}>
+                    ${curr}
+                </button>
+            </a>`,
+        '',
+    );
+    target.appendChild(div);
 };
 
-const render = (target, products) => {
-    products.forEach((product, i) => {
-        const productUI = new Product(product);
-        const productHTML = productUI.template();
-        if (i === 15) {
-            // 새로운 관찰자 지정
-            const observer = new IntersectionObserver((entries, observer) => {
-                if (entries[0].isIntersecting) {
-                    observer.unobserve(entries[0].target);
-                    getData();
-                }
-            }, option);
-            observer.observe(productHTML);
+const drawProductList = (target, productList) => {
+    productList.forEach((p, i) => {
+        const product = new Product(p);
+        const productUI = product.template();
+        if (i === 40) {
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    if (entries[0].isIntersecting) {
+                        observer.unobserve(entries[0].target);
+                        Initialize();
+                    }
+                },
+                {
+                    root: null,
+                    rootMargin: '0px 0px 0px 0px',
+                    thredhold: 1,
+                },
+            );
+            observer.observe(productUI);
         }
-        target.appendChild(productHTML);
+        target.appendChild(productUI);
     });
 };
 
-const getData = () => {
-    const newData = [...testCase];
-    render(ref.productContainer, newData);
+const render = (productList) => {
+    drawCategoryList(ref.categoryContainer, categoryList);
+    drawProductList(ref.productContainer, productList);
 };
 
-getData();
+const Initialize = async (category) => {
+    const res = await fetch(`/api/products?category=${category}`);
+    const data = await res.json();
+    return data.productList;
+};
+
+Initialize('').then((productList) => render(productList));
