@@ -1,6 +1,5 @@
 import * as Api from '/api.js';
 
-
 // async function deleteUser() {
 //     const passwordInput = document.querySelector('.check_password').value;
 //     const userId = sessionStorage.getItem('userId');
@@ -17,7 +16,6 @@ import * as Api from '/api.js';
 
 //     return false;
 // }
-
 
 // async function patchName() {
 //     const nameInput = document.querySelector('.name_input').value;
@@ -129,7 +127,6 @@ import * as Api from '/api.js';
 //     return false;
 // }
 
-
 async function patchUserInfo(password, data, userDelete = false) {
     const userId = sessionStorage.getItem('userId');
 
@@ -157,29 +154,25 @@ async function patchUserInfo(password, data, userDelete = false) {
     }
 }
 
-
 const nameForm = document.querySelector('#name_form');
 const passwordForm = document.querySelector('#password_form');
 const addressForm = document.querySelector('#address_form');
 const numberForm = document.querySelector('#number_form');
 const withdrawForm = document.querySelector('#withdraw_form');
 
-
 nameForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 nameForm.addEventListener('formdata', async (e) => {
-
     const formData = e.formData;
     const nameInput = formData.get('nameInput');
     const passwordInput = formData.get('passwordCheck');
 
-
     const data = {
         fullName: nameInput,
-        currentPassword: passwordInput
+        currentPassword: passwordInput,
     };
 
     const resetInput = await patchUserInfo(passwordInput, data);
@@ -187,14 +180,13 @@ nameForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 passwordForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // console.log(e, 'ghkrdls');
     new FormData(e.target);
-})
+});
 
 passwordForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -208,10 +200,9 @@ passwordForm.addEventListener('formdata', async (e) => {
         return false;
     }
 
-
     const data = {
         password: newPassword,
-        currentPassword: currentPassword
+        currentPassword: currentPassword,
     };
 
     const resetInput = await patchUserInfo(currentPassword, data);
@@ -219,13 +210,12 @@ passwordForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 addressForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 addressForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -237,22 +227,20 @@ addressForm.addEventListener('formdata', async (e) => {
         address: {
             postalCode: postalInput,
             address1: addressInput,
-
         },
-        currentPassword: passwordInput
+        currentPassword: passwordInput,
     };
 
     const resetInput = await patchUserInfo(passwordInput, data);
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 numberForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 numberForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -261,20 +249,19 @@ numberForm.addEventListener('formdata', async (e) => {
 
     const data = {
         phoneNumber: numberInput,
-        currentPassword: passwordInput
+        currentPassword: passwordInput,
     };
 
     const resetInput = await patchUserInfo(passwordInput, data);
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 withdrawForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 withdrawForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -285,16 +272,14 @@ withdrawForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-})
-
-
-
+});
 
 async function fetchUserData() {
-    const domList = ['email', 'name', 'password', 'number', 'address']
-        .map((e) => {
-            return document.querySelector(`#${e}_area td strong`);
-        })
+    const domList = ['email', 'name', 'password', 'number', 'address'].map(
+        (e) => {
+            return document.querySelector(`#${e}_area div div`);
+        },
+    );
     const [email, name, password, number, address] = [...domList];
     const userId = sessionStorage.getItem('userId');
 
@@ -304,15 +289,16 @@ async function fetchUserData() {
         email.textContent = data.email;
         name.textContent = data.fullName;
         password.textContent = '변경하시려면 클릭하세요';
-        number.textContent = data.phoneNumber ? data.phoneNumber : '저장된 번호가 없습니다.';
-        address.textContent = `우편변호: ${String(data.address.postalCode)} 주소: ${String(data.address.address1)}`;
-
+        number.textContent = data.phoneNumber
+            ? data.phoneNumber
+            : '저장된 번호가 없습니다.';
+        address.textContent = `우편변호: ${String(
+            //주소가 없는 경우 처리?
+            data.address.postalCode,
+        )} 주소: ${String(data.address.address1)}`;
     } catch (error) {
         console.log(error);
     }
 }
-
-
-
 
 export { fetchUserData };
