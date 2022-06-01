@@ -124,6 +124,7 @@ adminRouter.get('/product/category', async (req, res, next) => {
 });
 
 // 카테고리 사이즈 조회
+
 adminRouter.get(
     '/product/category/size/:categoryName',
     async (req, res, next) => {
@@ -137,6 +138,17 @@ adminRouter.get(
     },
 );
 
+// 카테고리 아이디로 검색
+adminRouter.get('/product/category/:categoryId', async (req, res, next) => {
+    try {
+        const { categoryId } = req.params;
+        const category = await categoryService.findById(categoryId);
+        res.status(200).json(category);
+    } catch (error) {
+        next(error);
+    }
+});
+
 // 새 카테고리 추가 api
 adminRouter.post('/product/category', async (req, res, next) => {
     try {
@@ -149,6 +161,25 @@ adminRouter.post('/product/category', async (req, res, next) => {
         const categoryInfo = { name, products, size };
         const isValid = await categoryJoiSchema.validateAsync({ name, size });
         const newCategory = await categoryService.addCategory(categoryInfo);
+        res.status(200).json(newCategory);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// 카테고리 업데이트
+adminRouter.patch('/product/category', async (req, res, next) => {
+    try {
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                'headers의 Content-Type을 application/json으로 설정해주세요',
+            );
+        }
+        const { categoryId, name, size } = req.body;
+
+        const categoryInfo = { categoryId, name, size };
+        const isValid = await categoryJoiSchema.validateAsync({ name, size });
+        const newCategory = await categoryService.updateCategory(categoryInfo);
         res.status(200).json(newCategory);
     } catch (error) {
         next(error);

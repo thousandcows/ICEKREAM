@@ -10,12 +10,13 @@ for (let i = 0; i < products.length; i++) {
     const { _id, productName, launchDate, price, quantity } = products[i];
 
     const productId = _id;
+    const priceDisplay = price.toLocaleString('ko-KR');
 
     const div = `
         <div class="columns notification is-info is-light is-mobile orders-top product${productId}">
             <div class="column is-3 ">${productName}</div>
             <div class="column is-2 ">${launchDate}</div>
-            <div class="column is-2 ">${price}원</div>
+            <div class="column is-2 ">${priceDisplay}원</div>
             <div class="column is-1 ">${quantity}</div>
             <div class="column is-1 ">
                 <button class="editButton" id="product${productId}">수정</button>
