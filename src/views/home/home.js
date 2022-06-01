@@ -19,8 +19,7 @@ const drawCategoryList = (target, categoryList) => {
             prev +
             `<a href="#product-container">
                 <button 
-                    class="category-btn" 
-                    onclick=${categoryHandler()}>
+                    class="category-btn">
                     ${curr}
                 </button>
             </a>`,
