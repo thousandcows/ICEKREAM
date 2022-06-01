@@ -17,15 +17,13 @@ export class ProductModel {
     }
     // 3. 상품 상세 정보 조회 기능
     async findById(productId) {
-        const product = await Product.findOne({_id: productId});
+        // const product = await Product.findOne({_id: productId});
         
-        const views = product.views + 1;
         const filter = {_id: productId};
-        const update = {views: views};
+        const update = { $inc : {views: 1}};
         const option = { returnOriginal : false };
-
+        
         const updatedProduct = await Product.findOneAndUpdate(filter, update, option);
-
         return updatedProduct;
     }
     // 4. 상품 추가 기능
@@ -45,7 +43,7 @@ export class ProductModel {
         const filter = {_id: productId};
         const option = { returnOriginal : false };
 
-        const updatedProduct = await Product.findOneAndUpdate(filter, update, option);
+        const updatedProduct = await Product.findByIdAndUpdate(productId, update, option).exec();
         return updatedProduct;
     }
     // 6. 상품 삭제 기능
@@ -71,6 +69,7 @@ export class ProductModel {
         return [productList, totalPage];
         
     }
+
 }
 
 const productModel = new ProductModel();
