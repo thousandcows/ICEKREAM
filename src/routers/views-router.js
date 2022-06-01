@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 
-
 const viewsRouter = express.Router();
 
 // 페이지별로 html, css, js 파일들을 라우팅함
@@ -10,7 +9,7 @@ const viewsRouter = express.Router();
 viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
-
+viewsRouter.use('/login/success', serveStatic('kakao-login')); //카카오 용..
 /*  계정 관리 페이지 라우팅 (임시)  */
 viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.get('/account/update', (req, res) => {
@@ -22,7 +21,6 @@ viewsRouter.get('/account/delete', (req, res) => {
 
 /* 관리자 페이지 라우팅 */
 viewsRouter.use('/admin', serveStatic('admin'));
-
 
 viewsRouter.use('/admin/product', serveStatic('admin-product'));
 viewsRouter.use('/admin/product/add', serveStatic('admin-product-add'));
@@ -39,7 +37,6 @@ viewsRouter.use('/order', serveStatic('order'));
 
 viewsRouter.use('/cart', serveStatic('cart'));
 
-
 viewsRouter.use('/admin', serveStatic('admin'));
 
 // viewsRouter.get('/admin/users', (req, res) => {
@@ -48,8 +45,6 @@ viewsRouter.use('/admin', serveStatic('admin'));
 // viewsRouter.get('/admin/orders', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 // } );
-
-
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));

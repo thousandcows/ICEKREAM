@@ -25,6 +25,7 @@ users.forEach((user) => {
     <div class="table-column"><button id=user${user._id}>${
         user.role
     }</button></div>
+    <div class="table-column">${user.registerType}</div>
     <div class="table-column">${userAddress}</div>`;
     sectionContainer.innerHTML += userContent;
 });

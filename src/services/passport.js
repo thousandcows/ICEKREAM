@@ -87,15 +87,22 @@ const KakaoConfig = {
 const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
     try {
         //여기서 profile에 유저 정보가 있는게 정상 같은데....?
-        const email = profile.provider + profile.id + '@email.com';
-        const user = await userModel.findByEmail(email);
+        const userInfoFromKakao = JSON.parse(profile._raw);
+        const kakaoAccount = userInfoFromKakao.kakao_account;
+        const kakaoEmail = kakaoAccount.email;
+        const kakaoUsername = kakaoAccount.profile.nickname;
+        const kakaoPassword = 'kakaoPassword';
+        const arbPassword = await bcrypt.hash(kakaoPassword, 10);
+
+        const user = await userModel.findByEmail(kakaoEmail);
         if (!user) {
-            const email = profile.provider + profile.id + '@email.com'; // 우선 유저 정보를 불러오는 법을 모르겠다.
+            //카카오와 아닌 계정 분리 고려....
             const userInfo = {
-                email: email, // profile email를 얻는 법?
-                password: 'whateverpassword',
-                fullName: 'kakao user', //우선 유저 정보를 모르겠어서 이렇게 해봄.
+                email: kakaoEmail, // profile email를 얻는 법?
+                password: arbPassword, //일단 username값을 임의의 비밀번호로 사용 이후 hash
+                fullName: kakaoUsername, //우선 유저 정보를 모르겠어서 이렇게 해봄.
                 role: 'basic-user',
+                registerType: 'Kakao',
             };
             const user = await userModel.create(userInfo);
             done(null, user);

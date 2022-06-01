@@ -51,12 +51,7 @@ adminRouter.patch('/:userId', async (req, res, next) => {
         } else {
             newRole = 'admin';
         }
-        const { fullName, password, address, phoneNumber } = user;
         const toUpdate = {
-            ...(fullName && { fullName }),
-            ...(password && { password }),
-            ...(address && { address }),
-            ...(phoneNumber && { phoneNumber }),
             role: newRole,
         };
 
@@ -119,39 +114,40 @@ adminRouter.get('/users/:userId/orders', async (req, res, next) => {
 });
 
 // 카테고리 전체 목록 조회
-adminRouter.get('/product/category', async(req, res, next) => {
+adminRouter.get('/product/category', async (req, res, next) => {
     try {
-
         const categoryList = await categoryService.findAllCategories();
         res.status(200).json(categoryList);
     } catch (error) {
         next(error);
     }
-})
+});
 
 // 카테고리 사이즈 조회
-adminRouter.get('/product/category/size/:categoryName',  async(req, res, next) => {
-    try {
-        const {categoryName} = req.params;
-        const category = await categoryService.findOne(categoryName);
-        res.status(200).json(category);
-    } catch (error) {
-        next(error);
-    }
-})
+
+adminRouter.get(
+    '/product/category/size/:categoryName',
+    async (req, res, next) => {
+        try {
+            const { categoryName } = req.params;
+            const category = await categoryService.findOne(categoryName);
+            res.status(200).json(category);
+        } catch (error) {
+            next(error);
+        }
+    },
+);
 
 // 카테고리 아이디로 검색
 adminRouter.get('/product/category/:categoryId', async (req, res, next) => {
     try {
-        const {categoryId} = req.params;
+        const { categoryId } = req.params;
         const category = await categoryService.findById(categoryId);
         res.status(200).json(category);
     } catch (error) {
         next(error);
     }
-})
-
-
+});
 
 // 새 카테고리 추가 api
 adminRouter.post('/product/category', async (req, res, next) => {
@@ -179,9 +175,9 @@ adminRouter.patch('/product/category', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const {categoryId, name, size} = req.body;
+        const { categoryId, name, size } = req.body;
 
-        const categoryInfo = {categoryId, name, size };
+        const categoryInfo = { categoryId, name, size };
         const isValid = await categoryJoiSchema.validateAsync({ name, size });
         const newCategory = await categoryService.updateCategory(categoryInfo);
         res.status(200).json(newCategory);
@@ -189,7 +185,6 @@ adminRouter.patch('/product/category', async (req, res, next) => {
         next(error);
     }
 });
-
 
 // 카테고리 아이디로 카테고리 삭제
 adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
@@ -216,7 +211,6 @@ adminRouter.get('/product', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-    
 });
 
 // 복사 붙여넣기 인점을 확인... 함수로 정의해야하나?
@@ -288,7 +282,7 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
         });
 
         const update = { price: price, img: img, quantity: quantity };
-        
+
         const updatedProduct = await productService.updateProduct(
             productId,
             update,

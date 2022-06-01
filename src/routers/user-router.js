@@ -24,7 +24,6 @@ userRouter.post('/register', async (req, res, next) => {
             fullName,
             password,
         });
-        console.log('is valid ' + isValid);
         // 위 데이터를 유저 db에 추가하기
         const newUser = await userService.addUser({
             fullName,
@@ -68,7 +67,7 @@ userRouter.post('/login', async (req, res, next) => {
                 req.login(user, { session: false }, (loginError) => {
                     // login을 하면
                     if (loginError) {
-                        res.send(loginError);
+                        res.status(400).send(loginError);
                         return;
                     }
                     const secretKey =
@@ -77,7 +76,11 @@ userRouter.post('/login', async (req, res, next) => {
                         { userId: user._id, role: user.role },
                         secretKey,
                     );
-                    res.json({ token, userId: user._id, role: user.role });
+                    res.status(200).json({
+                        token,
+                        userId: user._id,
+                        role: user.role,
+                    });
                 });
             },
         )(req, res); // 이 부분은 수업 때나 지금이나 이해가 잘 안되지만 필요함.
@@ -108,8 +111,9 @@ userRouter.get(
                 { userId: user._id, role: user.role },
                 secretKey,
             );
-            console.log('token: ' + token);
-            res.json({ token }); //이걸 클라이언트에 제공했을 때: JWT를 저장한는 방법만 찾으면 끝인가?
+            res.status(200).redirect('/login/success?token=' + token); //이걸 클라이언트에 제공했을 때: JWT를 저장한는 방법만 찾으면 끝인가?
+            //도저히 모르겠어서 query 파라미터로 넘기는 방식을 써봅니다... 엘리스거를 봐도 cookie를 쓰는데 그건 싫고요...
+            //다른 자료는 res.render를 쓰는데, 이건 이번 프로젝트와 안어울리는 거 같아요...
         }
     },
 );

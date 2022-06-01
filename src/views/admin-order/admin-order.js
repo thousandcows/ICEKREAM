@@ -3,15 +3,21 @@ import * as Api from '/api.js';
 
 //async event handler - 취소누르면 취소되는 기능
 async function handleCancelOrderClick() {
-    const entireRow = document.querySelectorAll(`.${this.id}`); // 현재 orderId의 줄 node들
-    const sectionContainer = document.querySelector('#section-container'); // parent node
+    const isConfirmed = window.confirm(
+        '주문을 취소하면 되돌릴 수 없습니다. 정말 취소하겠습니까?',
+    );
+    if (isConfirmed) {
+        const entireRow = document.querySelectorAll(`.${this.id}`); // 현재 orderId의 줄 node들
+        const sectionContainer = document.querySelector('#section-container'); // parent node
 
-    entireRow.forEach((el) => {
-        sectionContainer.removeChild(el); // grid에서 삭제할 id의 주문 줄을 전부 골라 삭제
-    });
-    const orderId = this.id.slice(5); //orderId를 다시 그냥 숫자로 변환
-    //주문 삭제
-    await Api.delete('', `api/admin/orders/${orderId}`); // 잘 작동하는 것 확인;
+        entireRow.forEach((el) => {
+            sectionContainer.removeChild(el); // grid에서 삭제할 id의 주문 줄을 전부 골라 삭제
+        });
+        const orderId = this.id.slice(5); //orderId를 다시 그냥 숫자로 변환
+        //주문 삭제
+        await Api.delete('', `api/admin/orders/${orderId}`); // 잘 작동하는 것 확인;}
+        alert('정상적으로 취소되었습니다');
+    }
 }
 
 //order list 생성
