@@ -2,9 +2,7 @@
 import Product from './product.js';
 import { navTransition } from '../navTransition/navTransition.js';
 
-navTransition('home');
-
-const categoryList = ['Shoes', 'Clothes', 'Others'];
+const categoryList = ['All', 'Shoes', 'Clothes', 'Others'];
 
 const ref = {
     categoryContainer: document.getElementById('category-container'),
@@ -17,18 +15,14 @@ const drawCategoryList = (target, categoryList) => {
     div.innerHTML = categoryList.reduce(
         (prev, curr) =>
             prev +
-            `<a href="#product-container">
-                <button 
-                    class="category-btn">
-                    ${curr}
-                </button>
-            </a>`,
+            `<a href="#product-container"><button class="category-btn" id=${curr}>${curr}</button></a>`,
         '',
     );
     target.appendChild(div);
 };
 
 const drawProductList = (target, productList) => {
+    target.innerHTML = '';
     productList.forEach((p, i) => {
         const product = new Product(p);
         const productUI = product.template();
@@ -52,7 +46,18 @@ const drawProductList = (target, productList) => {
     });
 };
 
+const setEvent = () => {
+    const category = document.getElementById('category');
+    category.addEventListener('click', (e) => {
+        console.log(e.target.id);
+        Initialize(e.target.id).then((productList) =>
+            drawProductList(ref.productContainer, productList),
+        );
+    });
+};
+
 const render = (productList) => {
+    navTransition('home');
     drawCategoryList(ref.categoryContainer, categoryList);
     drawProductList(ref.productContainer, productList);
 };
@@ -63,4 +68,6 @@ const Initialize = async (category) => {
     return data.productList;
 };
 
-Initialize('').then((productList) => render(productList));
+Initialize('')
+    .then((productList) => render(productList))
+    .then(() => setEvent());
