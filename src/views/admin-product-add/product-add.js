@@ -9,12 +9,8 @@ const sizeInput = document.querySelector('#sizeInput');
 const inventoryInput = document.querySelector('#inventoryInput');
 const priceInput = document.querySelector('#priceInput');
 
-<<<<<<< HEAD
-addAllElements();
-=======
 
 // addAllElements();
->>>>>>> feature/FE/admin/Auth
 addAllEvents();
 
 // async function addAllElements() {}
