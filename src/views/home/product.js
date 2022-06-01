@@ -18,12 +18,14 @@ export default class Product {
                 <div class="product-name">${this.product.productName}</div>
                 <div class="price">${this.product.price}원</div>
             </div>
+            <button class="cart-btn">장바구니</button>
         `;
+        // setEvent(div);,
         return div;
     }
 
     // setEvent(elem) {
-    //     elem.querySelector('.qty').addEventListener(
+    //     elem.querySelector('.cart-btn').addEventListener(
     //         'click',
     //         this.setCategory.bind(this),
     //     );

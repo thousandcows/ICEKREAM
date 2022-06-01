@@ -3,6 +3,9 @@ import Product from './product.js';
 import { navTransition } from '../navTransition/navTransition.js';
 
 const categoryList = ['All', 'Shoes', 'Clothes', 'Others'];
+let setCategory = '';
+let setPage = 1;
+let perPage = 20;
 
 const ref = {
     categoryContainer: document.getElementById('category-container'),
@@ -22,16 +25,17 @@ const drawCategoryList = (target, categoryList) => {
 };
 
 const drawProductList = (target, productList) => {
-    target.innerHTML = '';
+    if (setPage === 1) target.innerHTML = '';
     productList.forEach((p, i) => {
         const product = new Product(p);
         const productUI = product.template();
-        if (i === 40) {
+        if (i === perPage - 1) {
+            console.log(i);
             const observer = new IntersectionObserver(
                 (entries, observer) => {
                     if (entries[0].isIntersecting) {
                         observer.unobserve(entries[0].target);
-                        Initialize();
+                        getData();
                     }
                 },
                 {
@@ -49,11 +53,19 @@ const drawProductList = (target, productList) => {
 const setEvent = () => {
     const category = document.getElementById('category');
     category.addEventListener('click', (e) => {
-        console.log(e.target.id);
         Initialize(e.target.id).then((productList) =>
             drawProductList(ref.productContainer, productList),
         );
     });
+};
+
+const getData = async () => {
+    setPage += 1;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
+    const data = await res.json();
+    drawProductList(ref.productContainer, data.productList);
 };
 
 const render = (productList) => {
@@ -63,7 +75,11 @@ const render = (productList) => {
 };
 
 const Initialize = async (category) => {
-    const res = await fetch(`/api/products?category=${category}`);
+    setPage = 1;
+    setCategory = category;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
     const data = await res.json();
     return data.productList;
 };
