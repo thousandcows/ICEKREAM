@@ -73,26 +73,30 @@
 
         <!-- 로그인 폼(Form) -->
         <div class="login-form-container">
-            <form class="box login-form-box" id="loginForm">
-                <p class="title is-5 has-text-info">어서오세요!</p>
-                <div class="field">
-                    <label class="label" for="emailInput">이메일</label>
-                    <div class="control">
+            <form class="login-form-box" id="loginForm">
+                <h2 class="login-title">IceKream</h2>
+                <div class="">
+                    <label class="login-label" for="emailInput"
+                        >이메일 주소</label
+                    >
+                    <div class="input-box">
                         <input
-                            class="input"
+                            class="login-input"
                             id="emailInput"
                             type="email"
-                            placeholder="abc@example.com"
+                            placeholder="IceKream@example.com"
                             autocomplete="on"
                         />
                     </div>
                 </div>
 
-                <div class="field mb-5">
-                    <label class="label" for="passwordInput">비밀번호</label>
-                    <div class="control">
+                <div class="">
+                    <label class="login-label" for="passwordInput"
+                        >비밀번호</label
+                    >
+                    <div class="input-box">
                         <input
-                            class="input"
+                            class="login-input"
                             id="passwordInput"
                             type="password"
                             placeholder="********"
@@ -101,13 +105,10 @@
                     </div>
                 </div>
 
-                <button class="button is-info is-fullwidth" id="submitButton">
-                    로그인하기
-                </button>
-                <a href="/api/users/kakao">
-                    <img
-                        src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
-                    />
+                <button class="login-button" id="submitButton">로그인</button>
+
+                <a href="/api/users/kakao" class="login-button">
+                    <img src="/kakao_login_large_wide.png" id="kakaoButton" />
                 </a>
             </form>
         </div>
