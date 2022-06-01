@@ -91,7 +91,8 @@ const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
         const kakaoAccount = userInfoFromKakao.kakao_account;
         const kakaoEmail = kakaoAccount.email;
         const kakaoUsername = kakaoAccount.profile.nickname;
-        const arbPassword = await bcrypt.hash(kakaoUsername, 10);
+        const kakaoPassword = 'kakaoPassword';
+        const arbPassword = await bcrypt.hash(kakaoPassword, 10);
 
         const user = await userModel.findByEmail(kakaoEmail);
         if (!user) {
@@ -101,6 +102,7 @@ const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
                 password: arbPassword, //일단 username값을 임의의 비밀번호로 사용 이후 hash
                 fullName: kakaoUsername, //우선 유저 정보를 모르겠어서 이렇게 해봄.
                 role: 'basic-user',
+                registerType: 'Kakao',
             };
             const user = await userModel.create(userInfo);
             done(null, user);
