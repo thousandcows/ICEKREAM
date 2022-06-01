@@ -1,5 +1,6 @@
-import { navTransition } from '../nav-transition/nav-transition.js';
 
+
+import { navTransition } from './nav-transition.js';
 
 navTransition('adminPage').then( checkData => {
     if (!checkData.isLogined || !checkData.isAdmin) {
@@ -7,3 +8,4 @@ navTransition('adminPage').then( checkData => {
         window.location.href = '/';
     }
 });
+

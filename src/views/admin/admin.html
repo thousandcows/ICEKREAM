@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="admin.css">
     <!-- 외부 css, js -->
     <link rel="stylesheet" href="sidbar.css">
-    <script src="sidbar.js" defer></script>
+    <script src="sidbar.js" type="module" defer></script>
+    <script src="admin.js" type="module"></script>
 
 
     <!-- 폰트 어썸: 아이콘 -->
@@ -22,8 +23,9 @@
 </head>
 
 <body>
+    <!-- <script src="admin.js" type="module"></script> -->
     <!-- 헤더 -->
-    <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container mt-3">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
@@ -53,7 +55,7 @@
                 </ul>
             </div>
         </div>
-    </nav> -->
+    </nav>
 
 
     <!-- 관리자 계정 관리 페이지 -->
@@ -265,7 +267,7 @@
     <div class="container">
         <div class="div_container">
             <div class="account_header">
-                <h1 class="title">계정 관리 페이지</h1>
+                <h1 class="title">관리자 페이지</h1>
             </div>
             <div class="menu_container">
                 <a class="menu_card" href="./orders">주문 조회</a>

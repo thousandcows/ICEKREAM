@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>쇼핑-n팀</title>
+    <!-- 아이콘 -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+    <!-- bulma css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" type="text/html" href="product.css" />
+    <script src="order-view.js" type="module"></script>
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container mt-3">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="/elice-rabbit.png" width="30" height="30" />
+                    <span class="has-text-link">쇼핑-데모</span>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                <ul id="navSelect">
+                    <li class="register_btn"><a href="/register">회원가입</a></li>
+                    <li>
+                        <a href="/cart" aria-current="page">
+                            <span class="icon">
+                                <i class="fas fa-cart-shopping"></i>
+                            </span>
+                            <span>카트</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 주문관리 -->
+    <section class="section">
+        <div class="container">
+            <!-- 제목 -->
+            <div class="block account-header">
+                <h1 class="subtitle is-4">주문 조회</h1>
+            </div>
+
+            <!-- 총 요약 -->
+            <nav class="level">
+
+            </nav>
+
+            <div class="container orders-container" id="productsContainer">
+                <div class="columns notification is-info is-light is-mobile orders-top">
+                    <div class="column is-2">날짜</div>
+                    <div class="column is-6">주문정보</div>
+                    <div class="column is-2">상태</div>
+                    <div class="column is-2">신청</div>
+                </div>
+                <div class="columns orders-item" id="order-62965054eb5d1ed00c620281">
+                    <div class="column is-2">2022-05-31</div>
+                    <div class="column is-6 order-summary">아이보리 니트 / 1개
+                        여성 운동복 / 1개</div>
+                    <div class="column is-2">상품 준비중</div>
+                    <div class="column is-2">
+                        <button class="button" id="deleteButton-62965054eb5d1ed00c620281">주문 취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주문 수정 Modal 창 -->
+    <div id="modal" class="modal">
+        <div class="modal-background" id="modalBackground" style="color: black;"></div>
+        <div class="modal-content">
+            <div class="modal-box">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

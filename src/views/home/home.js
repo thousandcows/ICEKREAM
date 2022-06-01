@@ -1,6 +1,6 @@
 import Product from './product.js';
 // import * as Api from '/api.js';
-import { navTransition } from '../navTransition/navTransition.js';
+import { navTransition } from '../nav-transition/nav-transition.js';
 import { randomId } from '/useful-functions.js';
 
 

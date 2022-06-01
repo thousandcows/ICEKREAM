@@ -12,10 +12,9 @@ async function get(endpoint, params = '') {
 
     // 응답 코드가 4XX 계열일 때 (400, 403 등)
     if (!res.ok) {
-        const errorContent = await res.json();
-        const { reason } = errorContent;
-
-        throw new Error(reason);
+      const errorContent = await res.json();
+      const myError = new Error(errorContent.reason);
+      throw myError;
     }
 
     const result = await res.json();
@@ -29,6 +28,7 @@ async function post(endpoint, data) {
   const apiUrl = endpoint;
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
+
 
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
@@ -46,13 +46,11 @@ async function post(endpoint, data) {
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   // 로그인 정보 없는 사실도 기입해야 함
 
-
+  // debugger;
   if (!res.ok) {
     const errorContent = await res.json();
-    // console.log(res);
-    const reason = errorContent.message;
-
-    throw new Error(reason);
+    const myError = new Error(errorContent.reason);
+    throw myError;
   }
 
   const result = await res.json();
@@ -62,6 +60,7 @@ async function post(endpoint, data) {
 
 // api 로 PATCH 요청 (/endpoint/params 로, JSON 데이터 형태로 요청함)
 async function patch(endpoint, params = '', data) {
+  // debugger;
   const apiUrl = `${endpoint}/${params}`;
 
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
@@ -69,7 +68,7 @@ async function patch(endpoint, params = '', data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPATCH 요청: ${apiUrl}`, 'color: #059c4b;');
   console.log(`%cPATCH 요청 데이터: ${bodyData}`, 'color: #059c4b;');
-
+  // debugger;
   const res = await fetch(apiUrl, {
     method: 'PATCH',
     headers: {
@@ -82,9 +81,8 @@ async function patch(endpoint, params = '', data) {
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {
     const errorContent = await res.json();
-    const { reason } = errorContent;
-
-    throw new Error(reason);
+    const myError = new Error(errorContent.reason);
+    throw myError;
   }
 
   const result = await res.json();
@@ -112,10 +110,9 @@ async function del(endpoint, params = '', data = {}) {
 
     // 응답 코드가 4XX 계열일 때 (400, 403 등)
     if (!res.ok) {
-        const errorContent = await res.json();
-        const { reason } = errorContent;
-
-        throw new Error(reason);
+      const errorContent = await res.json();
+      const myError = new Error(errorContent.reason);
+      throw myError;
     }
 
     const result = await res.json();
