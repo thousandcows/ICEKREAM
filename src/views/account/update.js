@@ -1,10 +1,10 @@
 
-import { navTransition } from "../navTransition/navTransition.js";
-import { fetchUserData } from "./update-patch.js";
+import { navTransition } from "../nav-transition/nav-transition.js";
+import { fetchUserData } from "./form-handler.js";
 
 
-navTransition('update').then( isLogined => {
-    if (!isLogined) {
+navTransition('update').then( checkData => {
+    if (!checkData.isLogined) {
         alert('로그인이 필요한 페이지 입니다...');
         window.location.href = '/';
     }

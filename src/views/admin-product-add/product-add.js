@@ -9,10 +9,11 @@ const sizeInput = document.querySelector('#sizeInput');
 const inventoryInput = document.querySelector('#inventoryInput');
 const priceInput = document.querySelector('#priceInput');
 
-addAllElements();
+
+// addAllElements();
 addAllEvents();
 
-async function addAllElements() {}
+// async function addAllElements() {}
 
 function addAllEvents() {
     getAllCatagories();

@@ -15,9 +15,13 @@ viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.get('/account/update', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/account/update.html'));
 });
-viewsRouter.get('/account/delete', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+
+viewsRouter.get('/account/order-view', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/account/order-view.html'));
 });
+// viewsRouter.get('/account/delete', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+// });
 
 /* 관리자 페이지 라우팅 */
 viewsRouter.use('/admin', serveStatic('admin'));
@@ -27,6 +31,9 @@ viewsRouter.use('/admin/product/add', serveStatic('admin-product-add'));
 
 viewsRouter.use('/admin/category', serveStatic('admin-category'));
 viewsRouter.use('/admin/category/add', serveStatic('admin-category-add'));
+// viewsRouter.get('/admin/category/add', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../views/category/category-add.html'));
+// });
 
 //임시
 viewsRouter.use('/admin/users', serveStatic('admin-user'));

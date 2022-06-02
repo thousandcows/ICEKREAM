@@ -14,6 +14,11 @@
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
     <script src="order.js" type="module" defer></script>
+    <!-- <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=86fb880ec2ea23956cfdc20143ff1cae"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script> -->
+
 </head>
 
 <body>
@@ -80,24 +85,119 @@
                         </tr>
                         <tr>
                             <th scope="row" class="phone_th">
-                                전화번호
+                                연락처
                             </th>
                             <td class="buyer_phone">
                                 <strong></strong>
-                                <form action="/">
-                                    <div>
-                                        <input type="tel" class="customer_phone ">
-                                        <button type="submit">
-                                            변경
-                                        </button>
-                                    </div>
+                                <form id="phone-number-form">
+                                    <fieldset>
+                                        <div>
+                                            <label for="change_number">변경할 연락처 입력</label>
+                                            <input name="numberInput" type="text" class="number_input input_el">
+                                        </div>
+                                        <div>
+                                            <label for="check_password">정보를 변경하려면 아래에 비밀번호를 입력하세요.</label>
+                                            <input id="password_check_input" name="passwordCheck" type="password">
+                                            <button type="submit" id="change_number_btn">변경완료</button>
+                                            <button type="button" id="cancel_number_btn">취소</button>
+                                        </div>
+                                    </fieldset>
                                 </form>
                             </td>
                         </tr>
+                        <tr>
+                            <th scope="row">
+                                배송 주소
+                            </th>
+                            <td class="buyer_address">
+                                <strong></strong>
+                                <form id="address-form">
+                                    <fieldset>
+                                        <div class="current_address">
+                                            <label for="current_address">현재 계정 주소</label><br>
+                                            <strong></strong>
+                                            <button type="button" id="this_select_btn">이 주소로 선택</button>
+                                        </div><br>
+                                        <div>
+                                            <label for="search_address">배송할 주소 검색</label>
+                                            <button type="button" id="search_btn">검색</button><br>
+                                        </div><br>
+                                        <div>
+                                            <label for="select_address">현재 주소지로 선택: </label>
+                                            <button type="submit" id="current_select_btn">확인</button>
+                                        </div>
+                                        <input type="text" id="sample6_postcode" placeholder="우편번호">
+                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                                        <input type="text" id="sample6_address" placeholder="주소"><br>
+                                        <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+
+                                        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                                        <script>
+                                            function sample6_execDaumPostcode() {
+                                                new daum.Postcode({
+                                                    oncomplete: function (data) {
+                                                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                                                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                                        var addr = ''; // 주소 변수
+                                                        var extraAddr = ''; // 참고항목 변수
+
+                                                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                                            addr = data.roadAddress;
+                                                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                                            addr = data.jibunAddress;
+                                                        }
+
+                                                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                                        if (data.userSelectedType === 'R') {
+                                                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                                            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                                                extraAddr += data.bname;
+                                                            }
+                                                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                                                            if (data.buildingName !== '' && data.apartment === 'Y') {
+                                                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                                            }
+                                                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                                            if (extraAddr !== '') {
+                                                                extraAddr = ' (' + extraAddr + ')';
+                                                            }
+                                                            // 조합된 참고항목을 해당 필드에 넣는다.
+                                                            document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                                                        } else {
+                                                            document.getElementById("sample6_extraAddress").value = '';
+                                                        }
+
+                                                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                                        document.getElementById('sample6_postcode').value = data.zonecode;
+                                                        document.getElementById("sample6_address").value = addr;
+                                                        // 커서를 상세주소 필드로 이동한다.
+                                                        document.getElementById("sample6_detailAddress").focus();
+                                                    }
+                                                }).open();
+                                            }
+                                        </script>
+                                        <!-- <div>
+                                            <input name="addressInput1" type="text" id="main_address_input"
+                                                class="address_input input_el">
+                                            <input name="addressInput2" type="text" placeholder="상세주소 입력"
+                                                class="address_input input_el">
+                                        </div> -->
+                                    </fieldset>
+                                </form>
+                            </td>
+                        </tr>
+
+
                     </tbody>
                 </table>
             </div>
-            <h2 class="recipient_title h2_title">수령인 정보</h2>
+            <!-- <h2 class="recipient_title h2_title">수령인 정보</h2>
             <div class="recipient">
                 <table class="recipient_table table_element">
                     <tbody>
@@ -132,38 +232,53 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
             <!-- <h2 class="h2_title">배송 정보</h2>
             <div class="orderlist">
                 <table></table>
             </div> -->
+            <!-- 각각의 상품에 대한 정보를 넣는다. -->
+            <h2 class="orderinfo_title h2_title">주문 정보</h2>
+            <div class="orderinfo">
+                <table class="orderinfo_table table_element">
+                    <tbody>
+                        <tr id="payment_tr">
+                            <th scope="row">상품가격</th>
+                            <td>
+                                <strong></strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h2 class="payment_title h2_title">결제 정보</h2>
             <div class="payment">
                 <table class="payment_table table_element">
                     <tbody>
+                        <!-- <tr>
+                            <th scope="row" id="total_th">총상품가격</th>
+                            <td></td>
+                        </tr> -->
                         <tr>
-                            <th scope="row" class="total_th">총상품가격</th>
+                            <th scope="row" id="payment_th">총결제금액</th>
                             <td></td>
                         </tr>
                         <tr>
-                            <th scope="row" class="discount_th">즉시할인</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="coupon_th">할인쿠폰</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="delivery_th">배송비</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="payment_th">총결제금액</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="option_th">결제방법</th>
-                            <td></td>
+                            <th scope="row" id="option_th">결제방법</th>
+                            <td>
+                                <label for="pet-select">선택해 주세요:</label>
+
+                                <select id="payment-option-select">
+                                    <option value="">--Please choose an option--</option>
+                                    <option value="card">카드</option>
+                                    <option value="virtual">가상 계좌</option>
+                                    <option value="transfer">계좌 이체</option>
+                                    <option value="phone">휴대전화</option>
+                                    <option value="kakao">카카오 페이</option>
+                                    <option value="naver">네이버 페이</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -212,7 +327,7 @@
                 </form>
             </div>
         </div>
-    </div> -->
+    </div>
 
 
 </body>
