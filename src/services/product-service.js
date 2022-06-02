@@ -103,6 +103,7 @@ class ProductService {
         
         for (let i = 0; i < productList.length; i++){
             
+
             const {id, quantity} = productList[i];
 
             // 7-1. 재고 확인

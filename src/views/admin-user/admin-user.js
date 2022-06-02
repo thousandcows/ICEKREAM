@@ -9,10 +9,12 @@ async function handleSwitchRole() {
     } else {
         this.innerHTML = 'basic-user';
     }
+    this.classList.toggle('admin');
+    this.classList.toggle('basic-user');
 }
 
 const users = await Api.get('', 'api/admin/users');
-const sectionContainer = document.querySelector('#section-container');
+const sectionContainer = document.querySelector('.section-container');
 users.forEach((user) => {
     let userAddress = user.address
         ? user.address.postalCode + user.address.address1
@@ -22,9 +24,9 @@ users.forEach((user) => {
     let userContent = `<div class="table-column">${userEmail}</div>
     <div class="table-column">${fullname}</div>
     <div class="table-column">${user.phoneNumber || 'not available'}</div>
-    <div class="table-column"><button id=user${user._id}>${
-        user.role
-    }</button></div>
+    <div class="table-column"><button class="role-button ${user.role}" id=user${
+        user._id
+    }>${user.role}</button></div>
     <div class="table-column">${user.registerType}</div>
     <div class="table-column">${userAddress}</div>`;
     sectionContainer.innerHTML += userContent;

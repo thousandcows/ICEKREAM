@@ -10,7 +10,7 @@ import {
 } from './routers';
 import { productRouter } from './routers/product-router';
 
-import { errorHandler } from './middlewares';
+import { errorHandler, notFoundHandler } from './middlewares';
 import {
     passportConfiguration,
     JWTConfiguration,
@@ -54,6 +54,7 @@ app.use('/api/products', productRouter);
 // 상품이 구매되면, quantity -1 해야함. orderSchema에 구매시 상품이 확실히 반영..
 //상품 조회하면 view 올라가야함 +1
 
+app.use(notFoundHandler);
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
 // 그래야, 에러가 났을 때 next(error) 했을 때 여기로 오게 됨
 app.use(errorHandler);

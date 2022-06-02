@@ -26,7 +26,7 @@ const sectionContainer = document.querySelector('#section-container');
 orders.forEach((order) => {
     let orderDate = order.createdAt.slice(0, 10); //date만 slice
     let deliveryAddress =
-        order.deliveryAddress.postalCode + order.deliveryAddress.address1; //주소 변환
+        order.deliveryAddress.postalCode + ' ' + order.deliveryAddress.address1; //주소 변환
     let productListLength = order.productList.length; // 만약에 딱 한개의 상품 종류만 구입했다면,
     let productList = '';
     if (productListLength === 1) {
@@ -47,7 +47,7 @@ orders.forEach((order) => {
     <div class="table-column order${orderId}">${paymentStatus}</div>
     <div class="table-column order${orderId}">${billingMethod}</div>
     <div class="table-column order${orderId}">
-                    <button id=order${orderId} >Cancel Order</button>
+                    <button class="cancel-button" id=order${orderId} >Cancel</button>
                 </div>
     `;
 

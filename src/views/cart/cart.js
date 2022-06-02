@@ -3,20 +3,6 @@ import { navTransition } from '../nav-transition/nav-transition.js';
 
 navTransition('cart');
 
-// 테스트 케이스
-(function testCart() {
-    localStorage.setItem(
-        'cart',
-        JSON.stringify({
-            1: { name: 'apple', price: 1000, checked: true, quantity: 1 },
-            2: { name: 'orange', price: 2000, checked: false, quantity: 3 },
-            3: { name: 'banana', price: 3000, checked: true, quantity: 4 },
-            4: { name: 'apple', price: 1000, checked: false, quantity: 1 },
-            5: { name: 'orange', price: 2000, checked: true, quantity: 2 },
-        }),
-    );
-})();
-
 const ref = {
     productContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),

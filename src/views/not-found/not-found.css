@@ -1,0 +1,48 @@
+main{
+    height: 100vh;
+    color: black;
+}
+.message-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:80%;
+}
+
+.not-found-message{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.not-found-message i{
+    font-size: 3rem;
+    margin-right:2rem;
+}
+.explanation{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.explanation h3{
+    margin-top:1rem;
+}
+.message-container button{
+    color: white;
+    border: 1px solid black;
+    background-color: black;
+    border-radius: 0.5rem;
+    padding:0.5rem 0.8rem;
+    margin-top: 2rem;
+}
+
+.message-container button:hover{
+    background-color: white;
+    color:black;
+    cursor: pointer;
+}
