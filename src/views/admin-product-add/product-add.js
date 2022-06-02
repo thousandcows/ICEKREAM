@@ -4,6 +4,7 @@ const submitBtn = document.querySelector('#submitButton');
 const categoryBox = document.querySelector('#categorySelectBox');
 const nameInput = document.querySelector('#nameInput');
 const brandInput = document.querySelector('#manufacturerInput');
+const imgInput = document.querySelector('#imgInput');
 const launchDateInput = document.querySelector('#launchDateInput');
 const sizeInput = document.querySelector('#sizeInput');
 const inventoryInput = document.querySelector('#inventoryInput');
@@ -65,7 +66,7 @@ async function handleSubmit(e) {
             const launchDate = toStringByFormatting(
                 new Date(launchDateInput.value),
             );
-            const img = 'https://www.naver.com';
+            const img = imgInput.value;
             const quantity = inventoryInput.value;
             const size = getSizeArray(sizeInput.value);
             const data = {

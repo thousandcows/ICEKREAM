@@ -1,0 +1,148 @@
+.section-container {
+    display: grid;
+    width:60%;
+    grid-template-columns:  4fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+      
+  }
+
+main{
+    margin-top:2rem;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.table-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding:0.5rem;
+    font-size:small;
+    font-weight: 500;
+    color:black;
+    border-bottom:solid 2px rgb(220,220,220);
+    
+}
+
+.section-container .title-column{
+    border-top: 1px solid black;
+    font-size:large;
+    font-weight: 600;
+    background-color: rgb(250,250,250);
+}
+
+.editButton{
+    width:5rem;
+    height:2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border:none;
+}
+.admin{
+    background-color: rgb(254, 223, 223);
+}
+.basic-user{
+    background-color: rgb(220,220,220);
+}
+.editButton:hover{
+    cursor:pointer;
+    background-color: rgb(244, 191, 191);
+}
+
+.deleteButton{
+    width:5rem;
+    height:2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border:none;
+}
+
+.deleteButton:hover{
+    cursor:pointer;
+    background-color: rgb(244, 191, 191);
+}
+
+.modal-content{
+    overflow: hidden;
+}
+
+.modal {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color:black;
+  }
+
+.modal-box {
+  flex-direction: column;
+  justify-content: bottom;
+  align-items: center;
+}
+
+.title{
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom:4rem;
+  color: rgb(244, 191, 191)
+}
+
+.label{
+  font-size:1rem;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.input{
+  width:40rem;
+  height:4rem;
+  margin-bottom:3rem;
+  border:none;
+  border-bottom:solid 1px rgb(240,240,240);
+}
+.input:focus{
+  outline: none;
+  border-bottom: solid 1px rgb(140, 192, 222);
+}
+.update-button{
+  width:40rem;
+  height:4rem;
+  margin-bottom:0.5rem;
+  border:none;
+  border-radius: 0.5rem;
+  font-size: medium;
+  background-color:rgb(140, 192, 222);
+  color: black;
+  font-weight: bold;
+}
+
+.cancel-button{
+    width:40rem;
+    height:4rem;
+    margin-bottom:0.5rem;
+    border:none;
+    border-radius: 0.5rem;
+    font-size: medium;
+    background-color:rgb(255, 217, 192);
+    color: black;
+    font-weight: bold;
+  }
+
+button:hover{
+  cursor:pointer;
+  background-color: rgb(254, 223, 223);
+}
+
+.delete-button{
+  width:40rem;
+  height:4rem;
+  margin-bottom:0.5rem;
+  border:none;
+  border-radius: 0.5rem;
+  font-size: medium;
+  background-color:rgb(140, 192, 222);
+  color: black;
+  font-weight: bold;
+}
