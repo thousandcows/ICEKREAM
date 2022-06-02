@@ -1,13 +1,13 @@
 export default class Product {
-    constructor(target, id, product) {
+    constructor(target, product, userSelectInfo) {
         this.target = target;
-        this.id = id;
         this.product = product;
+        this.userSelectInfo = userSelectInfo;
     }
 
     template(idx) {
         const li = document.createElement('li');
-        li.id = this.id;
+        li.id = this.product._id;
         if (idx % 2 === 0) {
             li.classList.add('items', 'even');
         } else {
@@ -17,16 +17,16 @@ export default class Product {
           <div class="infoWrap">
                 <input type="checkbox" class="select-btn"/>
                 <div class="cartSection">
-                    <img src="./product.png" alt="" class="itemImg" />
-                    <h3>${this.product.name}</h3>
+                    <img src=${this.product.img} alt="" class="itemImg" />
+                    <h3>${this.product.productName}</h3>
                     <p><input type="text" class="qty" placeholder=${
-                        this.product.quantity
+                        this.userSelectInfo.quantity
                     } />x ${this.product.price}</p>
                     <p class="stockStatus">In Stock</p>
                 </div>
                 <div class="prodTotal cartSection">
                     <p class="prod-total-text">${
-                        this.product.price * this.product.quantity
+                        this.product.price * this.userSelectInfo.quantity
                     }</p>
                 </div>
                 <div class="cartSection remove-btn">
@@ -39,6 +39,10 @@ export default class Product {
     }
 
     setEvent(elem) {
+        elem.querySelector('.select-btn').addEventListener(
+            'change',
+            this.select.bind(this),
+        );
         elem.querySelector('.qty').addEventListener(
             'input',
             this.update.bind(this),
@@ -47,10 +51,6 @@ export default class Product {
             'click',
             this.del.bind(this),
         );
-        elem.querySelector('.select-btn').addEventListener(
-            'change',
-            this.select.bind(this),
-        );
     }
 
     select() {
@@ -58,38 +58,44 @@ export default class Product {
         const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.id)
+            .getElementById(this.product._id)
             .querySelector('.select-btn');
+
         if (input.checked) {
             quantity.innerText =
-                Number(quantity.innerText) + this.product.quantity;
+                parseInt(quantity.innerText) + this.userSelectInfo.quantity;
             subTotal.innerText =
-                Number(subTotal.innerText) +
-                this.product.quantity * this.product.price;
+                parseInt(subTotal.innerText) +
+                this.userSelectInfo.quantity * this.product.price;
             total.innerText =
-                Number(total.innerText) +
-                this.product.quantity * this.product.price;
+                parseInt(total.innerText) +
+                this.userSelectInfo.quantity * this.product.price;
         } else {
             quantity.innerText =
-                Number(quantity.innerText) - this.product.quantity;
+                parseInt(quantity.innerText) - this.userSelectInfo.quantity;
             subTotal.innerText =
-                Number(subTotal.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(subTotal.innerText) -
+                this.userSelectInfo.quantity * this.product.price;
             total.innerText =
-                Number(total.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(total.innerText) -
+                this.userSelectInfo.quantity * this.product.price;
         }
     }
 
     update(e) {
         const cart = JSON.parse(localStorage.getItem('cart'));
-        const newQty = Number(e.target.value);
-        const oldQty = Number(cart[this.id].quantity);
+
+        // 새로 변경한 수량
+        const newQty = parseInt(e.target.value);
+        // 이전 수량
+        const oldQty = parseInt(this.userSelectInfo.quantity);
+
         cart[this.id].quantity = newQty;
-        this.product.quantity = newQty;
+        this.userSelectInfo.quantity = newQty;
+
         localStorage.setItem('cart', JSON.stringify(cart));
         const prodTotal = document
-            .getElementById(this.id)
+            .getElementById(this.product._id)
             .querySelector('.prod-total-text');
         prodTotal.innerText = newQty * this.product.price;
 
@@ -97,26 +103,27 @@ export default class Product {
         const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.id)
+            .getElementById(this.productid)
             .querySelector('.select-btn');
+
         if (input.checked) {
             if (newQty > oldQty) {
                 quantity.innerText =
-                    Number(quantity.innerText) + (newQty - oldQty);
+                    parseInt(quantity.innerText) + (newQty - oldQty);
                 subTotal.innerText =
-                    Number(subTotal.innerText) +
+                    parseInt(subTotal.innerText) +
                     this.product.price * (newQty - oldQty);
                 total.innerText =
-                    Number(total.innerText) +
+                    parseInt(total.innerText) +
                     this.product.price * (newQty - oldQty);
             } else {
                 quantity.innerText =
-                    Number(quantity.innerText) - (oldQty - newQty);
+                    parseInt(quantity.innerText) - (oldQty - newQty);
                 subTotal.innerText =
-                    Number(subTotal.innerText) -
+                    parseInt(subTotal.innerText) -
                     this.product.price * (oldQty - newQty);
                 total.innerText =
-                    Number(total.innerText) -
+                    parseInt(total.innerText) -
                     this.product.price * (oldQty - newQty);
             }
         }
@@ -127,21 +134,21 @@ export default class Product {
         const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.id)
+            .getElementById(this.product._id)
             .querySelector('.select-btn');
         if (input.checked) {
             quantity.innerText =
-                Number(quantity.innerText) - this.product.quantity;
+                parseInt(quantity.innerText) - this.userSelectInfo.quantity;
             subTotal.innerText =
-                Number(subTotal.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(subTotal.innerText) -
+                this.userSelectInfo.quantity * this.product.price;
             total.innerText =
-                Number(total.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(total.innerText) -
+                this.userSelectInfo.quantity * this.product.price;
         }
         const cart = JSON.parse(localStorage.getItem('cart'));
-        delete cart[this.id];
-        localStorage.setItem('cart', JSON.stringify(cart));
-        this.target.removeChild(document.getElementById(this.id));
+        const newCart = cart.filter((p) => p.id !== this.product._id);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+        this.target.removeChild(document.getElementById(this.product._id));
     }
 }

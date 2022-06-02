@@ -35,13 +35,16 @@ export default class Product {
         const cartCount = document.getElementById('cart-count');
         const cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) {
-            localStorage.setItem('cart', JSON.stringify([this.product._id]));
+            localStorage.setItem(
+                'cart',
+                JSON.stringify([{ id: this.product._id, quantity: 3 }]),
+            );
             alert('장바구니에 담겼습니다.');
             cartCount.innerText = parseInt(cartCount.innerText) + 1;
         } else {
             const checkId = cart.find((id) => id === this.product._id);
             if (!checkId) {
-                cart.push(this.product._id);
+                cart.push({ id: this.product._id, quantity: 2 });
                 localStorage.setItem('cart', JSON.stringify(cart));
                 alert('장바구니에 담겼습니다.');
                 cartCount.innerText = parseInt(cartCount.innerText) + 1;

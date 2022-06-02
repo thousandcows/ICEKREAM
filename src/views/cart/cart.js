@@ -3,26 +3,21 @@ import { navTransition } from '../nav-transition/nav-transition.js';
 
 navTransition('cart');
 
-// 테스트 케이스
-(function testCart() {
-    localStorage.setItem(
-        'cart',
-        JSON.stringify({
-            1: { name: 'apple', price: 1000, checked: true, quantity: 1 },
-            2: { name: 'orange', price: 2000, checked: false, quantity: 3 },
-            3: { name: 'banana', price: 3000, checked: true, quantity: 4 },
-            4: { name: 'apple', price: 1000, checked: false, quantity: 1 },
-            5: { name: 'orange', price: 2000, checked: true, quantity: 2 },
-        }),
-    );
-})();
-
 const ref = {
-    productContainer: document.querySelector('.cart'),
+    cartContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),
 };
 
-const addEvents = () => {
+const drawCartList = (target, productList) => {
+    console.log(productList);
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    productList.forEach((product, i) => {
+        const productUI = new Product(target, product, cart[i]);
+        target.appendChild(productUI.template(i));
+    });
+};
+
+const setEvents = () => {
     ref.selectAllBtn.addEventListener('input', () => {
         const selectBtns = document.querySelectorAll('.select-btn');
         if (ref.selectAllBtn.checked) {
@@ -37,15 +32,18 @@ const addEvents = () => {
     });
 };
 
-// id에 해당되는 실제 데이터 요청 필요
-const initialCart = () => JSON.parse(localStorage.getItem('cart'));
-
-const render = (target, products) => {
-    Object.entries(products).forEach(([key, value], i) => {
-        const product = new Product(target, key, value);
-        target.appendChild(product.template(i));
-    });
+const initialize = async () => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    let query = cart.reduce((prev, curr) => prev + `id=${curr.id}&`, '');
+    const res = await fetch(`/api/products/cart?${query}`);
+    const cartList = await res.json();
+    return cartList;
 };
 
-render(ref.productContainer, initialCart());
-addEvents();
+const render = (productList) => {
+    drawCartList(ref.cartContainer, productList);
+};
+
+initialize()
+    .then((cartList) => render(cartList))
+    .then(() => setEvents());
