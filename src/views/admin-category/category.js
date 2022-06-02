@@ -2,7 +2,7 @@ import * as Api from '/api.js';
 
 // 1. 카테고리 조회 기능
 const categories = await Api.get('/api/admin/product/category', '');
-const categoryContainer = document.querySelector('#categoryContainer');
+const categoryContainer = document.querySelector('.section-container');
 const modal = document.querySelector('#modal');
 const modalBox = document.querySelector('.modal-box');
 
@@ -19,20 +19,18 @@ categories.forEach((category) => {
     
     const numberOfProducts = products.length;
 
-
     const categoryContent = `
-        <div class="columns notification is-info is-light is-mobile orders-top category${categoryId}">
-            <div class="column is-2 ">${name}</div>
-            <div class="column is-2 ">${numberOfProducts}</div>
-            <div class="column is-2 ">${sizeDisplay}</div>
-            <div class="column is-2 ">
+            <div class="table-column title-column">${name}</div>
+            <div class="table-column title-column">${numberOfProducts}</div>
+            <div class="table-column title-column">${sizeDisplay}</div>
+            <div class="table-column title-column">
                 <button class="editButton" id="category${categoryId}">수정</button>
             </div>
-            <div class="column is-1 category${categoryId}">
+            <div class="table-column title-column">
                 <button class="deleteButton" id="category${categoryId}">삭제</button>
             </div>
-        </div>
         `;
+
         categoryContainer.innerHTML += categoryContent;
 });
 
@@ -105,10 +103,10 @@ async function editModal() {
             </div>
             </div>
                 <div class="buttons">
-                    <button class="button mt-5" id="editCompleteButton"aria-label="close">
+                    <button class="update-button" id="category${categoryId}">
                       변경
                     </button>
-                    <button class="button is-primary mt-5" id="editCancelButton" aria-label="close">
+                    <button class="cancel-button" id="category${categoryId}">
                       취소
                     </button>
             </div>
@@ -117,8 +115,8 @@ async function editModal() {
     modalBox.innerHTML += informationToUpdate;
     modal.style.display = 'flex';
 
-    const editBtn = document.querySelector('#editCompleteButton');
-    const cancelBtn = document.querySelector('#editCancelButton');
+    const editBtn = document.querySelector('.update-button');
+    const cancelBtn = document.querySelector('.cancel-button');
 
 
     editBtn.addEventListener('click', () => {
@@ -133,7 +131,7 @@ async function editModal() {
             let newInfo = {categoryId, newName, newSize};
 
             updateCategory(newInfo);
-
+            
         } else{
             closeModal();
         }
@@ -164,6 +162,7 @@ async function updateCategory(categoryInfo){
 
     if (result) {
         alert('성공적으로 수정되었습니다!');
+        
         closeModal();
     }
 
