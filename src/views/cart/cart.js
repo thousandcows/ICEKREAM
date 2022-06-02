@@ -1,4 +1,7 @@
 import Product from './product.js';
+import { navTransition } from '../nav-transition/nav-transition.js';
+
+navTransition('cart');
 
 // 테스트 케이스
 (function testCart() {

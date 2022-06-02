@@ -9,18 +9,49 @@ const viewsRouter = express.Router();
 viewsRouter.use('/', serveStatic('home'));
 viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
-
+viewsRouter.use('/login/success', serveStatic('kakao-login')); //카카오 용..
 /*  계정 관리 페이지 라우팅 (임시)  */
 viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.get('/account/update', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/account/update.html'));
 });
-viewsRouter.get('/account/delete', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+
+viewsRouter.get('/account/order-view', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/account/order-view.html'));
 });
+// viewsRouter.get('/account/delete', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+// });
+
+/* 관리자 페이지 라우팅 */
+viewsRouter.use('/admin', serveStatic('admin'));
+
+viewsRouter.use('/admin/product', serveStatic('admin-product'));
+viewsRouter.use('/admin/product/add', serveStatic('admin-product-add'));
+
+viewsRouter.use('/admin/category', serveStatic('admin-category'));
+viewsRouter.use('/admin/category/add', serveStatic('admin-category-add'));
+// viewsRouter.get('/admin/category/add', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../views/category/category-add.html'));
+// });
+
+//임시
+viewsRouter.use('/admin/users', serveStatic('admin-user'));
+viewsRouter.use('/admin/orders', serveStatic('admin-order'));
 
 /*  결제 페이지 라우팅 (임시)  */
 viewsRouter.use('/order', serveStatic('order'));
+
+viewsRouter.use('/cart', serveStatic('cart'));
+
+viewsRouter.use('/admin', serveStatic('admin'));
+
+// viewsRouter.get('/admin/users', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../views/account/update.html'));
+// });
+// viewsRouter.get('/admin/orders', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+// } );
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));

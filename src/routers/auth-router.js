@@ -6,12 +6,36 @@ import { userService } from '../services';
 import { orderService } from '../services/order-service';
 
 import { productService } from '../services/product-service';
+import {
+    productJoiSchema,
+    productUpdateJoiSchema,
+} from '../db/schemas/joi-schemas/product-joi-schema';
 
+import { userUpdateJoiSchema } from '../db/schemas/joi-schemas/user-joi-schema';
 const authRouter = Router();
 
-// 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
+//사용자 아이디 api
+authRouter.get('/', async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        res.status(200).json({ userId });
+    } catch (error) {
+        next(error);
+    }
+});
 
-// 사용자 정보 수정
+//사용자 정보 api
+authRouter.get('/:userId', async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const userData = await userService.getUser(userId);
+        res.status(200).json(userData);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// 사용자 정보 수정 //정보 유효성에 new 비밀번호와 현재 일치도 봐야할 듯.
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 authRouter.patch('/:userId', async (req, res, next) => {
     try {
@@ -27,21 +51,29 @@ authRouter.patch('/:userId', async (req, res, next) => {
         const { userId } = req.params;
 
         // body data 로부터 업데이트할 사용자 정보를 추출함.
-        const { fullName } = req.body;
-        const { password } = req.body;
-        const { address } = req.body;
-        const { phoneNumber } = req.body;
-        const { role } = req.body;
-
-        // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
-        const { currentPassword } = req.body;
-
+        const {
+            fullName,
+            password,
+            address,
+            phoneNumber,
+            role,
+            currentPassword,
+        } = req.body;
+        const isValid = await userUpdateJoiSchema.validateAsync({
+            fullName,
+            password,
+            address,
+            role,
+            phoneNumber,
+            currentPassword,
+        });
         // currentPassword 없을 시, 진행 불가
-        if (!currentPassword) {
-            throw new Error('정보를 변경하려면, 현재의 비밀번호가 필요합니다.');
+        if (currentPassword === password) {
+            throw new Error('새 비밀번호는 현재 비밀번호와 같을 수 없습니다.');
         }
 
         const userInfoRequired = { userId, currentPassword };
+        //user current password와 password가 다른지 확인해야하나?
 
         // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
         // 보내주었다면, 업데이트용 객체에 삽입함.
@@ -105,8 +137,14 @@ authRouter.get('/:userId/orders', async (req, res, next) => {
 authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
     try {
         //이 때 유저 아이디가 주문아이디랑 일치하나 확인을 해야할까?
-        const userId = req.user._id;
-        const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const { userId, orderId } = req.params;
+        //어떻게 order_id를 가져오는지는 정확히 모르겠다.
+        const checkUserId = await orderService.findUser(orderId);
+        if (checkUserId !== userId) {
+            throw new Error(
+                '유저 아이디 정보와 주문 아이디 정보가 일치하지 않습니다.',
+            );
+        }
         const deletedOrder = await orderService.deleteUserOrder(orderId);
         if (deletedOrder) {
             await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
@@ -120,7 +158,7 @@ authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
 });
 
 // 할거 auth + product get/patch/delete api : user의 상품 관련 기능
-// userId 가 url에 필요 없을 거 같은데...
+
 authRouter.post('/:userId/product', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -128,54 +166,46 @@ authRouter.post('/:userId/product', async (req, res, next) => {
                 'headers의 Content-Type을 application/json으로 설정해주세요',
             );
         }
-        const { category } = req.body;
-        const { brand } = req.body;
-        const { productName } = req.body;
-        const { price } = req.body;
-        const { launchDate } = req.body;
-        const { img } = req.body;
-        const { views } = req.body;
-        const { quantity } = req.body;
-        const { purchaseCount } = req.body;
-        const { sellerId } = req.user._id;
-        if (!category) {
-            throw new Error('카테고리 정보를 입력해주세요.');
-        }
-        if (!brand) {
-            throw new Error('브랜드 정보를 입력해주세요.');
-        }
-        if (!productName) {
-            throw new Error('상품 이름을 입력해주세요.');
-        }
-        if (!price || price <= 0) {
-            throw new Error('가격을 다시 입력해주세요.');
-        }
-        //launch date를 어떻게 할까...
-        if (!img) {
-            throw new Error(
-                '상품 이미지 정보를 입력해주세요.', // 이게 url인데 생각해봅시다.
-            );
-        }
-        if (!quantity || quantity <= 0) {
-            ('상품 수량/재고를 다시 입력해주세요.');
-        }
+
+        const sellerId = req.user._id;
+        const {
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        } = req.body;
+
+        const isValid = await productJoiSchema.validateAsync({
+            category,
+            brand,
+            productName,
+            price,
+            launchDate,
+            img,
+            quantity,
+            size,
+        });
+        //isValid가 형식에 맞지 않으면 error를 throw함.
         const productInfo = {
             brand: brand,
             productName: productName,
             price: price,
             launchDate: launchDate,
             img: img,
-            views: views,
             quantity: quantity,
-            purchaseCount: purchaseCount,
+            size: size,
             sellerId: sellerId,
+            size: size,
         };
 
         const newProduct = await productService.addProduct(
             category,
             productInfo,
         );
-        console.log(newProduct);
 
         res.status(200).json(newProduct);
     } catch (error) {
@@ -193,13 +223,16 @@ authRouter.patch('/:userId/:productId', async (req, res, next) => {
         }
         const { productId } = req.params;
         const { price, img, quantity } = req.body; // 이걸 query로 해야하나 ? 아니면 위의 코드 같이? 생각해 봅시다.
+        const isValid = await productUpdateJoiSchema.validateAsync({
+            price,
+            img,
+            quantity,
+        });
         const update = { price: price, img: img, quantity: quantity };
-        console.log(update);
         const updatedProduct = await productService.updateProduct(
             productId,
             update,
         );
-        console.log(updatedProduct);
         res.status(200).json(updatedProduct);
     } catch (error) {
         next(error);

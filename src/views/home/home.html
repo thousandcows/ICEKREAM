@@ -5,13 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>쇼핑-n팀</title>
-  <!-- 아이콘 -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-  <!-- bulma css -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-  <!-- 폰트 어썸: 아이콘 -->
-  <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-  <!-- 커스텀 css, js -->
   <link rel="stylesheet" href="home.css" />
   <script src="home.js" type="module" defer></script>
 </head>
@@ -19,7 +13,7 @@
 <body>
   <!-- 헤더 -->
   <nav class="navbar" role="navigation" aria-label="main navigation">
-    <!-- <div class="container mt-3">
+    <div class="container mt-3">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
           <img src="/elice-rabbit.png" width="30" height="30" />
@@ -34,20 +28,37 @@
       </div>
 
       <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+        <ul id="navSelect">
+          <li class="register_btn"><a href="/register">회원가입</a></li>
+          <li>
+            <a href="/cart" aria-current="page">
+              <span class="icon">
+                <i class="fas fa-cart-shopping"></i>
+              </span>
+              <span>카트</span>
+            </a>
+          </li>
+          <li>
+            <div id="cart-count">0</div>
+          </li>
+        </ul>
       </div>
     </div>
-    </div> -->
   </nav>
-
-  <div class="div-container">
-    <div class="landing" id="landingDiv">
-      <h1>랜딩 페이지</h1>
-    </div>
-    <div class="greeting" id="greetingDiv">
-      <h1>안녕하세요!</h1>
+  <div id="main">
+    <aside id="banner">
+      <div id="banner-img-container">
+        <img
+          src="https://kream-phinf.pstatic.net/MjAyMjA1MjdfMjA0/MDAxNjUzNjI5OTM2NjA5.OGYBweQkOtjiQGIudN0REEqL3dneMBg780cvLVNy7L4g.YFEE0ePuRWaWPw9UYJ_9VYPBOEZxPhM_cydZY4OQbR4g.JPEG/a_c0f195008b10492289e21c3ab1cab271.jpg?type=m_2560"
+          alt="banner-img">
+      </div>
+    </aside>
+    <div id="section-container">
+      <div id="category-container"></div>
+      <!-- <div id="filter-container"></div> -->
+      <div id="product-container"></div>
     </div>
   </div>
-
 </body>
 
 </html>

@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { orderService } from '../services/order-service';
 import { userService } from '../services';
+import { orderJoiSchema } from '../db/schemas/joi-schemas/order-joi-schema';
 import { productService } from '../services/product-service';
 const orderRouter = Router();
 
@@ -18,11 +19,16 @@ orderRouter.post('/', async (req, res, next) => {
         }
         // req (request)의 body 에서 데이터 가져오기
         const userId = req.user._id;
-        const { postalCode } = req.body;
-        const { address1 } = req.body;
-        const { address2 } = req.body;
-        const { billingMethod } = req.body;
-        const { productList } = req.body;
+        const { postalCode, address1, address2, billingMethod, productList } =
+            req.body;
+
+        const isValid = await orderJoiSchema.validateAsync({
+            postalCode,
+            address1,
+            address2,
+            billingMethod,
+            productList,
+        });
 
         const newOrder = await orderService.addOrder({
             userId,
@@ -33,6 +39,9 @@ orderRouter.post('/', async (req, res, next) => {
             productList,
         });
         await userService.pushUserOrderList(userId, newOrder._id); // push order for user's order list
+
+        // 주문 시 상품 내용 반영(구매자, 재고, 주문량)
+        await productService.putOrderProductList(userId, productList);
         res.status(201).json(newOrder);
     } catch (error) {
         next(error);

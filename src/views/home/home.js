@@ -1,108 +1,104 @@
-// 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
-// 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
-// 코드 예시를 남겨 두었습니다.
-
-import * as Api from '/api.js';
+// import * as Api from '/api.js';
+<<<<<<< HEAD
+import Product from './product.js';
+import { navTransition } from '../navTransition/navTransition.js';
+=======
+import { navTransition } from '../nav-transition/nav-transition.js';
 import { randomId } from '/useful-functions.js';
-import { common_nav } from "../common_nav/common_nav.js";
 
 
+navTransition('home');
+>>>>>>> d2030fab8b4de612c0b4e1af6b5ae60d3fb5581c
 
-// const navBar = document.querySelector('.navbar');
-// const content = common_nav();
-// navBar.insertAdjacentHTML('beforeend', content);
-console.log('확인');
-common_nav('home');
-console.log('확인2');
+const ref = {
+    categoryContainer: document.getElementById('category-container'),
+    productContainer: document.getElementById('product-container'),
+    cartCount: document.getElementById('cart-count'),
+};
 
-// 로그인 상태일 시 로그인, 회원가입 항목 제거
-// 로그아웃 상태일 시 현재 유저 이름 보여줌
-// async function loginAuth() {
-//   const hasTokenCheck = sessionStorage.getItem('token');
-//   if (hasTokenCheck) {
-//     try {
-//       await Api.post('api/auth');
+const categoryList = ['All', 'Shoes', 'Clothes', 'Others'];
+let setCategory = '';
+let setPage = 1;
+let perPage = 20;
 
-//       // 회원 가입 버튼 삭제
-//       const registerBtn = document.querySelector('.register_btn');
-//       registerBtn.parentNode.removeChild(registerBtn);
+const drawCartCount = (target) => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) target.innerText = 0;
+    else target.innerText = cart.length;
+};
 
-//       // 계정 관리 요소 추가
-//       const navSelect = document.querySelector('#navSelect');
-//       const account = `<li><a href="/account">계정관리</a></li>`
-//       navSelect.insertAdjacentHTML('afterbegin', account);
+const drawCategoryList = (target, categoryList) => {
+    const div = document.createElement('div');
+    div.id = 'category';
+    div.innerHTML = categoryList.reduce(
+        (prev, curr) =>
+            prev +
+            `<a href="#product-container"><button class="category-btn" id=${curr}>${curr}</button></a>`,
+        '',
+    );
+    target.appendChild(div);
+};
 
-//       // 로그아웃 버튼 클릭 시 토큰이 삭제되며 기본 페이지로 이동
-//       const logoutBtn = document.querySelector('.logout');
-//       logoutBtn.addEventListener('click', () => {
-//         sessionStorage.removeItem('token');
-//         window.location.href = '/';
-//       })
+const drawProductList = (target, productList) => {
+    if (setPage === 1) target.innerHTML = '';
+    productList.forEach((p, i) => {
+        const product = new Product(p, drawCartCount);
+        const productUI = product.template();
+        if (i === perPage - 1) {
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    if (entries[0].isIntersecting) {
+                        observer.unobserve(entries[0].target);
+                        getData();
+                    }
+                },
+                {
+                    root: null,
+                    rootMargin: '0px 0px 0px 0px',
+                    thredhold: 1,
+                },
+            );
+            observer.observe(productUI);
+        }
+        target.appendChild(productUI);
+    });
+};
 
-//     } catch (error) {
-//       alert(error, '로그인이 유효하지 않습니다..');
-//       sessionStorage.removeItem('token');
-//       window.location.href = '/';
-//     }
-//   }
-// }
+const setEvent = () => {
+    const category = document.getElementById('category');
+    category.addEventListener('click', (e) => {
+        Initialize(e.target.id).then((productList) =>
+            drawProductList(ref.productContainer, productList),
+        );
+    });
+};
 
-// loginAuth();
+const getData = async () => {
+    setPage += 1;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
+    const data = await res.json();
+    drawProductList(ref.productContainer, data.productList);
+};
 
+const render = (productList) => {
+    navTransition('home');
+    drawCartCount(ref.cartCount);
+    drawCategoryList(ref.categoryContainer, categoryList);
+    drawProductList(ref.productContainer, productList);
+};
 
+const Initialize = async (category) => {
+    setPage = 1;
+    setCategory = category;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
+    const data = await res.json();
+    return data.productList;
+};
 
-
-
-// 요소(element), input 혹은 상수
-const landingDiv = document.querySelector('#landingDiv');
-const greetingDiv = document.querySelector('#greetingDiv');
-
-addAllElements();
-addAllEvents();
-
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-  insertTextToLanding();
-  insertTextToGreeting();
-}
-
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-  landingDiv.addEventListener('click', alertLandingText);
-  greetingDiv.addEventListener('click', alertGreetingText);
-}
-
-function insertTextToLanding() {
-  landingDiv.insertAdjacentHTML(
-    'beforeend',
-    `
-      <h2>n팀 쇼핑몰의 랜딩 페이지입니다. 자바스크립트 파일에서 삽입되었습니다.</h2>
-    `,
-  );
-}
-
-function insertTextToGreeting() {
-  greetingDiv.insertAdjacentHTML(
-    'beforeend',
-    `
-      <h1>반갑습니다! 자바스크립트 파일에서 삽입되었습니다.</h1>
-    `,
-  );
-}
-
-function alertLandingText() {
-  alert('n팀 쇼핑몰입니다. 안녕하세요.');
-}
-
-function alertGreetingText() {
-  alert('n팀 쇼핑몰에 오신 것을 환영합니다');
-}
-
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get('/api/user/data');
-  const random = randomId();
-
-  console.log({ data });
-  console.log({ random });
-}
+Initialize('')
+    .then((productList) => render(productList))
+    .then(() => setEvent());

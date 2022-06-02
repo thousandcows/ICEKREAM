@@ -58,6 +58,21 @@ class OrderService {
         const deletedOrder = await this.orderModel.deleteById(orderId);
         return deletedOrder;
     }
+    async findUser(orderId) {
+        const order = await this.orderModel.findById(orderId);
+        const userId = order.userId;
+        return userId;
+    }
+    // 단 건 주문 정보 조회
+    async findOneOrder(orderId){
+        const order = await this.orderModel.findById(orderId);
+        return order;
+    }
+    // 유저의 전체 주문 조회
+    async findAllForOneUser(userId){
+        const orders = await this.orderModel.find({userId: userId});
+        return orders;
+    }
 }
 
 const orderService = new OrderService(orderModel);

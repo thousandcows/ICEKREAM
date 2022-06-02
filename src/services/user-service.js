@@ -32,7 +32,10 @@ class UserService {
 
         return createdNewUser;
     }
-
+    async getUser(userId) {
+        const user = await this.userModel.findById(userId);
+        return user;
+    }
     // 사용자 목록을 받음.
     async getUsers() {
         const users = await this.userModel.findAll();
@@ -85,6 +88,19 @@ class UserService {
 
         return user;
     }
+    async userRoleUpdate(userId, toUpdate) {
+        let user = await this.userModel.findById(userId);
+
+        // db에서 찾지 못한 경우, 에러 메시지 반환
+        if (!user) {
+            throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
+        }
+        let newUser = await this.userModel.update({
+            userId,
+            update: toUpdate,
+        });
+        return newUser;
+    }
 
     async deleteUser(userInfoRequired) {
         // 객체 destructuring
@@ -127,8 +143,11 @@ class UserService {
         return updatedUser;
     }
 
-    async pullUserOrderList(userId,orderId){
-        const updatedUser = await this.userModel.deleteOrder({userId, orderId});
+    async pullUserOrderList(userId, orderId) {
+        const updatedUser = await this.userModel.deleteOrder({
+            userId,
+            orderId,
+        });
         return updatedUser;
     }
 }
