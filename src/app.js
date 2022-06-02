@@ -11,7 +11,11 @@ import {
 import { productRouter } from './routers/product-router';
 
 import { errorHandler } from './middlewares';
-import { passportConfiguration, JWTConfiguration } from './services/passport';
+import {
+    passportConfiguration,
+    JWTConfiguration,
+    KakaoConfiguration,
+} from './services/passport';
 import { loginRequired } from './middlewares';
 import { adminRequired } from './middlewares';
 const app = express();
@@ -31,6 +35,7 @@ app.use(viewsRouter);
 app.use(passport.initialize()); // passport 사용 시작
 passportConfiguration(); // passport.use 로 local strategy 사용
 JWTConfiguration(); // passport.use로 jwt strategy 사용
+KakaoConfiguration();
 // api 라우팅
 // 아래처럼 하면, userRouter 에서 '/login' 으로 만든 것이 실제로는 앞에 /api가 붙어서
 // /api/login 으로 요청을 해야 하게 됨. 백엔드용 라우팅을 구분하기 위함임.

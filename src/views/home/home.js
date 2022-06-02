@@ -1,6 +1,14 @@
 // import * as Api from '/api.js';
+<<<<<<< HEAD
 import Product from './product.js';
 import { navTransition } from '../navTransition/navTransition.js';
+=======
+import { navTransition } from '../nav-transition/nav-transition.js';
+import { randomId } from '/useful-functions.js';
+
+
+navTransition('home');
+>>>>>>> d2030fab8b4de612c0b4e1af6b5ae60d3fb5581c
 
 const ref = {
     categoryContainer: document.getElementById('category-container'),

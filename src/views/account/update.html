@@ -13,8 +13,8 @@
   <!-- 폰트 어썸: 아이콘 -->
   <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
   <!-- 커스텀 css, js -->
-  <script src="update.js" type="module" ></script>
-  <script src="update-patch.js" type="module" ></script>
+  <script src="update.js" type="module"></script>
+  <script src="form-handler.js" type="module"></script>
   <!-- <script type="text/javascript" src="update-patch.js" defer></script> -->
   <!-- <script type="module">
     import { patchUserData } from './update-patch.js';
@@ -65,22 +65,6 @@
             <strong>
               현재 이메일
             </strong>
-            <button type="button">이메일 변경</button>
-          </td>
-        </tr>
-        <tr class="change_area hide" id="email">
-          <th scope="row">이메일</th>
-          <td>
-            <form id="email_form">
-              <fieldset>
-                <legend>이메일 입력</legend>
-                email: <input type="text" class="email_input input_el">
-                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
-                <input id="password_check_input" type="text">
-                <button type="submit" id="change_email_btn">변경완료</button>
-                <button type="button" id="cancel_email_btn">취소</button>
-              </fieldset>
-            </form>
           </td>
         </tr>
         <tr class="show_area" id="name_area">
@@ -97,12 +81,19 @@
           <td>
             <form id="name_form">
               <fieldset>
-                <legend>이름 입력</legend>
-                name: <input name="nameInput" type="text" class="name_input input_el">
-                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
-                <input id="password_check_input" name="passwordCheck" type="text">
-                <button type="submit" id="change_name_btn">변경완료</button>
-                <button type="button" id="cancel_name_btn">취소</button>
+                <!-- <legend>이름 입력</legend> -->
+                <div>
+                  <label for="name">이름 입력</label>  :
+                  <input name="nameInput" type="text" class="name_input input_el">
+                </div>
+                <div>
+                  <label for="changeName">
+                    정보를 변경하려면 아래에 비밀번호를 입력하세요.
+                  </label><br>
+                  <input  name="passwordCheck" type="password">
+                  <button type="submit" id="change_name_btn">변경완료</button>
+                  <button type="button" id="cancel_name_btn">취소</button>
+                </div>
               </fieldset>
             </form>
           </td>
@@ -121,11 +112,22 @@
           <td>
             <form id="password_form">
               <fieldset>
-                현재 비밀번호: <input type="text" name="currentPwd" class="current_password_input input_el"><br>
-                새로운 비밀번호: <input type="text" name="newPwd" class="new_password_input input_el"><br>
-                새로운 비밀번호 확인: <input type="text" name="checkNewPwd" class="check_password_input input_el">
-                <button type="submit" id="change_password_btn">입력완료</button>
-                <button type="button" id="cancel_password_btn">취소</button>
+                <div>
+                  <label for="currentPwd">현재 비밀번호: </label>
+                  <input type="password" name="currentPwd" class="current_password_input input_el"><br>
+                </div><br>
+                <div>
+                  <label for="newPwd">새로운 비밀번호: </label>
+                  <input type="password" name="newPwd" class="new_password_input input_el">
+                </div><br>
+                <div>
+                  <label for="checkNewPwd">새로운 비밀번호 확인: </label>
+                  <input type="password" name="checkNewPwd" class="check_password_input input_el">
+                </div>
+                <div>
+                  <button type="submit" id="change_password_btn">입력완료</button>
+                  <button type="button" id="cancel_password_btn">취소</button>
+                </div>
               </fieldset>
             </form>
           </td>
@@ -135,7 +137,7 @@
           <td>
             <strong>
               현재 배송지 목록
-            </strong>
+            </strong><br>
             <button>배송지 변경</button>
           </td>
         </tr>
@@ -145,12 +147,22 @@
             <form id="address_form">
               <fieldset>
                 <legend>배송지 입력</legend>
-                우편번호: <input type="text" name="post" class="postal_input input_el"><br>
-                address: <input type="text" name="address" class="address_input input_el">
-                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
-                <input id="password_check_input" name="passwordCheck" type="text">
-                <button type="submit" id="change_address_btn">변경완료</button>
-                <button type="button" id="cancel_address_btn">취소</button>
+                <div>
+                  <label for="post">우편번호: </label>
+                  <input type="text" name="post" class="postal_input input_el">
+                </div><br>
+                <div>
+                  <label for="address">address: </label>
+                  <input type="text" name="address" class="address_input input_el">
+                </div><br>
+                <div>
+                  <label for="passwordCheck">정보를 변경하려면 아래에 비밀번호를 입력하세요.</label><br>
+                  <input  name="passwordCheck" type="password">
+                </div><br>
+                <div>
+                  <button type="submit" id="change_address_btn">변경완료</button>
+                  <button type="button" id="cancel_address_btn">취소</button>
+                </div>
               </fieldset>
             </form>
           </td>
@@ -170,9 +182,9 @@
             <form id="number_form">
               <fieldset>
                 <legend>연락처 입력</legend>
-                PhoneNumber: <input type="text" name="number" class="number_input input_el">
+                PhoneNumber: <input type="text" name="number" placeholder="000-0000-0000 형식을 맞춰주세요."  class="number_input input_el">
                 <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
-                <input id="password_check_input" name="passwordCheck" type="text">
+                <input name="passwordCheck" type="text">
                 <button type="submit" id="change_number_btn">변경완료</button>
                 <button type="button" id="cancel_number_btn">취소</button>
               </fieldset>

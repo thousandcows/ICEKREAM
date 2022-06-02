@@ -1,3 +1,4 @@
+import { orderService } from './order-service';
 const { productModel } = require('../db/models/product-model');
 const {categoryModel} = require('../db/models/category-model');
 
@@ -21,7 +22,7 @@ class ProductService {
                 }
             }
             const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
-
+            
             return [ productList, totalPage ];
             
 
@@ -62,8 +63,6 @@ class ProductService {
     
     // 4. 상품 수정 기능
     async updateProduct(productId, update){
-        console.log(productId)
-        console.log(update)
         const updatedProduct = await this.productModel.updateProduct(productId, update);
         return updatedProduct;
     }
@@ -95,9 +94,47 @@ class ProductService {
     }
 
     // 7. 주문 시 구매자/재고/주문량 변경
-    async manageProductQuantity(){
-        
+    async putOrderProductList(userId, productList){
+
+        // 아이디 중복시 아이디 추가 x, 구매량과 주문량만 변경
+        // 재고 수량 남지 않았을 때 throw error
+
+        for (let i = 0; i < productList.length; i++){
+            const updatedProductList = []
+            const {id, quantity} = productList[i];
+
+            // 7-1. 재고 확인
+            const productToCheck = await this.productModel.findById(id);
+
+            if (productToCheck.quantity < quantity){
+                throw new Error(`${productToCheck.productName}상품 개수가 ${quantity - productToCheck.quantity}개 부족합니다.`);
+            }
+
+            // 7-2. 유저가 이미 구입했는지 확인
+            // 7-2-1. 기본 업데이트: 유저, 구매량, 재고 수량 업데이트
+            let update = {$push : {purchasedUsers : userId}, $inc : {quantity : -quantity, purchaseCount : quantity}};
+
+            // 7-2-2. 이미 구입하는 유저일 때 
+            
+            if (productToCheck.purchasedUsers.includes(userId)) {
+                update = {$inc : {quantity : -quantity, purchaseCount : quantity}};
+            }
+
+            // 7-3. 업데이트
+            const updatedProduct = await this.productModel.updateProduct(id, update);
+            updatedProductList.push(updatedProduct);
+        }
+
+        return updatedProductList;
     }
+
+    // 8. 주문 취소 시 구매자/재고/주문량 변경
+    // 유저의 주문량을 확인하고, 취소한 분량 만큼만 뺀다.
+    // 유저의 주문 취소량이 전체 구매 건수와 같은 경우 => 유저를 뺀다.
+    //                                   작은 경우 => 수량만 조절한다.
+    async pullOrderProductList(userId, orderId){
+
+        }
 
     // 8. 관리자 상품 목록 조회 기능
     async findAllProductsForAdmin(){

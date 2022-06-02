@@ -4,6 +4,7 @@ import is from '@sindresorhus/is';
 import { orderService } from '../services/order-service';
 import { userService } from '../services';
 import { orderJoiSchema } from '../db/schemas/joi-schemas/order-joi-schema';
+import { productService } from '../services/product-service';
 const orderRouter = Router();
 
 // 로그인 확인이 미리 필요한가? // 주문이 들어왔을 때의 상품 목록의 수량이 줄어야 하는가? 그럼 어떻게?
@@ -38,6 +39,9 @@ orderRouter.post('/', async (req, res, next) => {
             productList,
         });
         await userService.pushUserOrderList(userId, newOrder._id); // push order for user's order list
+
+        // 주문 시 상품 내용 반영(구매자, 재고, 주문량)
+        await productService.putOrderProductList(userId, productList);
         res.status(201).json(newOrder);
     } catch (error) {
         next(error);

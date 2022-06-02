@@ -1,6 +1,6 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
-import { navTransition } from '../navTransition/navTransition.js';
+import { navTransition } from '../nav-transition/nav-transition.js';
 
 
 navTransition('register');
@@ -62,7 +62,7 @@ async function handleSubmit(e) {
     } catch (err) {
         console.error(err.stack);
         alert(
-            `문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`,
+            ` 알림: ${err.message}`,
         );
     }
 }

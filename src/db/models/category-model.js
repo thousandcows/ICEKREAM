@@ -20,24 +20,29 @@ export class CategoryModel {
         const categoyList = await Category.find({})
         return categoyList;
     }
-    // 4. 카테고리 검색
+    // 4. 카테고리 검색 - 이름
     async findOne(categoryName){
         const catagory = await Category.findOne({name: categoryName});
         return catagory;
     }
-    // 5. 카테고리 수정
-    async updateCategory(categoryId, name, size){
-        
+
+    // 5. 카테고리 검색 - id
+    async findById(categoryId){
+        const category = await Category.findById(categoryId)
+        return category;
+    }
+
+    // 6. 카테고리 수정
+    async updateCategory({categoryId, name, size}){
         const filter = {_id: categoryId};
         const update = {name: name, size : size};
         const option = { returnOriginal : false };
-
         const updateCategory = await Category.updateOne(filter, update, option);
         return updateCategory;
 
     }
 
-    // 6. 상품 추가 시 카테고리에 반영
+    // 7. 상품 추가 시 카테고리에 반영
     async addProductToCategory(categoryName, productId){
         const filter = { name: categoryName};
         const update = { $push : { products : productId}};
@@ -47,7 +52,7 @@ export class CategoryModel {
         return updatedCategory;
     }
 
-    // 7. 상품 삭제 시 카테고리에 반영
+    // 8. 상품 삭제 시 카테고리에 반영
     async removeProductFromCategory(categoryName, productId){
         const filter = { name: categoryName};
         const update = { $pull : { products : productId}};
@@ -57,7 +62,7 @@ export class CategoryModel {
         return updatedCategory;
     }
 
-    // 8. 상품의 카테고리 명 검색
+    // 9. 상품의 카테고리 명 검색
     async findCategoryName(productId){
         const category = await Category.find({products: productId}).populate({path: 'products', select : 'name'});
         const categoryName = category[0].name;

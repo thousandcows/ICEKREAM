@@ -27,6 +27,10 @@ const UserSchema = new Schema(
             required: false,
             default: 'basic-user',
         },
+        registerType: {
+            type: String,
+            default: 'Email', //email or kakao;
+        },
         orderList: {
             type: [String],
             required: false,
