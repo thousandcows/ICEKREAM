@@ -53,6 +53,9 @@ viewsRouter.use('/admin', serveStatic('admin'));
 //   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 // } );
 
+//상품 디테일 페이지
+viewsRouter.use('/products/ID', serveStatic('product-detail'));
+
 //임시의 404 페이지
 viewsRouter.use('/notfound', serveStatic('not-found'));
 
