@@ -1,63 +1,104 @@
-import Product from './product.js';
 // import * as Api from '/api.js';
+<<<<<<< HEAD
+import Product from './product.js';
+import { navTransition } from '../navTransition/navTransition.js';
+=======
 import { navTransition } from '../nav-transition/nav-transition.js';
 import { randomId } from '/useful-functions.js';
 
 
 navTransition('home');
-
-
-const testCase = [
-    { id: 1, name: 'apple', price: 1000 },
-    { id: 2, name: 'banana', price: 2000 },
-    { id: 3, name: 'apple', price: 1000 },
-    { id: 4, name: 'banana', price: 2000 },
-    { id: 5, name: 'apple', price: 1000 },
-    { id: 6, name: 'banana', price: 2000 },
-    { id: 7, name: 'apple', price: 1000 },
-    { id: 8, name: 'banana', price: 2000 },
-    { id: 9, name: 'apple', price: 1000 },
-    { id: 10, name: 'banana', price: 2000 },
-    { id: 11, name: 'apple', price: 1000 },
-    { id: 12, name: 'banana', price: 2000 },
-    { id: 13, name: 'apple', price: 1000 },
-    { id: 14, name: 'banana', price: 2000 },
-    { id: 15, name: 'apple', price: 1000 },
-    { id: 16, name: 'banana', price: 2000 },
-];
-
+>>>>>>> d2030fab8b4de612c0b4e1af6b5ae60d3fb5581c
 
 const ref = {
+    categoryContainer: document.getElementById('category-container'),
     productContainer: document.getElementById('product-container'),
+    cartCount: document.getElementById('cart-count'),
 };
 
-const option = {
-    root: null,
-    rootMargin: '0px 0px 0px 0px',
-    thredhold: 1,
+const categoryList = ['All', 'Shoes', 'Clothes', 'Others'];
+let setCategory = '';
+let setPage = 1;
+let perPage = 20;
+
+const drawCartCount = (target) => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) target.innerText = 0;
+    else target.innerText = cart.length;
 };
 
-const render = (target, products) => {
-    products.forEach((product, i) => {
-        const productUI = new Product(product);
-        const productHTML = productUI.template();
-        if (i === 15) {
-            // 새로운 관찰자 지정
-            const observer = new IntersectionObserver((entries, observer) => {
-                if (entries[0].isIntersecting) {
-                    observer.unobserve(entries[0].target);
-                    getData();
-                }
-            }, option);
-            observer.observe(productHTML);
+const drawCategoryList = (target, categoryList) => {
+    const div = document.createElement('div');
+    div.id = 'category';
+    div.innerHTML = categoryList.reduce(
+        (prev, curr) =>
+            prev +
+            `<a href="#product-container"><button class="category-btn" id=${curr}>${curr}</button></a>`,
+        '',
+    );
+    target.appendChild(div);
+};
+
+const drawProductList = (target, productList) => {
+    if (setPage === 1) target.innerHTML = '';
+    productList.forEach((p, i) => {
+        const product = new Product(p, drawCartCount);
+        const productUI = product.template();
+        if (i === perPage - 1) {
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    if (entries[0].isIntersecting) {
+                        observer.unobserve(entries[0].target);
+                        getData();
+                    }
+                },
+                {
+                    root: null,
+                    rootMargin: '0px 0px 0px 0px',
+                    thredhold: 1,
+                },
+            );
+            observer.observe(productUI);
         }
-        target.appendChild(productHTML);
+        target.appendChild(productUI);
     });
 };
 
-const getData = () => {
-    const newData = [...testCase];
-    render(ref.productContainer, newData);
+const setEvent = () => {
+    const category = document.getElementById('category');
+    category.addEventListener('click', (e) => {
+        Initialize(e.target.id).then((productList) =>
+            drawProductList(ref.productContainer, productList),
+        );
+    });
 };
 
-getData();
+const getData = async () => {
+    setPage += 1;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
+    const data = await res.json();
+    drawProductList(ref.productContainer, data.productList);
+};
+
+const render = (productList) => {
+    navTransition('home');
+    drawCartCount(ref.cartCount);
+    drawCategoryList(ref.categoryContainer, categoryList);
+    drawProductList(ref.productContainer, productList);
+};
+
+const Initialize = async (category) => {
+    setPage = 1;
+    setCategory = category;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
+    const data = await res.json();
+    return data.productList;
+};
+
+Initialize('')
+    .then((productList) => render(productList))
+    .then(() => setEvent());

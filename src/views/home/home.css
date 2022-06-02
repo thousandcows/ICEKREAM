@@ -1,50 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    height: 70px;
+}
+
 #main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    background-color: gray;
 }
 
-#banner {
+#category-container {
+    background-color: white;
+    position: sticky;
+    z-index: 1;
+    top: 70px;
     width: 100%;
-    height: 400px;
-    background-color: yellow;
+    height: 100px;
+}
+
+#category {
+    margin-top: 40px;
+    margin-left: 3%;
+}
+
+.category-btn {
+    /* width: 150px; */
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 15px;
+    padding: 10px 25px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+}
+
+.category-btn:hover {
+    background-color: pink;
 }
 
 #section-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
 }
 
-#filter-container {
+/* #filter-container {
     background-color: pink;
     width: 20%;
     height: 100vh;
     position: sticky;
     top: 0;
-}
+} */
 
 #product-container {
-    background-color: aquamarine;
-    display: grid;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(300px, auto));
-    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
-    justify-content: space-between;
-    gap: 30px;
-    margin: 5% 3% 3% 3%;
+    margin-top: 3%;
+    text-align: center;
 }
 
 .product {
-    background-color: white;
-    height: 300px;
+    width: 300px;
+    height: 470px;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.45);
+    margin: 20px;
+    overflow: hidden;
+    text-align: center;
 }
 
-.product-img {
-    width: 80%;
-    height: 80%;
+.product-img-container {
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    background-color: rgb(254, 223, 223);
+    overflow: hidden;
+}
+
+.product-info-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.product-info-container .brand {
+    font-weight: bold;
+}
+
+.product-info-container .price {
+    font-weight: bold;
+    margin-top: 15px;
 }
