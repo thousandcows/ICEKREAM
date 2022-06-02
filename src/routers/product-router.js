@@ -23,7 +23,8 @@ productRouter.get('/', async (req, res, next) => {
 // 2. 장바구니 내에 있는 상품 상세 정보 조회
 productRouter.get('/cart', async(req, res, next) => {
     try {
-        const productIds  = req.query.id;
+        const {productIds}  = req.body;
+
         const productList = await productService.getProductsInCart(productIds);
 
         res.status(200).json(productList);
