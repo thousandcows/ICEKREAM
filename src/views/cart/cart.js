@@ -7,7 +7,7 @@ const ref = {
     cartContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),
     checkoutBtn: document.getElementById('checkout-btn'),
-    deleteAllBtn: document.getElementById('delete-all-btn'),
+    deleteSelectedBtn: document.getElementById('delete-selected-btn'),
 };
 
 const drawCartList = (target, productList) => {
@@ -34,8 +34,8 @@ const setEvents = () => {
         }
     });
 
-    // 전체 삭제
-    ref.deleteAllBtn.addEventListener('click', () => {
+    // 선택 삭제
+    ref.deleteSelectedBtn.addEventListener('click', () => {
         localStorage.removeItem('cart');
         ref.cartContainer.innerHTML = '';
     });

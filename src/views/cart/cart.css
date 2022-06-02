@@ -78,6 +78,7 @@ ul {
 
 .cart {
     padding: 1em 0;
+    margin-top: 20px;
 }
 
 .cart .items {
@@ -191,7 +192,13 @@ a.remove:hover {
     background: #f30;
 }
 
-#delete-all-btn {
+#select-all-product {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+#delete-selected-btn {
     border: none;
     border-radius: 10px;
     background: #eaeaea;
@@ -203,7 +210,7 @@ a.remove:hover {
     cursor: pointer;
 }
 
-#delete-all-btn:hover {
+#delete-selected-btn:hover {
     background: #f30;
 }
 
