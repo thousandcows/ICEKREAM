@@ -49,7 +49,6 @@ try {
 
 
 // 장바구니 내용 불러오기
-
 const cartData = JSON.parse(localStorage.cart);
 console.log(cartData);
 export const checkedItems = [];
