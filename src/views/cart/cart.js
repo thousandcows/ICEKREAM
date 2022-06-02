@@ -1,8 +1,6 @@
 import Product from './product.js';
 import { navTransition } from '../nav-transition/nav-transition.js';
 
-navTransition('cart');
-
 const ref = {
     cartContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),
@@ -12,11 +10,12 @@ const ref = {
 
 const drawCartList = (target, productList) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (!cart) return;
-    productList.forEach((product, i) => {
-        const productUI = new Product(target, product, cart[product._id]);
-        target.appendChild(productUI.template(i));
-    });
+    if (cart && productList) {
+        productList.forEach((product, i) => {
+            const productUI = new Product(target, product, cart[product._id]);
+            target.appendChild(productUI.template(i));
+        });
+    }
 };
 
 const setEvents = () => {
@@ -36,8 +35,15 @@ const setEvents = () => {
 
     // 선택 삭제
     ref.deleteSelectedBtn.addEventListener('click', () => {
-        localStorage.removeItem('cart');
-        ref.cartContainer.innerHTML = '';
+        const selectBtns = document.querySelectorAll('.select-btn');
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        selectBtns.forEach((selectBtn) => {
+            if (selectBtn.checked) {
+                const productId = selectBtn.click();
+                cart.removeItem(productId);
+            }
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
     });
 
     // 결제 버튼
@@ -63,22 +69,25 @@ const setEvents = () => {
 
 const initialize = async () => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (!cart) return;
-    const cartIds = Object.keys(cart).map((key) => key);
-    const res = await fetch(`/api/products/cart`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: {
-            productIds: JSON.stringify(cartIds),
-        },
-    });
-    const cartList = await res.json();
-    return cartList;
+
+    if (cart) {
+        const res = await fetch(`/api/products/cart`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                productIds: Object.keys(cart).map((key) => key),
+            }),
+        });
+        return await res.json();
+    } else {
+        return null;
+    }
 };
 
 const render = (productList) => {
+    navTransition('cart');
     drawCartList(ref.cartContainer, productList);
 };
 

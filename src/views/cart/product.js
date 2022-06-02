@@ -73,6 +73,7 @@ export default class Product {
                 parseInt(total.innerText) -
                 this.userSelectInfo.quantity * this.product.price;
         }
+        return this.product._id;
     }
 
     update(e) {
