@@ -22,6 +22,7 @@ const OrderSchema = new Schema(
         productList: [
             {
                 id: String,
+                name: String,
                 quantity: Number,
             },
         ],

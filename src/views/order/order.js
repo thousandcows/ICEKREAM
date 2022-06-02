@@ -56,6 +56,7 @@ addressForm.addEventListener('submit', (e) => {
     new FormData(e.target);
 })
 
+// console.log(checkedItems);
 const postalInfo = [];
 const addressOne = [];
 addressForm.addEventListener('formdata', (e) => {
@@ -65,7 +66,7 @@ addressForm.addEventListener('formdata', (e) => {
     const detailAddress = formData.get('detail');
     const ref = formData.get('ref');
 
-
+    
     postalInfo.push(postalNum);
     addressOne.push(`${address} ${detailAddress} ${ref}`);
 
@@ -86,20 +87,20 @@ addressForm.addEventListener('formdata', (e) => {
 
 
 
-
 // 모달창 및 결제정보 보내기
 
 orderBtn.addEventListener('click', async () => {
     paymentOverlay.classList.remove('hide');
-
-    console.log(postalInfo, addressOne, checkedItems);
-    console.log(typeof postalInfo,typeof addressOne);
-    const postal = postalInfo.pop();
-    const address = addressOne.pop();
-    console.log(postal, address, checkedItems);
+    console.log(checkedItems);
+    // console.log(postalInfo, addressOne, checkedItems);
+    // console.log(typeof postalInfo,typeof addressOne);
+    // console.log(postal, address, checkedItems);
     // {postalCode, address1, address2, billingMethod, productList}
     // console.log(typeof postal,typeof address);
 
+    const postal = postalInfo.pop();
+    const address = addressOne.pop();
+    // console.log(postal, typeof postal);
 
     // "userId":"{{userId}}",
     // "postalCode":"EA2 35Z",
@@ -110,11 +111,16 @@ orderBtn.addEventListener('click', async () => {
     // 정보 보내기
     const data = {
         postalCode: '12345',
-        address1: address,
+        address1: "경기도 수원시 무슨동 어떤길",
         billingMethod: 'KAKAOPAY',
-        productList: [{id: '62963738ef6fb5c039dc7f08', quantity: 1},{id: "62963731ef6fb5c039dc7ed7", quantity:1}]
+        productList: checkedItems,
+        // productList: [{id: '62963738ef6fb5c039dc7f08', quantity: 1},{id: "62963731ef6fb5c039dc7ed7", quantity:1}]
     }
     await Api.post('/api/order', data);
+    try {
+    } catch(err) {
+        alert(err);
+    }
 
     // 배열 비우기
     postalInfo.splice(0, postalInfo.length);
