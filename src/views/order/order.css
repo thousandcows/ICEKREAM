@@ -65,7 +65,9 @@ table {
 
 */
 
-div.hide {
+
+
+div.hide, .hide {
     display: none;
 }
 

@@ -98,9 +98,9 @@ class ProductService {
 
         // 아이디 중복시 아이디 추가 x, 구매량과 주문량만 변경
         // 재고 수량 남지 않았을 때 throw error
+        const updatedProductList = []
 
         for (let i = 0; i < productList.length; i++){
-            const updatedProductList = []
             const {id, quantity} = productList[i];
 
             // 7-1. 재고 확인
