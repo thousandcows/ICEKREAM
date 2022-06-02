@@ -48,7 +48,7 @@ const setEvents = () => {
 
     // 결제 버튼
     ref.checkoutBtn.addEventListener('click', (e) => {
-        const allProductUI = document.querySelectorAll('.items');
+        const allProductUI = Array.from(document.querySelectorAll('.items'));
         const cart = JSON.parse(localStorage.getItem('cart'));
         const selectedProduct = allProductUI.reduce((prev, productUI) => {
             const selectBtn = productUI.querySelector('.select-btn');
