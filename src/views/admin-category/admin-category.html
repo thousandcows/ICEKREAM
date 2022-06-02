@@ -1,89 +1,88 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>쇼핑-n팀</title>
-        <!-- 아이콘 -->
-        <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-        <!-- bulma css -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-        <!-- 폰트 어썸: 아이콘 -->
-        <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-        <!-- 커스텀 css, js -->
-        <link rel="stylesheet" type="text/html" href="category.css" />
-        <script src="category.js" type="module" defer></script>
-      </head>
-  <body>
-    <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-데모</span>
-          </a>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>쇼핑-n팀</title>
+  <!-- 아이콘 -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+  <!-- bulma css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+  <!-- 폰트 어썸: 아이콘 -->
+  <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+  <!-- 커스텀 css, js -->
+  <link rel="stylesheet" type="text/html" href="category.css" />
+  <script src="category.js" type="module" defer></script>
+  <script src="/nav-transition/nav_admin.js" type="module"></script>
+</head>
 
-        <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-          <ul id="navbar">
-            <li>
-              <a href="/cart" aria-current="page">
-                <span class="icon">
-                  <i class="fas fa-cart-shopping"></i>
-                </span>
-                <span>카트</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+<body>
+  <!-- 헤더 -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container mt-3">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/elice-rabbit.png" width="30" height="30" />
+          <span class="has-text-link">쇼핑-데모</span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-    </nav>
 
-    <!-- 카테고리관리 -->
-    <section class="section">
-      <div class="container">
-        <!-- 제목 -->
-        <div class="block account-header">
-          <h1 class="subtitle is-4">카테고리 관리</h1>
-        </div>
-
-        <!-- 총 요약 -->
-        <nav class="level">
-         
-        </nav>
-
-        <div class="container orders-container" id="categoryContainer">
-          <div class="columns notification is-info is-light is-mobile orders-top">
-            <div class="column is-2">카테고리명</div>
-            <div class="column is-2">상품 수</div>
-            <div class="column is-2">사이즈</div>
-            <div class="column is-2">수정</div>
-            <div class="column is-2">삭제</div>
-          </div>
-        </div>
+      <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+        <ul id="navSelect">
+          <li class="register_btn"><a href="/register">회원가입</a></li>
+          <li>
+            <a href="/cart" aria-current="page">
+              <span class="icon">
+                <i class="fas fa-cart-shopping"></i>
+              </span>
+              <span>카트</span>
+            </a>
+          </li>
+        </ul>
       </div>
-    </section>
+    </div>
+  </nav>
 
-    <!-- 카테고리 수정 Modal 창 -->
-    <div id="modal" class="modal">
-      <div class="modal-background" id="modalBackground" style="color: black;"></div>
-      <div class="modal-content">
-        <div class="modal-box">
+  <!-- 카테고리관리 -->
+  <section class="section">
+    <div class="container">
+      <!-- 제목 -->
+      <div class="block account-header">
+        <h1 class="subtitle is-4">카테고리 관리</h1>
+      </div>
+
+      <!-- 총 요약 -->
+      <nav class="level">
+
+      </nav>
+
+      <div class="container orders-container" id="categoryContainer">
+        <div class="columns notification is-info is-light is-mobile orders-top">
+          <div class="column is-2">카테고리명</div>
+          <div class="column is-2">상품 수</div>
+          <div class="column is-2">사이즈</div>
+          <div class="column is-2">수정</div>
+          <div class="column is-2">삭제</div>
         </div>
       </div>
     </div>
-  </body>
+  </section>
+
+  <!-- 카테고리 수정 Modal 창 -->
+  <div id="modal" class="modal">
+    <div class="modal-background" id="modalBackground" style="color: black;"></div>
+    <div class="modal-content">
+      <div class="modal-box">
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

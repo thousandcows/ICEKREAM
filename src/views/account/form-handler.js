@@ -6,7 +6,6 @@ import { patchUserInfo } from './update-info.js';
  사용자의 정보 수정하는 함수
 //뭔가 카카오 로그인 시 문제가 발생하는 것 같다.
 */
-// debugger
 
 const nameForm = document.querySelector('#name_form');
 const passwordForm = document.querySelector('#password_form');

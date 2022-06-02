@@ -14,10 +14,6 @@
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
     <script src="order.js" type="module" defer></script>
-    <!-- <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=86fb880ec2ea23956cfdc20143ff1cae"></script>
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script> -->
 
 </head>
 
@@ -88,12 +84,15 @@
                                 연락처
                             </th>
                             <td class="buyer_phone">
-                                <strong></strong>
-                                <form id="phone-number-form">
+                                <div class="show_buyer_phone">
+                                    <strong></strong>
+                                    <button type="button" id="change_phone">변경하기</button>
+                                </div>
+                                <form id="phone-number-form" class="hide">
                                     <fieldset>
                                         <div>
                                             <label for="change_number">변경할 연락처 입력</label>
-                                            <input name="numberInput" type="text" class="number_input input_el">
+                                            <input name="numberInput" placeholder="000-0000-0000 형식으로 입력해주세요." type="text" class="number_input input_el">
                                         </div>
                                         <div>
                                             <label for="check_password">정보를 변경하려면 아래에 비밀번호를 입력하세요.</label>
@@ -113,25 +112,36 @@
                                 <strong></strong>
                                 <form id="address-form">
                                     <fieldset>
-                                        <div class="current_address">
+                                        <!-- <div class="current_address">
                                             <label for="current_address">현재 계정 주소</label><br>
                                             <strong></strong>
                                             <button type="button" id="this_select_btn">이 주소로 선택</button>
-                                        </div><br>
-                                        <div>
-                                            <label for="search_address">배송할 주소 검색</label>
-                                            <button type="button" id="search_btn">검색</button><br>
-                                        </div><br>
-                                        <div>
+                                        </div><br> -->
+                                        <!-- <div>
                                             <label for="select_address">현재 주소지로 선택: </label>
                                             <button type="submit" id="current_select_btn">확인</button>
+                                        </div> -->
+                                        <div class="input_address">
+                                            <label for="cur_address">
+                                                <strong>
+                                                    배송 정보를 입력해주세요.
+                                                </strong>
+                                                <button type="button">검색하기</button>
+                                            </label>
                                         </div>
-                                        <input type="text" id="sample6_postcode" placeholder="우편번호">
-                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                                        <input type="text" id="sample6_address" placeholder="주소"><br>
-                                        <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-
+                                        <div class="search_address hide">
+                                            <div>
+                                                <label for="search_address">배송할 주소 검색</label>
+                                                <!-- <button type="button" id="search_btn">검색</button><br> -->
+                                                <input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
+                                            </div><br>
+                                            <input type="text" name="postal" id="sample6_postcode" placeholder="우편번호">
+                                            <input type="text" name="address" id="sample6_address" placeholder="주소"><br>
+                                            <input type="text" name="detail" id="sample6_detailAddress" placeholder="상세주소">
+                                            <input type="text" name="ref" id="sample6_extraAddress" placeholder="참고항목">
+                                            <button type="submit" id="select_address_btn">확인</button>
+                                            <button type="button" id="cancel_address_btn">취소</button>
+                                        </div>
                                         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                                         <script>
                                             function sample6_execDaumPostcode() {
@@ -243,8 +253,8 @@
                 <table class="orderinfo_table table_element">
                     <tbody>
                         <tr id="payment_tr">
-                            <th scope="row">상품가격</th>
-                            <td>
+                            <th scope="row">주문 정보</th>
+                            <td id="order_list">
                                 <strong></strong>
                             </td>
                         </tr>
@@ -262,9 +272,9 @@
                         </tr> -->
                         <tr>
                             <th scope="row" id="payment_th">총결제금액</th>
-                            <td></td>
+                            <td id="price_sum"></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th scope="row" id="option_th">결제방법</th>
                             <td>
                                 <label for="pet-select">선택해 주세요:</label>
@@ -279,7 +289,7 @@
                                     <option value="naver">네이버 페이</option>
                                 </select>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
