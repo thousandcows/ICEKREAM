@@ -1,8 +1,8 @@
 import * as Api from '/api.js';
 
-const submitBtn = document.querySelector('#addCategoryButton');
-const nameInput = document.querySelector('#categoryName');
-const sizeInput = document.querySelector('#categorySize');
+const submitBtn = document.querySelector('#submitButton');
+const nameInput = document.querySelector('#nameInput');
+const sizeInput = document.querySelector('#sizeInput');
 
 addAllElements();
 addAllEvents();
