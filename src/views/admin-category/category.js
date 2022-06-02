@@ -36,23 +36,22 @@ categories.forEach((category) => {
 
 // 2. 카테고리 삭제 기능
 async function deleteCategory() {
-    const entireRow = document.querySelector(`.${this.id}`);
+    const entireRow = document.querySelectorAll(`.${this.id}`);
 
     const check = confirm(
         '한 번 삭제한 카테고리는 복구가 불가능합니다. 그래도 삭제하시겠습니까?',
     );
 
     if (check) {
-        categoryContainer.removeChild(entireRow);
+
+        entireRow.forEach((el) => {
+            sectionContainer.removeChild(el);
+        });
 
         const categoryId = this.id.slice(8);
         const data = { categoryId };
 
-        const result = await Api.delete(
-            '',
-            `api/admin/product/category/${categoryId}`,
-            data,
-        );
+        const result = await Api.delete('',`api/admin/product/category/${categoryId}`, data,);
 
         if (result) {
             alert('삭제가 완료되었습니다.');
@@ -137,6 +136,7 @@ async function editModal() {
         }
 
     });
+    
     cancelBtn.addEventListener('click', () => {
         closeModal();
     });
