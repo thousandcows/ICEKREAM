@@ -1,17 +1,14 @@
 const params = new URL(document.location).searchParams;
 const token = params.get('token');
-const button = document.querySelector('.home-button');
+const userId = params.get('userId');
+const role = params.get('role');
 
-function handleClick(e) {
-    e.preventDefault();
-    if (!token) {
-        alert('죄송합니다 ㅠㅠ 로그인 과정에 오류가 발생했습니다.');
-        window.location.href = '/login';
-        return;
-    }
+if (token) {
     sessionStorage.setItem('token', token);
-    alert(`정상적으로 로그인되었습니다.`);
-    console.log(token);
+    sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('role', role);
+
     window.location.href = '/';
+} else {
+    window.location.href = '/login';
 }
-button.addEventListener('click', handleClick);
