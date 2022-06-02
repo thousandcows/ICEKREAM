@@ -55,7 +55,6 @@ export default class Product {
 
     select() {
         const quantity = document.getElementById('quantity');
-        const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
             .getElementById(this.product._id)
@@ -64,18 +63,12 @@ export default class Product {
         if (input.checked) {
             quantity.innerText =
                 parseInt(quantity.innerText) + this.userSelectInfo.quantity;
-            subTotal.innerText =
-                parseInt(subTotal.innerText) +
-                this.userSelectInfo.quantity * this.product.price;
             total.innerText =
                 parseInt(total.innerText) +
                 this.userSelectInfo.quantity * this.product.price;
         } else {
             quantity.innerText =
                 parseInt(quantity.innerText) - this.userSelectInfo.quantity;
-            subTotal.innerText =
-                parseInt(subTotal.innerText) -
-                this.userSelectInfo.quantity * this.product.price;
             total.innerText =
                 parseInt(total.innerText) -
                 this.userSelectInfo.quantity * this.product.price;
@@ -97,7 +90,6 @@ export default class Product {
         prodTotal.innerText = newQty * this.product.price;
 
         const quantity = document.getElementById('quantity');
-        const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
             .getElementById(this.product._id)
@@ -107,18 +99,12 @@ export default class Product {
             if (newQty > oldQty) {
                 quantity.innerText =
                     parseInt(quantity.innerText) + (newQty - oldQty);
-                subTotal.innerText =
-                    parseInt(subTotal.innerText) +
-                    this.product.price * (newQty - oldQty);
                 total.innerText =
                     parseInt(total.innerText) +
                     this.product.price * (newQty - oldQty);
             } else {
                 quantity.innerText =
                     parseInt(quantity.innerText) - (oldQty - newQty);
-                subTotal.innerText =
-                    parseInt(subTotal.innerText) -
-                    this.product.price * (oldQty - newQty);
                 total.innerText =
                     parseInt(total.innerText) -
                     this.product.price * (oldQty - newQty);
@@ -128,7 +114,6 @@ export default class Product {
 
     del() {
         const quantity = document.getElementById('quantity');
-        const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
             .getElementById(this.product._id)
@@ -136,9 +121,6 @@ export default class Product {
         if (input.checked) {
             quantity.innerText =
                 parseInt(quantity.innerText) - this.userSelectInfo.quantity;
-            subTotal.innerText =
-                parseInt(subTotal.innerText) -
-                this.userSelectInfo.quantity * this.product.price;
             total.innerText =
                 parseInt(total.innerText) -
                 this.userSelectInfo.quantity * this.product.price;
