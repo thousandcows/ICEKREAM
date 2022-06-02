@@ -1,0 +1,63 @@
+.category-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    color:black;
+  }
+  .category-form-box {
+    display:flex;
+    flex-direction: column;
+    justify-content: bottom;
+    align-items: center;
+  }
+  
+  .category-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom:3rem;
+    color: rgb(244, 191, 191)
+  }
+  .category-label{
+    font-size:15px;
+    font-weight: bold;
+  }
+  .category-input{
+    width:40rem;
+    height:3rem;
+    margin-bottom:2rem;
+    border:none;
+    border-bottom:solid 1px rgb(240,240,240);
+  }
+
+  .select-box{
+    width:40rem;
+    height:4rem;
+    margin-bottom:2rem;
+    border:none;
+    border-bottom:solid 1px rgb(240,240,240);
+  }
+  
+  .category-input:focus{
+    outline: none;
+    border-bottom: solid 1px rgb(140, 192, 222);
+  }
+  .category-button{
+    width:40rem;
+    height:4rem;
+    margin-bottom:0.5rem;
+    border:none;
+    border-radius: 0.5rem;
+    font-size: medium;
+    background-color:rgb(255, 217, 192);
+    color: black;
+    font-weight: bold;
+  }
+  .category-button:hover{
+    cursor:pointer;
+    background-color: rgb(254, 223, 223);
+  }
+  
+  
