@@ -54,6 +54,7 @@ export default class Product {
     }
 
     select() {
+        console.log(this.product._id);
         const quantity = document.getElementById('quantity');
         const total = document.getElementById('total');
         const input = document

@@ -4,18 +4,16 @@ import { navTransition } from '../nav-transition/nav-transition.js';
 const ref = {
     cartContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),
-    checkoutBtn: document.getElementById('checkout-btn'),
     deleteSelectedBtn: document.getElementById('delete-selected-btn'),
+    checkoutBtn: document.getElementById('checkout-btn'),
 };
 
 const drawCartList = (target, productList) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart && productList) {
-        productList.forEach((product, i) => {
-            const productUI = new Product(target, product, cart[product._id]);
-            target.appendChild(productUI.template(i));
-        });
-    }
+    productList.forEach((product, i) => {
+        const productUI = new Product(target, product, cart[product._id]);
+        target.appendChild(productUI.template(i));
+    });
 };
 
 const setEvents = () => {
@@ -40,7 +38,10 @@ const setEvents = () => {
         selectBtns.forEach((selectBtn) => {
             if (selectBtn.checked) {
                 const productId = selectBtn.click();
-                cart.removeItem(productId);
+                delete cart[productId];
+                ref.cartContainer.removeChild(
+                    document.getElementById(productId),
+                );
             }
         });
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -61,7 +62,6 @@ const setEvents = () => {
             e.preventDefault();
             alert('장바구니에 담긴 상품이 없습니다.');
         } else {
-            localStorage.removeItem('payment');
             localStorage.setItem('payment', JSON.stringify(selectedProduct));
         }
     });
