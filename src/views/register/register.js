@@ -2,7 +2,6 @@ import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
 import { navTransition } from '../nav-transition/nav-transition.js';
 
-
 navTransition('register');
 
 // 요소(element), input 혹은 상수
@@ -61,10 +60,6 @@ async function handleSubmit(e) {
         window.location.href = '/login';
     } catch (err) {
         console.error(err.stack);
-        alert(
-            ` 알림: ${err.message}`,
-        );
+        alert(` 알림: ${err.message}`);
     }
 }
-
-
