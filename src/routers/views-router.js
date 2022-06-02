@@ -13,17 +13,14 @@ viewsRouter.use('/login', serveStatic('login'));
 /*  계정 관리 페이지 라우팅 (임시)  */
 viewsRouter.use('/account', serveStatic('account'));
 viewsRouter.get('/account/update', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/account/update.html'));
+    res.sendFile(path.join(__dirname, '../views/account/update.html'));
 });
 viewsRouter.get('/account/delete', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/account/delete.html'));
-} );
+    res.sendFile(path.join(__dirname, '../views/account/delete.html'));
+});
 
 /*  결제 페이지 라우팅 (임시)  */
 viewsRouter.use('/order', serveStatic('order'));
-
-
-
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
@@ -31,11 +28,11 @@ viewsRouter.use('/', serveStatic(''));
 // views폴더 내의 ${resource} 폴더 내의 모든 파일을 웹에 띄우며,
 // 이 때 ${resource}.html 을 기본 파일로 설정함.
 function serveStatic(resource) {
-  const resourcePath = path.join(__dirname, `../views/${resource}`);
-  const option = { index: `${resource}.html` };
+    const resourcePath = path.join(__dirname, `../views/${resource}`);
+    const option = { index: `${resource}.html` };
 
-  // express.static 은 express 가 기본으로 제공하는 함수임
-  return express.static(resourcePath, option);
+    // express.static 은 express 가 기본으로 제공하는 함수임
+    return express.static(resourcePath, option);
 }
 
 export { viewsRouter };

@@ -15,23 +15,23 @@ export default class Product {
         }
         li.innerHTML = `
           <div class="infoWrap">
-              <input type="checkbox" class="select-btn"/>
-              <div class="cartSection">
-                  <img src="./product.png" alt="" class="itemImg" />
-                  <h3>${this.product.name}</h3>
-                  <p><input type="text" class="qty" placeholder=${
-                      this.product.quantity
-                  } />x ${this.product.price}</p>
-                  <p class="stockStatus">In Stock</p>
-              </div>
-              <div class="prodTotal cartSection">
-                  <p class="prod-total-text">${
-                      this.product.price * this.product.quantity
-                  }</p>
-              </div>
-              <div class="cartSection remove-btn">
-                  <a href="#" class="remove">x</a>
-              </div>
+                <input type="checkbox" class="select-btn"/>
+                <div class="cartSection">
+                    <img src="./product.png" alt="" class="itemImg" />
+                    <h3>${this.product.name}</h3>
+                    <p><input type="text" class="qty" placeholder=${
+                        this.product.quantity
+                    } />x ${this.product.price}</p>
+                    <p class="stockStatus">In Stock</p>
+                </div>
+                <div class="prodTotal cartSection">
+                    <p class="prod-total-text">${
+                        this.product.price * this.product.quantity
+                    }</p>
+                </div>
+                <div class="cartSection remove-btn">
+                    <a href="#" class="remove">x</a>
+                </div>
           </div>
       `;
         this.setEvent(li);
