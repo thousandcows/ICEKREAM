@@ -1,14 +1,6 @@
 // import * as Api from '/api.js';
-<<<<<<< HEAD
 import Product from './product.js';
-import { navTransition } from '../navTransition/navTransition.js';
-=======
-import { navTransition } from '../nav-transition/nav-transition.js';
-import { randomId } from '/useful-functions.js';
-
-
-navTransition('home');
->>>>>>> d2030fab8b4de612c0b4e1af6b5ae60d3fb5581c
+// import { navTransition } from '../navTransition/navTransition.js';
 
 const ref = {
     categoryContainer: document.getElementById('category-container'),
@@ -33,7 +25,7 @@ const drawCategoryList = (target, categoryList) => {
     div.innerHTML = categoryList.reduce(
         (prev, curr) =>
             prev +
-            `<a href="#product-container"><button class="category-btn" id=${curr}>${curr}</button></a>`,
+            `<a href="#scroll-top"><button class="category-btn" id=${curr}>${curr}</button></a>`,
         '',
     );
     target.appendChild(div);
@@ -41,8 +33,9 @@ const drawCategoryList = (target, categoryList) => {
 
 const drawProductList = (target, productList) => {
     if (setPage === 1) target.innerHTML = '';
+    console.log(productList);
     productList.forEach((p, i) => {
-        const product = new Product(p, drawCartCount);
+        const product = new Product(p);
         const productUI = product.template();
         if (i === perPage - 1) {
             const observer = new IntersectionObserver(
@@ -83,7 +76,7 @@ const getData = async () => {
 };
 
 const render = (productList) => {
-    navTransition('home');
+    // navTransition('home');
     drawCartCount(ref.cartCount);
     drawCategoryList(ref.categoryContainer, categoryList);
     drawProductList(ref.productContainer, productList);

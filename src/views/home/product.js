@@ -6,7 +6,7 @@ export default class Product {
     template() {
         const div = document.createElement('div');
         div.classList.add('product');
-        div.id = this.product.id;
+        div.id = this.product._id;
         div.innerHTML = `
             <div class="product-img-container">
                 <img
@@ -35,13 +35,23 @@ export default class Product {
         const cartCount = document.getElementById('cart-count');
         const cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) {
-            localStorage.setItem('cart', JSON.stringify([this.product._id]));
+            localStorage.setItem(
+                'cart',
+                JSON.stringify({
+                    [this.product._id]: {
+                        quantity: 1,
+                        size: 220,
+                    },
+                }),
+            );
             alert('장바구니에 담겼습니다.');
             cartCount.innerText = parseInt(cartCount.innerText) + 1;
         } else {
-            const checkId = cart.find((id) => id === this.product._id);
-            if (!checkId) {
-                cart.push(this.product._id);
+            if (!cart.id) {
+                cart[this.product._id] = {
+                    quantity: 1,
+                    size: 220,
+                };
                 localStorage.setItem('cart', JSON.stringify(cart));
                 alert('장바구니에 담겼습니다.');
                 cartCount.innerText = parseInt(cartCount.innerText) + 1;
