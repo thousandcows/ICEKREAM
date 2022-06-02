@@ -6,8 +6,6 @@ import { patchUserInfo } from './update-info.js';
  사용자의 정보 수정하는 함수
 
 */
-// debugger
-
 
 
 const nameForm = document.querySelector('#name_form');
