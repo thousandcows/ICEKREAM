@@ -17,8 +17,8 @@ const productJoiSchema = joi.object({
         'any.required': '가격은 반드시 입력해야 합니다.',
         'number.greater': '가격은 500원보다 커야합니다.',
     }), //500원?
-    launchDate: joi.date().messages({
-        'date.base': '날짜형식이 아닙니다.',
+    launchDate: joi.string().messages({
+        'date.base': '날짜형식는 비어있을 수 없습니다.',
     }), //어떤 형식의 date인가 정해야함.
     img: joi.string().required().uri().messages({
         'string.empty': `이미지 url은 비어있을 수 없습니다.`,
