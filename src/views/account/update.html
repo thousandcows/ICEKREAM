@@ -1,221 +1,332 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>쇼핑-n팀</title>
+        <!-- 아이콘 -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/elice-rabbit-favicon.png"
+        />
+        <!-- bulma css -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <link rel="stylesheet" href="./update.css" />
+        <!-- 폰트 어썸: 아이콘 -->
+        <script
+            defer
+            src="https://kit.fontawesome.com/7630448495.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- 커스텀 css, js -->
+        <script src="update.js" type="module"></script>
+        <script src="form-handler.js" type="module"></script>
+        <!-- <script type="text/javascript" src="update-patch.js" defer></script> -->
+        <!-- <script type="module">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>쇼핑-n팀</title>
-  <!-- 아이콘 -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-  <!-- bulma css -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-  <link rel="stylesheet" href="./update.css">
-  <!-- 폰트 어썸: 아이콘 -->
-  <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-  <!-- 커스텀 css, js -->
-  <script src="update.js" type="module"></script>
-  <script src="form-handler.js" type="module"></script>
-  <!-- <script type="text/javascript" src="update-patch.js" defer></script> -->
-  <!-- <script type="module">
     import { patchUserData } from './update-patch.js';
     window.patchUserData = patchUserData;
   </script> -->
-</head>
+    </head>
 
-<body>
-  <!-- 헤더 -->
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container mt-3">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="/elice-rabbit.png" width="30" height="30" />
-          <span class="has-text-link">쇼핑-n팀</span>
-        </a>
+    <body>
+        <!-- 헤더 -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container mt-3">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img src="/elice-rabbit.png" width="30" height="30" />
+                        <span class="has-text-link">쇼핑-n팀</span>
+                    </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-
-      <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-        <ul id="navSelect">
-          <li class="register_btn"><a href="/register">회원가입</a></li>
-          <li>
-            <a href="/cart" aria-current="page">
-              <span class="icon">
-                <i class="fas fa-cart-shopping"></i>
-              </span>
-              <span>카트</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="user_update_container">
-    <section class="user_update">
-      <h1 class="user_update_title">회원정보 수정</h1>
-      <table class="user_update_table">
-        <tr class="show_area" id="email_area">
-          <th scope="row">이메일</th>
-          <td>
-            <strong>
-              현재 이메일
-            </strong>
-          </td>
-        </tr>
-        <tr class="show_area" id="name_area">
-          <th scope="row">이름</th>
-          <td>
-            <strong>
-              현재 이름
-            </strong>
-            <button>이름 변경</button>
-          </td>
-        </tr>
-        <tr class="change_area hide" id="name">
-          <th scope="row">이름</th>
-          <td>
-            <form id="name_form">
-              <fieldset>
-                <!-- <legend>이름 입력</legend> -->
-                <div>
-                  <label for="name">이름 입력</label>  :
-                  <input name="nameInput" type="text" class="name_input input_el">
+                    <a
+                        role="button"
+                        class="navbar-burger"
+                        aria-label="menu"
+                        aria-expanded="false"
+                        data-target="navbarBasicExample"
+                    >
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
                 </div>
-                <div>
-                  <label for="changeName">
-                    정보를 변경하려면 아래에 비밀번호를 입력하세요.
-                  </label><br>
-                  <input  name="passwordCheck" type="password">
-                  <button type="submit" id="change_name_btn">변경완료</button>
-                  <button type="button" id="cancel_name_btn">취소</button>
-                </div>
-              </fieldset>
-            </form>
-          </td>
-        </tr>
-        <tr class="show_area" id="password_area">
-          <th scope="row">비밀번호</th>
-          <td>
-            <strong>
-              현재 비밀번호
-            </strong>
-            <button>비밀번호 변경</button>
-          </td>
-        </tr>
-        <tr class="change_area hide" id="password">
-          <th scope="row">비밀번호 변경</th>
-          <td>
-            <form id="password_form">
-              <fieldset>
-                <div>
-                  <label for="currentPwd">현재 비밀번호: </label>
-                  <input type="password" name="currentPwd" class="current_password_input input_el"><br>
-                </div><br>
-                <div>
-                  <label for="newPwd">새로운 비밀번호: </label>
-                  <input type="password" name="newPwd" class="new_password_input input_el">
-                </div><br>
-                <div>
-                  <label for="checkNewPwd">새로운 비밀번호 확인: </label>
-                  <input type="password" name="checkNewPwd" class="check_password_input input_el">
-                </div>
-                <div>
-                  <button type="submit" id="change_password_btn">입력완료</button>
-                  <button type="button" id="cancel_password_btn">취소</button>
-                </div>
-              </fieldset>
-            </form>
-          </td>
-        </tr>
-        <tr class="show_area" id="address_area">
-          <th scope="row">배송지</th>
-          <td>
-            <strong>
-              현재 배송지 목록
-            </strong><br>
-            <button>배송지 변경</button>
-          </td>
-        </tr>
-        <tr class="change_area hide" id="address">
-          <th scope="row">배송지</th>
-          <td>
-            <form id="address_form">
-              <fieldset>
-                <legend>배송지 입력</legend>
-                <div>
-                  <label for="post">우편번호: </label>
-                  <input type="text" name="post" class="postal_input input_el">
-                </div><br>
-                <div>
-                  <label for="address">address: </label>
-                  <input type="text" name="address" class="address_input input_el">
-                </div><br>
-                <div>
-                  <label for="passwordCheck">정보를 변경하려면 아래에 비밀번호를 입력하세요.</label><br>
-                  <input  name="passwordCheck" type="password">
-                </div><br>
-                <div>
-                  <button type="submit" id="change_address_btn">변경완료</button>
-                  <button type="button" id="cancel_address_btn">취소</button>
-                </div>
-              </fieldset>
-            </form>
-          </td>
-        </tr>
-        <tr class="show_area" id="number_area">
-          <th scope="row">연락처</th>
-          <td>
-            <strong>
-              현재 번호
-            </strong>
-            <button>번호 변경</button>
-          </td>
-        </tr>
-        <tr class="change_area hide" id="number">
-          <th scope="row">연락처</th>
-          <td>
-            <form id="number_form">
-              <fieldset>
-                <legend>연락처 입력</legend>
-                PhoneNumber: <input type="text" name="number" placeholder="000-0000-0000 형식을 맞춰주세요."  class="number_input input_el">
-                <legend>정보를 변경하려면 아래에 비밀번호를 입력하세요.</legend>
-                <input name="passwordCheck" type="text">
-                <button type="submit" id="change_number_btn">변경완료</button>
-                <button type="button" id="cancel_number_btn">취소</button>
-              </fieldset>
-            </form>
-          </td>
-        </tr>
-        <tr class="show_area" id="withdraw_area">
-          <th scope="row">회원 탈퇴</th>
-          <td>
-            <strong>탈퇴하시려면 오른쪽 버튼을 클릭</strong>
-            <button>탈퇴 버튼</button>
-          </td>
-        </tr>
-        <tr class="change_area hide" id="withdraw">
-          <th scope="row">회원 탈퇴</th>
-          <td>
-            <strong>비밀 번호를 입력해주세요.</strong><br>
-            <form id="withdraw_form">
-              <fieldset>
-                비밀번호: <input type="text" name="passwordCheck" class="check_password input_el">
-                <button type="submit" id="change_withdraw_btn">입력완료</button>
-                <button type="button" id="cancel_withdraw_btn">취소</button>
-              </fieldset>
-            </form>
-          </td>
-        </tr>
-      </table>
-    </section>
-  </div>
 
+                <div
+                    class="navbar-end breadcrumb my-auto"
+                    aria-label="breadcrumbs"
+                >
+                    <ul id="navSelect">
+                        <li class="register_btn">
+                            <a href="/register">회원가입</a>
+                        </li>
+                        <li>
+                            <a href="/cart" aria-current="page">
+                                <span class="icon">
+                                    <i class="fas fa-cart-shopping"></i>
+                                </span>
+                                <span>카트</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-</body>
+        <div class="user_update_container">
+            <section class="user_update">
+                <h1 class="user_update_title">프로필 수정</h1>
+                <div class="user_update_table">
+                    <div class="show_area" id="email_area">
+                        <div class="row">이메일</div>
+                        <div class="current">
+                            <div>현재 이메일</div>
+                        </div>
+                    </div>
+                    <div class="show_area" id="name_area">
+                        <div class="row">이름</div>
+                        <div class="current">
+                            <div>현재 이름</div>
+                            <button>변경</button>
+                        </div>
+                    </div>
+                    <div class="change_area hide" id="name">
+                        <!-- <div scope="row">이름</div> -->
+                        <div>
+                            <form id="name_form">
+                                <div class="new_form">
+                                    <legend>새로운 이름</legend>
+                                    <input
+                                        name="nameInput"
+                                        type="text"
+                                        class="name_input input_el"
+                                        placeholder="예: 엘리스"
+                                    />
+                                    <legend>
+                                        정보를 변경하려면 아래에 비밀번호를
+                                        입력하세요.
+                                    </legend>
+                                    <input
+                                        id="password_check_input"
+                                        name="passwordCheck"
+                                        type="password"
+                                        placeholder="********"
+                                    />
+                                    <div class="button_container">
+                                        <button
+                                            type="submit"
+                                            id="change_name_btn"
+                                        >
+                                            확정
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="cancel_name_btn"
+                                        >
+                                            취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="show_area" id="password_area">
+                        <div class="row">비밀번호</div>
+                        <div class="current">
+                            <div>현재 비밀번호</div>
+                            <button>변경</button>
+                        </div>
+                    </div>
+                    <div class="change_area hide" id="password">
+                        <div>
+                            <form id="password_form">
+                                <div class="new_form">
+                                    <legend>현재 비밀번호</legend>
 
+                                    <input
+                                        type="password"
+                                        name="currentPwd"
+                                        class="current_password_input input_el"
+                                        placeholder="********"
+                                    />
+                                    <legend>새로운 비밀번호</legend>
+
+                                    <input
+                                        type="password"
+                                        name="newPwd"
+                                        class="new_password_input input_el"
+                                        placeholder="********"
+                                    />
+                                    <legend>새로운 비밀번호 확인</legend>
+
+                                    <input
+                                        type="password"
+                                        name="checkNewPwd"
+                                        class="check_password_input input_el"
+                                        placeholder="********"
+                                    />
+                                    <div class="button_container">
+                                        <button
+                                            type="submit"
+                                            id="change_password_btn"
+                                        >
+                                            확정
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="cancel_password_btn"
+                                        >
+                                            취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="show_area" id="address_area">
+                        <div class="row">주소</div>
+                        <div class="current">
+                            <div>현재 주소</div>
+                            <button>변경</button>
+                        </div>
+                    </div>
+                    <div class="change_area hide" id="address">
+                        <div>
+                            <form id="address_form">
+                                <div class="new_form">
+                                    <legend>우편 번호</legend>
+                                    <input
+                                        type="text"
+                                        name="post"
+                                        class="postal_input input_el"
+                                        placeholder="예: 03124"
+                                    />
+                                    <legend>상세 주소</legend>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        class="address_input input_el"
+                                        placeholder="예: 서울특별시 성동구 독서당로 377, ○○○동 ○○○호"
+                                    />
+                                    <legend>
+                                        정보를 변경하려면 아래에 비밀번호를
+                                        입력하세요.
+                                    </legend>
+                                    <input
+                                        id="password_check_input"
+                                        name="passwordCheck"
+                                        type="password"
+                                        placeholder="********"
+                                    />
+                                    <div class="button_container">
+                                        <button
+                                            type="submit"
+                                            id="change_address_btn"
+                                        >
+                                            확정
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="cancel_address_btn"
+                                        >
+                                            취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="show_area" id="number_area">
+                        <div class="row">연락처</div>
+                        <div class="current">
+                            <div>현재 번호</div>
+                            <button>변경</button>
+                        </div>
+                    </div>
+                    <div class="change_area hide" id="number">
+                        <div>
+                            <form id="number_form">
+                                <div class="new_form">
+                                    <legend>연락처 입력</legend>
+
+                                    <input
+                                        type="text"
+                                        name="number"
+                                        class="number_input input_el"
+                                        placeholder="예: 010-OOOO-OOOO"
+                                    />
+                                    <legend>
+                                        정보를 변경하려면 아래에 비밀번호를
+                                        입력하세요.
+                                    </legend>
+                                    <input
+                                        id="password_check_input"
+                                        name="passwordCheck"
+                                        type="text"
+                                        placeholder="********"
+                                    />
+                                    <div class="button_container">
+                                        <button
+                                            type="submit"
+                                            id="change_number_btn"
+                                        >
+                                            확정
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="cancel_number_btn"
+                                        >
+                                            취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="show_area" id="withdraw_area">
+                        <div class="row">회원 탈퇴</div>
+                        <div class="current">
+                            <div>탈퇴를 원하시면 옆 버튼을 눌러주세요.</div>
+                            <button>탈퇴</button>
+                        </div>
+                    </div>
+                    <div class="change_area hide" id="withdraw">
+                        <div>
+                            <div>비밀 번호를 입력해주세요.</div>
+                            <br />
+                            <form id="withdraw_form">
+                                <div class="new_form">
+                                    <input
+                                        type="password"
+                                        name="passwordCheck"
+                                        class="check_password input_el"
+                                        placeholder="********"
+                                    />
+                                    <div class="button_container">
+                                        <button
+                                            type="submit"
+                                            id="change_withdraw_btn"
+                                        >
+                                            탈퇴
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="cancel_withdraw_btn"
+                                        >
+                                            취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
 </html>
