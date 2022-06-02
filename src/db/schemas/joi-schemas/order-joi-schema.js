@@ -26,6 +26,7 @@ const orderJoiSchema = joi.object({
                     'string.empty': '상품아이디는 비어있을 수 없습니다.',
                     'any.required': '상품아이디는 필수로 입력해야 합니다.',
                 }),
+                name: joi.string(),
                 quantity: joi.number().greater(0).required().messages({
                     'number.greater': '상품 수량은 0보다 커야합니다.',
                     'any.required': '상품 수량은 필수로 입력해야 합니다.',

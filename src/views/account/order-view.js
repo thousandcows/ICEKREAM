@@ -1,6 +1,7 @@
 import * as Api from '/api.js';
 import { navTransition } from '../nav-transition/nav-transition.js';
 
+const userId = sessionStorage.getItem('userId');
 
 navTransition('order-view').then(checkData => {
     if (!checkData.isLogined) {
@@ -26,14 +27,9 @@ navTransition('order-view').then(checkData => {
 // }
 
 async function getProductName(itemList) {
-    // console.log(itemList);
-    const itemList1 = itemList.map(async (item) => {
-        const itemID = item.id;
-        const orderProduct = await Api.get(`/api/products/${itemID}`);
-        return orderProduct;
-    });
-    console.log(itemList1);
-    return [1, 2];
+
+    const orderProduct = await Api.get(`/api/auth`);
+
 }
 
 
@@ -42,6 +38,7 @@ async function fetchOrderInfo(userId) {
 
     // 테스트용: 6291d6e14cc1920b02fb4ce1
     const orderList = await Api.get('/api/auth', `${userId}/orders`);
+    console.log(orderList);
     const productsContainer = document.querySelector('#productsContainer');
     // const orderList = await Api.get('/api/auth', `6291d6e14cc1920b02fb4ce1/orders`);
 
@@ -95,31 +92,10 @@ async function fetchOrderInfo(userId) {
                 </div>`;
                     productsContainer.insertAdjacentHTML('beforeend', orderInfo);
 
-                    // const removeBtn = document.querySelector(`#deleteButton-${orderId}`);
-                    // console.log(removeBtn, checkEvent);
-                    // removeBtn.addEventListener('click', (e) => {
-                        //     // console.log(this, e.target, e.target.id);
-                        //     // console.log(orderID);
-                        //     // debugger;
-                        //     const orderID = e.target.id.slice(13);
-                        //     deleteOrder(e.target, orderID);
-                        // });
-                        // // const checkEvent = removeBtn.getEventListeners('click'); 
-
-
-                    const removeBtn = document.querySelectorAll('.button');
-                    removeBtn.forEach((button) => {
-                        console.log(button);
-                        button.addEventListener('click', (e) => {
-                            // console.log(this, e.target, e.target.id);
-                            // console.log(orderID);
-                            // debugger;
-                            const orderID = e.target.id.slice(13);
-                            deleteOrder(e.target, orderID);
-                        });
-                    });
                 }
+                console.log('확인1');
             })
+
         })
         // const ProductList = itemList.map(async (item) => {
         //     const itemID = item.id;
@@ -212,6 +188,26 @@ async function fetchOrderInfo(userId) {
     });
 }
 
+await fetchOrderInfo(userId);
+
+
+async function Test() {
+    
+    const removeBtn = document.querySelectorAll('.button');
+    console.log(removeBtn);
+    removeBtn.forEach((button) => {
+        console.log(button);
+        button.addEventListener('click', (e) => {
+            // console.log(this, e.target, e.target.id);
+            // console.log(orderID);
+            // debugger;
+            const orderID = e.target.id.slice(13);
+            deleteOrder(e.target, orderID);
+        });
+    });
+}
+await Test();
+
 
 async function deleteOrder(button, orderId) {
     // console.log(button, button.parentNode.parentNode);
@@ -255,9 +251,7 @@ async function deleteOrder(button, orderId) {
 // userId: "6291d6e14cc1920b02fb4ce1"
 
 // const productsContainer = document.querySelector('#productsContainer');
-const userId = sessionStorage.getItem('userId');
 
-fetchOrderInfo(userId);
 
 
 

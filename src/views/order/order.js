@@ -87,7 +87,6 @@ addressForm.addEventListener('formdata', (e) => {
 
 
 
-
 // 모달창 및 결제정보 보내기
 
 orderBtn.addEventListener('click', async () => {
@@ -98,9 +97,10 @@ orderBtn.addEventListener('click', async () => {
     // console.log(postal, address, checkedItems);
     // {postalCode, address1, address2, billingMethod, productList}
     // console.log(typeof postal,typeof address);
+
     const postal = postalInfo.pop();
     const address = addressOne.pop();
-
+    // console.log(postal, typeof postal);
 
     // "userId":"{{userId}}",
     // "postalCode":"EA2 35Z",
@@ -110,12 +110,17 @@ orderBtn.addEventListener('click', async () => {
     // "productList
     // 정보 보내기
     const data = {
-        postalCode: String(postal),
-        address1: address,
+        postalCode: '12345',
+        address1: "경기도 수원시 무슨동 어떤길",
         billingMethod: 'KAKAOPAY',
-        productList: [{id: '62963738ef6fb5c039dc7f08', quantity: 1},{id: "62963731ef6fb5c039dc7ed7", quantity:1}]
+        productList: checkedItems,
+        // productList: [{id: '62963738ef6fb5c039dc7f08', quantity: 1},{id: "62963731ef6fb5c039dc7ed7", quantity:1}]
     }
     await Api.post('/api/order', data);
+    try {
+    } catch(err) {
+        alert(err);
+    }
 
     // 배열 비우기
     postalInfo.splice(0, postalInfo.length);

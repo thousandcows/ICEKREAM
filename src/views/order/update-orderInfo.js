@@ -56,7 +56,7 @@ export const checkedItems = [];
 
 
 for (const [key, value] of Object.entries(cartData)) {
-    const itemInfo = {"id": key, "quantity": value.quantity};
+    const itemInfo = {"id": key, "name": value.productName, "quantity": value.quantity};
     checkedItems.push(itemInfo);
     checkedItems1.push(value);
 }
