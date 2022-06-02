@@ -13,13 +13,13 @@
     <!-- 외부 css, js -->
     <link rel="stylesheet" href="sidbar.css">
     <script src="sidbar.js" type="module" defer></script>
-    
-    
+    <script src="/nav-transition/nav_admin.js" type="module"></script>
+
     <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
     <!-- <script src="addmin.js" type="module" defer></script> -->
-    
+
 </head>
 
 <body>
@@ -59,7 +59,7 @@
 
 
     <!-- 관리자 계정 관리 페이지 -->
-    <nav class="main-menu">
+    <!-- <nav class="main-menu">
         <div>
             <a class="logo" href="#">
             </a>
@@ -236,12 +236,10 @@
                         <i class="fa fa-rocket fa-lg"></i>
                         <span class="nav-text">Fun</span>
                     </a>
-                </li> -->
-
-
+                </li> 
             </ul>
-
-
+            
+            
             <li>
 
                 <a href="#">
@@ -262,7 +260,7 @@
                     </a>
                 </li>
             </ul>
-    </nav>
+    </nav> -->
 
     <!-- <div class="container">
         <div class="div_container">
@@ -270,12 +268,84 @@
                 <h1 class="title">관리자 페이지</h1>
             </div>
             <div class="menu_container">
-                <a class="menu_card" href="./orders">주문 조회</a>
-                <a class="menu_card" href="./users">회원정보 관리</a>
-                <a class="menu_card" href="./category">카테고리 조회</a>
-                <a class="menu_card" href="./category/add">카테고리 추가</a>
-                <a class="menu_card" href="./product">상품 조회</a>
-                <a class="menu_card" href="./product/add">상품 판매</a>
+                <a class="menu_card" href="./orders">
+                    <div class="menu-icon">
+                        <span class="icon has-text-info">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </span>
+                    </div>
+                    <div class="menu-body">
+                        <p class="title is-3">고객 주문조회</p>
+                        <p class="subtitle is-5">
+                            고객의 주문 내역을 확인, 취소할 수 있습니다.
+                        </p>
+                    </div>
+                </a>
+                <a class="menu_card" href="./users">
+                    <div class="menu-icon">
+                        <span class="icon has-text-info">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </span>
+                    </div>
+                    <div class="menu-body">
+                        <p class="title is-3">유저 정보 조회 및 변경</p>
+                        <p class="subtitle is-5">
+                            고객의 정보를 확인 및 권한 변경을 할 수 있습니다.
+                        </p>
+                    </div>
+                </a>
+                <a class="menu_card" href="./category">
+                    <div class="menu-icon">
+                        <span class="icon has-text-info">
+                            <i class="fa-solid fa-list-check"></i>
+                        </span>
+                    </div>
+                    <div class="menu-body">
+                        <p class="title is-3">카테고리 관리</p>
+                        <p class="subtitle is-5">
+                            카테고리을 확인 및 수정할 수 있습니다.
+                        </p>
+                    </div>
+                </a>
+                <a class="menu_card" href="./category/add">
+                    <div class="menu-icon">
+                        <span class="icon has-text-info">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </span>
+                    </div>
+                    <div class="menu-body">
+                        <p class="title is-3">카테고리 등록</p>
+                        <p class="subtitle is-5">
+                            카테고리를 등록 할 수 있습니다.
+                        </p>
+                    </div>
+                </a>
+                <a class="menu_card" href="./product">
+                    <div class="menu-icon">
+                        <span class="icon has-text-info">
+                            <i class="fa-solid fa-check-to-slot"></i>
+                        </span>
+                    </div>
+                    <div class="menu-body">
+                        <p class="title is-3">상품 관리</p>
+                        <p class="subtitle is-5">
+                            상품을 조회, 변경할 수 있습니다.
+                        </p>
+                    </div>
+                </a>
+                <a class="menu_card" href="./product/add">
+                    <div class="menu-icon">
+                        <span class="icon has-text-info">
+                            <i class="fa-solid fa-shirt"></i>
+                        </span>
+                    </div>
+                    <div class="menu-body">
+                        <p class="title is-3">상품 등록</p>
+                        <p class="subtitle is-5">
+                            상품을 등록할 수 있습니다.
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </div> -->
