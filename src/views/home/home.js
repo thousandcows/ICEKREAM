@@ -25,7 +25,7 @@ const drawCategoryList = (target, categoryList) => {
     div.innerHTML = categoryList.reduce(
         (prev, curr) =>
             prev +
-            `<a href="#product-container"><button class="category-btn" id=${curr}>${curr}</button></a>`,
+            `<a href="#scroll-top"><button class="category-btn" id=${curr}>${curr}</button></a>`,
         '',
     );
     target.appendChild(div);
@@ -33,8 +33,9 @@ const drawCategoryList = (target, categoryList) => {
 
 const drawProductList = (target, productList) => {
     if (setPage === 1) target.innerHTML = '';
+    console.log(productList);
     productList.forEach((p, i) => {
-        const product = new Product(p, drawCartCount);
+        const product = new Product(p);
         const productUI = product.template();
         if (i === perPage - 1) {
             const observer = new IntersectionObserver(
