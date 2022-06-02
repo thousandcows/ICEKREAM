@@ -1,4 +1,6 @@
+import { categoryService } from './category-service';
 import { orderService } from './order-service';
+import { userService } from './user-service';
 const { productModel } = require('../db/models/product-model');
 const {categoryModel} = require('../db/models/category-model');
 
@@ -80,7 +82,6 @@ class ProductService {
     // 6. 장바구니 내에 있는 상품 상세 정보 조회
     async getProductsInCart(productIds){
         const productList = []
-
         for (let i = 0; i < productIds.length; i++){
             
             const productId = productIds[i];
@@ -99,8 +100,10 @@ class ProductService {
         // 아이디 중복시 아이디 추가 x, 구매량과 주문량만 변경
         // 재고 수량 남지 않았을 때 throw error
         const updatedProductList = []
-
+        
         for (let i = 0; i < productList.length; i++){
+            
+
             const {id, quantity} = productList[i];
 
             // 7-1. 재고 확인
@@ -129,12 +132,30 @@ class ProductService {
     }
 
     // 8. 주문 취소 시 구매자/재고/주문량 변경
-    // 유저의 주문량을 확인하고, 취소한 분량 만큼만 뺀다.
-    // 유저의 주문 취소량이 전체 구매 건수와 같은 경우 => 유저를 뺀다.
-    //                                   작은 경우 => 수량만 조절한다.
-    async pullOrderProductList(userId, orderId){
+    async pullOrderProductList(orderId){
+        
+        const canceledOrder = await orderService.findOneOrder(orderId);
 
+        const productsToCancel = canceledOrder.productList;
+
+        const updatedProductList = []
+
+        for (let i = 0; i < productsToCancel.length; i++){
+
+            const id = await productService.findById(productsToCancel[i].id);
+            const quantity = productsToCancel[i].quantity;
+
+            const update = {$inc : {quantity : +quantity, purchaseCount : -quantity}};
+
+            const updatedProduct = await productService.updateProduct(id, update);
+            console.log(updatedProduct);
+            updatedProductList.push(updatedProduct);
         }
+        
+        return updatedProductList;
+
+
+    }
 
     // 8. 관리자 상품 목록 조회 기능
     async findAllProductsForAdmin(){
@@ -143,6 +164,36 @@ class ProductService {
         
 
     }
+
+    // 9. 카테고리 삭제 시 상품 내 카테고리 변경
+    async changeCategoryInProducts(categoryId){
+
+        const unassignedCategoryName = "Unassigned";
+        
+        const unassignedCategory = await categoryService.findOne(unassignedCategoryName);
+
+        const unassignedCategoryId = unassignedCategory._id;
+
+        const productList = await this.productModel.findByCategory(categoryId);
+
+        const updatedProductList = []
+
+        for (let i = 0; i < productList.length; i++){
+            
+            const productId = productList[i]._id;
+            const update = {$set : {category: unassignedCategoryId}};
+            const updatedProduct = await this.productModel.updateProduct(productId, update);
+
+            updatedProductList.push(updatedProduct);
+
+            await categoryService.addProductToCategory(unassignedCategoryName, productId);
+
+        }
+
+        return updatedProductList;
+
+    }
+
 }
 
 const productService = new ProductService(productModel);

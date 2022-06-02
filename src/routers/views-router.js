@@ -53,6 +53,9 @@ viewsRouter.use('/admin', serveStatic('admin'));
 //   res.sendFile(path.join(__dirname, '../views/account/delete.html'));
 // } );
 
+//임시의 404 페이지
+viewsRouter.use('/notfound', serveStatic('not-found'));
+
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
 

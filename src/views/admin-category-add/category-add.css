@@ -1,57 +1,53 @@
-.login-form-container {
+.category-form-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 70vh;
   color:black;
 }
-
-
-
-.login-form-box {
+.category-form-box {
   display:flex;
   flex-direction: column;
   justify-content: bottom;
   align-items: center;
 }
 
-.login-title {
+.category-title {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
   font-style: italic;
-  margin-bottom:3rem;
+  margin-bottom:4rem;
+  color: rgb(244, 191, 191)
 }
-.login-label{
-  font-size:small;
+.category-label{
+  font-size:15px;
   font-weight: bold;
 }
-.login-input{
-  width:25rem;
-  height:3rem;
-  margin-bottom:2rem;
+.category-input{
+  width:40rem;
+  height:4rem;
+  margin-bottom:3rem;
   border:none;
   border-bottom:solid 1px rgb(240,240,240);
 }
-.login-input:focus{
+.category-input:focus{
   outline: none;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px rgb(140, 192, 222);
 }
-.login-button{
-  width:25rem;
-  height:3.5rem;
+.category-button{
+  width:40rem;
+  height:4rem;
   margin-bottom:0.5rem;
   border:none;
   border-radius: 0.5rem;
   font-size: medium;
-  background-color:rgb(235,235,235);
-  color: white;
+  background-color:rgb(255, 217, 192);
+  color: black;
   font-weight: bold;
 }
-.login-button:hover{
+.category-button:hover{
   cursor:pointer;
-}
-#kakaoButton{
-  width:25rem;
+  background-color: rgb(254, 223, 223);
 }
 

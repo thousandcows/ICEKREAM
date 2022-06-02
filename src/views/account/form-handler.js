@@ -4,9 +4,8 @@ import { patchUserInfo } from './update-info.js';
 /*
 
  사용자의 정보 수정하는 함수
-
+//뭔가 카카오 로그인 시 문제가 발생하는 것 같다.
 */
-
 
 const nameForm = document.querySelector('#name_form');
 const passwordForm = document.querySelector('#password_form');
@@ -14,22 +13,19 @@ const addressForm = document.querySelector('#address_form');
 const numberForm = document.querySelector('#number_form');
 const withdrawForm = document.querySelector('#withdraw_form');
 
-
 nameForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 nameForm.addEventListener('formdata', async (e) => {
-
     const formData = e.formData;
     const nameInput = formData.get('nameInput');
     const passwordInput = formData.get('passwordCheck');
 
-
     const data = {
         fullName: nameInput,
-        currentPassword: passwordInput
+        currentPassword: passwordInput,
     };
 
     const resetInput = await patchUserInfo(passwordInput, data);
@@ -37,14 +33,13 @@ nameForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 passwordForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // console.log(e, 'ghkrdls');
     new FormData(e.target);
-})
+});
 
 passwordForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -58,10 +53,9 @@ passwordForm.addEventListener('formdata', async (e) => {
         return false;
     }
 
-
     const data = {
         password: newPassword,
-        currentPassword: currentPassword
+        currentPassword: currentPassword,
     };
 
     const resetInput = await patchUserInfo(currentPassword, data);
@@ -69,13 +63,12 @@ passwordForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 addressForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 addressForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -87,22 +80,20 @@ addressForm.addEventListener('formdata', async (e) => {
         address: {
             postalCode: postalInput,
             address1: addressInput,
-
         },
-        currentPassword: passwordInput
+        currentPassword: passwordInput,
     };
 
     const resetInput = await patchUserInfo(passwordInput, data);
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 numberForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 numberForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -118,13 +109,12 @@ numberForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-
-})
+});
 
 withdrawForm.addEventListener('submit', (e) => {
     e.preventDefault();
     new FormData(e.target);
-})
+});
 
 withdrawForm.addEventListener('formdata', async (e) => {
     const formData = e.formData;
@@ -135,16 +125,14 @@ withdrawForm.addEventListener('formdata', async (e) => {
     if (!resetInput) {
         e.target.reset();
     }
-})
-
-
-
+});
 
 async function fetchUserData() {
-    const domList = ['email', 'name', 'password', 'number', 'address']
-        .map((e) => {
-            return document.querySelector(`#${e}_area td strong`);
-        })
+    const domList = ['email', 'name', 'password', 'number', 'address'].map(
+        (e) => {
+            return document.querySelector(`#${e}_area div div`);
+        },
+    );
     const [email, name, password, number, address] = [...domList];
     const userId = sessionStorage.getItem('userId');
 
@@ -154,16 +142,22 @@ async function fetchUserData() {
         email.textContent = data.email;
         name.textContent = data.fullName;
         password.textContent = '변경하시려면 클릭하세요';
-        number.textContent = data.phoneNumber ? data.phoneNumber : '저장된 번호가 없습니다.';
-        address.textContent = `우편변호: ${data?.address?.postalCode ? String(data?.address?.postalCode) : '저장된 우편번호가 없습니다'}
-                                 주소: ${data?.address?.address1 ? String(data?.address?.address1) : '저장된 주소가 없습니다'}`;
-
+        number.textContent = data.phoneNumber
+            ? data.phoneNumber
+            : '저장된 번호가 없습니다.';
+        address.textContent = `우편변호: ${
+            data?.address?.postalCode
+                ? String(data?.address?.postalCode)
+                : '저장된 우편번호가 없습니다'
+        }
+                                 주소: ${
+                                     data?.address?.address1
+                                         ? String(data?.address?.address1)
+                                         : '저장된 주소가 없습니다'
+                                 }`;
     } catch (error) {
         console.log(error);
     }
 }
-
-
-
 
 export { fetchUserData, patchUserInfo };
