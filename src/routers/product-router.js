@@ -6,7 +6,7 @@ const productRouter = Router();
 // 1. 전체 상품 목록 조회 기능
 productRouter.get('/', async (req, res, next) => {
     try {
-        const {category, page, perPage } = req.query;
+        const { category, page, perPage } = req.query;
 
         const [productList, totalPage] = await productService.findAllProducts(
             category,
@@ -21,9 +21,9 @@ productRouter.get('/', async (req, res, next) => {
 });
 
 // 2. 장바구니 내에 있는 상품 상세 정보 조회
-productRouter.post('/cart', async(req, res, next) => {
+productRouter.post('/cart', async (req, res, next) => {
     try {
-        const {productIds}  = req.body;
+        const { productIds } = req.body;
 
         const productList = await productService.getProductsInCart(productIds);
 
@@ -43,8 +43,5 @@ productRouter.get('/:productId', async (req, res, next) => {
         next(error);
     }
 });
-
-
-
 
 export { productRouter };

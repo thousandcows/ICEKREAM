@@ -39,6 +39,8 @@ export default class Product {
                 'cart',
                 JSON.stringify({
                     [this.product._id]: {
+                        productName: this.product.productName,
+                        price: this.product.price,
                         quantity: 1,
                         size: 220,
                     },
@@ -49,6 +51,8 @@ export default class Product {
         } else {
             if (!cart.id) {
                 cart[this.product._id] = {
+                    productName: this.product.productName,
+                    price: this.product.price,
                     quantity: 1,
                     size: 220,
                 };

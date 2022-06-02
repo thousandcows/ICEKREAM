@@ -18,7 +18,7 @@ let perPage = 20;
 const drawCartCount = (target) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
     if (!cart) target.innerText = 0;
-    else target.innerText = cart.length;
+    else target.innerText = Object.keys(cart).length;
 };
 
 const drawCategoryList = (target, categoryList) => {
