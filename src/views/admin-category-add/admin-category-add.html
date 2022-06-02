@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html>
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>쇼핑-n팀</title>
     <!-- 아이콘 -->
     <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
@@ -12,13 +10,12 @@
     <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="category.css" />
+    <link rel="stylesheet" href="category-add.css" />
     <script src="/nav-transition/nav_admin.js" type="module"></script>
     <script src="category-add.js" type="module"></script>
 </head>
-
 <body>
-    <!-- 헤더 -->
+	<!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container mt-3">
             <div class="navbar-brand">
@@ -52,36 +49,41 @@
             </div>
         </div>
     </nav>
-    <!-- 카테고리 추가 폼(Form) -->
-    <section class="section">
-        <div class="container">
-            <div class="block account-header">
-                <h1 class="subtitle is-4">카테고리 추가</h1>
+	<div class="category-form-container">
+        <form class="category-form-box" id="categoryForm">
+            <h2 class="category-title">New Category</h2>
+            <div class="">
+                <label class="category-label" for="nameInput">카테고리 이름</label>
+                <div class="input-box">
+                    <input
+                        class="category-input"
+                        id="nameInput"
+                        type="text"
+                        placeholder="카테고리 이름을 입력해주세요";
+                        autocomplete="on"
+                        minlength="3"
+                        maxlength="20"
+                    />
+                </div>
             </div>
-            <div class="register-category-form-container">
-                <form class="box register-category-form-box" id="registerCategoryForm">
-                    <p class="title is-5 has-text-primary">카테고리 추가하기</p>
-                    <div class="field">
-                        <label class="label" for="titleInput">카테고리 이름</label>
-                        <div class="control">
-                            <input class="input" id="categoryName" type="text" placeholder="Men Clothes"
-                                autocomplete="on" />
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="descriptionInput">카테고리 사이즈</label>
-                        <div class="control">
-                            <input class="input" id="categorySize" type="text" placeholder="XS, S, M, L, XL, XXL"
-                                autocomplete="on" />
-                        </div>
-                    </div>
-                    <button class="button is-primary is-fullwidth" id="addCategoryButton">
-                        카테고리 추가하기
-                    </button>
-                </form>
+            <div class="">
+                <label class="category-label" for="sizeInput">카테고리 사이즈</label>
+                <div class="input-box">
+                    <input
+                        class="category-input"
+                        id="sizeInput"
+                        type="text"
+                        placeholder="쉼표로 구분하여 입력해주세요"
+                        autocomplete="on"
+                        minlength="1"
+                        maxlength="30"
+                    />
+                </div>
             </div>
-        </div>
-    </section>
-</body>
 
+            <button class="category-button" id="submitButton">등록</button>
+        </form>
+    </div>
+
+</body>
 </html>
