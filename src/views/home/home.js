@@ -1,6 +1,8 @@
 // import * as Api from '/api.js';
 import Product from './product.js';
-// import { navTransition } from '../navTransition/navTransition.js';
+import { navTransition } from '../nav-transition/nav-transition.js';
+
+navTransition('home');
 
 const ref = {
     categoryContainer: document.getElementById('category-container'),

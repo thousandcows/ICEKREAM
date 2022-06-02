@@ -89,7 +89,9 @@ adminRouter.delete('/orders/:orderId', async (req, res, next) => {
         //auth-router 내용을 복붙해서 다시 한번 생각해 보아야겠다.
         const { orderId } = req.params; //어떻게 order_id를 가져오는지는 정확히 모르겠다.
         const userId = await orderService.findUser(orderId);
+        await productService.pullOrderProductList(orderId);
         const deletedOrder = await orderService.deleteUserOrder(orderId);
+        
         if (deletedOrder) {
             await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
             res.status(200).json({ result: 'success' });
@@ -190,6 +192,9 @@ adminRouter.patch('/product/category', async (req, res, next) => {
 adminRouter.delete('/product/category/:categoryId', async (req, res, next) => {
     try {
         const categoryId = req.params.categoryId;
+
+        await productService.changeCategoryInProducts(categoryId);
+
         const deletedCategory = await categoryService.deleteCategory(
             categoryId,
         );

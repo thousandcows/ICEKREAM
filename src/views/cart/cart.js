@@ -42,33 +42,38 @@ const setEvents = () => {
 
     // 결제 버튼
     ref.checkoutBtn.addEventListener('click', (e) => {
-        const selectedProduct = {};
-        const cart = JSON.parse(localStorage.getItem('cart'));
         const allProductUI = document.querySelectorAll('.items');
-        allProductUI.forEach((productUI) => {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const selectedProduct = allProductUI.reduce((prev, productUI) => {
             const selectBtn = productUI.querySelector('.select-btn');
             if (selectBtn.checked) {
-                selectedProduct[productUI.id] = cart[productUI.id];
+                prev[productUI.id] = cart[productUI.id];
             }
-        });
+            return prev;
+        }, {});
         if (!Object.keys(selectedProduct).length) {
             e.preventDefault();
             alert('장바구니에 담긴 상품이 없습니다.');
         } else {
+            localStorage.removeItem('payment');
             localStorage.setItem('payment', JSON.stringify(selectedProduct));
         }
     });
 };
 
 const initialize = async () => {
-    localStorage.removeItem('payment');
     const cart = JSON.parse(localStorage.getItem('cart'));
     if (!cart) return;
-    let query = Object.keys(cart).reduce(
-        (prev, key) => prev + `id=${key}&`,
-        '',
-    );
-    const res = await fetch(`/api/products/cart?${query}`);
+    const cartIds = Object.keys(cart).map((key) => key);
+    const res = await fetch(`/api/products/cart`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: {
+            productIds: JSON.stringify(cartIds),
+        },
+    });
     const cartList = await res.json();
     return cartList;
 };

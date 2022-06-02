@@ -12,7 +12,7 @@ export class ProductModel {
     }
     // 2. 카테고리별 상품 조회 기능
     async findByCategory(category){
-        const productList = await Product.find(category);
+        const productList = await Product.find({category: category});
         return productList;
     }
     // 3. 상품 상세 정보 조회 기능
