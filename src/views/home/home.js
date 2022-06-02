@@ -2,14 +2,21 @@
 import Product from './product.js';
 import { navTransition } from '../navTransition/navTransition.js';
 
+const ref = {
+    categoryContainer: document.getElementById('category-container'),
+    productContainer: document.getElementById('product-container'),
+    cartCount: document.getElementById('cart-count'),
+};
+
 const categoryList = ['All', 'Shoes', 'Clothes', 'Others'];
 let setCategory = '';
 let setPage = 1;
 let perPage = 20;
 
-const ref = {
-    categoryContainer: document.getElementById('category-container'),
-    productContainer: document.getElementById('product-container'),
+const drawCartCount = (target) => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) target.innerText = 0;
+    else target.innerText = cart.length;
 };
 
 const drawCategoryList = (target, categoryList) => {
@@ -27,10 +34,9 @@ const drawCategoryList = (target, categoryList) => {
 const drawProductList = (target, productList) => {
     if (setPage === 1) target.innerHTML = '';
     productList.forEach((p, i) => {
-        const product = new Product(p);
+        const product = new Product(p, drawCartCount);
         const productUI = product.template();
         if (i === perPage - 1) {
-            console.log(i);
             const observer = new IntersectionObserver(
                 (entries, observer) => {
                     if (entries[0].isIntersecting) {
@@ -70,6 +76,7 @@ const getData = async () => {
 
 const render = (productList) => {
     navTransition('home');
+    drawCartCount(ref.cartCount);
     drawCategoryList(ref.categoryContainer, categoryList);
     drawProductList(ref.productContainer, productList);
 };
