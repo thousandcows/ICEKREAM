@@ -83,14 +83,11 @@ export default class Product {
     }
 
     update(e) {
+        e.target.placeholder = e.target.value;
         const cart = JSON.parse(localStorage.getItem('cart'));
-
-        // 새로 변경한 수량
-        const newQty = parseInt(e.target.value);
-        // 이전 수량
+        const newQty = parseInt(e.target.value) || 0;
         const oldQty = parseInt(this.userSelectInfo.quantity);
-
-        cart[this.id].quantity = newQty;
+        cart[this.product._id].quantity = newQty;
         this.userSelectInfo.quantity = newQty;
 
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -103,7 +100,7 @@ export default class Product {
         const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.productid)
+            .getElementById(this.product._id)
             .querySelector('.select-btn');
 
         if (input.checked) {
@@ -147,8 +144,8 @@ export default class Product {
                 this.userSelectInfo.quantity * this.product.price;
         }
         const cart = JSON.parse(localStorage.getItem('cart'));
-        const newCart = cart.filter((p) => p.id !== this.product._id);
-        localStorage.setItem('cart', JSON.stringify(newCart));
+        delete cart[this.product._id];
+        localStorage.setItem('cart', JSON.stringify(cart));
         this.target.removeChild(document.getElementById(this.product._id));
     }
 }
