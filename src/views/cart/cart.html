@@ -48,24 +48,21 @@
     <div class="wrap cf">
         <div class="heading cf">
             <h1>My Cart</h1>
-            <a href="#" class="continue">Continue Shopping</a>
+            <a href="/" class="continue">Continue Shopping</a>
         </div>
-        <input type="checkbox" id="select-all-product" /> all
+        <input type="checkbox" id="select-all-product" /> 전체
+        <button id="delete-selected-btn">선택 삭제</button>
         <div class="cart"></div>
         <div class="subtotal cf">
             <ul>
                 <li class="totalRow">
                     <span class="label">quantity</span><span class="value" id="quantity">0</span>
                 </li>
-
-                <li class="totalRow">
-                    <span class="label">Subtotal</span><span class="value" id="subtotal">0</span>
-                </li>
                 <li class="totalRow final">
                     <span class="label">Total</span><span class="value" id="total">0</span>
                 </li>
                 <li class="totalRow">
-                    <a href="/order" class="btn continue">Checkout</a>
+                    <a href="/order" class="btn continue" id="checkout-btn">Checkout</a>
                 </li>
             </ul>
         </div>
