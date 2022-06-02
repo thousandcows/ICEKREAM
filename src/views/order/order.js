@@ -56,6 +56,7 @@ addressForm.addEventListener('submit', (e) => {
     new FormData(e.target);
 })
 
+// console.log(checkedItems);
 const postalInfo = [];
 const addressOne = [];
 addressForm.addEventListener('formdata', (e) => {
@@ -65,7 +66,7 @@ addressForm.addEventListener('formdata', (e) => {
     const detailAddress = formData.get('detail');
     const ref = formData.get('ref');
 
-
+    
     postalInfo.push(postalNum);
     addressOne.push(`${address} ${detailAddress} ${ref}`);
 
@@ -91,14 +92,14 @@ addressForm.addEventListener('formdata', (e) => {
 
 orderBtn.addEventListener('click', async () => {
     paymentOverlay.classList.remove('hide');
-
-    console.log(postalInfo, addressOne, checkedItems);
-    console.log(typeof postalInfo,typeof addressOne);
-    const postal = postalInfo.pop();
-    const address = addressOne.pop();
-    console.log(postal, address, checkedItems);
+    console.log(checkedItems);
+    // console.log(postalInfo, addressOne, checkedItems);
+    // console.log(typeof postalInfo,typeof addressOne);
+    // console.log(postal, address, checkedItems);
     // {postalCode, address1, address2, billingMethod, productList}
     // console.log(typeof postal,typeof address);
+    const postal = postalInfo.pop();
+    const address = addressOne.pop();
 
 
     // "userId":"{{userId}}",
@@ -109,7 +110,7 @@ orderBtn.addEventListener('click', async () => {
     // "productList
     // 정보 보내기
     const data = {
-        postalCode: '12345',
+        postalCode: String(postal),
         address1: address,
         billingMethod: 'KAKAOPAY',
         productList: [{id: '62963738ef6fb5c039dc7f08', quantity: 1},{id: "62963731ef6fb5c039dc7ed7", quantity:1}]

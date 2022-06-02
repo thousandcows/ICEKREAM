@@ -95,29 +95,29 @@ async function fetchOrderInfo(userId) {
                 </div>`;
                     productsContainer.insertAdjacentHTML('beforeend', orderInfo);
 
-                    const removeBtn = document.querySelector(`#deleteButton-${orderId}`);
-                    const checkEvent = removeBtn.getEventListeners('click'); 
-                    console.log(removeBtn, checkEvent);
-                    removeBtn.addEventListener('click', (e) => {
-                        // console.log(this, e.target, e.target.id);
-                        // console.log(orderID);
-                        // debugger;
-                        const orderID = e.target.id.slice(13);
-                        deleteOrder(e.target, orderID);
+                    // const removeBtn = document.querySelector(`#deleteButton-${orderId}`);
+                    // console.log(removeBtn, checkEvent);
+                    // removeBtn.addEventListener('click', (e) => {
+                        //     // console.log(this, e.target, e.target.id);
+                        //     // console.log(orderID);
+                        //     // debugger;
+                        //     const orderID = e.target.id.slice(13);
+                        //     deleteOrder(e.target, orderID);
+                        // });
+                        // // const checkEvent = removeBtn.getEventListeners('click'); 
+
+
+                    const removeBtn = document.querySelectorAll('.button');
+                    removeBtn.forEach((button) => {
+                        console.log(button);
+                        button.addEventListener('click', (e) => {
+                            // console.log(this, e.target, e.target.id);
+                            // console.log(orderID);
+                            // debugger;
+                            const orderID = e.target.id.slice(13);
+                            deleteOrder(e.target, orderID);
+                        });
                     });
-
-
-                    // const removeBtn = document.querySelectorAll('.button');
-                    // removeBtn.forEach((button) => {
-                    //     console.log(button);
-                    //     button.addEventListener('click', (e) => {
-                    //         // console.log(this, e.target, e.target.id);
-                    //         // console.log(orderID);
-                    //         // debugger;
-                    //         const orderID = e.target.id.slice(13);
-                    //         deleteOrder(e.target, orderID);
-                    //     });
-                    // });
                 }
             })
         })
