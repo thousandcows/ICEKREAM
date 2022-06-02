@@ -14,6 +14,41 @@
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" type="text/html" href="product.css" />
     <script src="order-view.js" type="module"></script>
+    <!-- <script>
+        async function deleteOrder() {
+            console.log(e);
+            // console.log(button, button.parentNode.parentNode);
+
+            // const rowBtn = document.querySelector(`#${button}`);
+            // console.log(rowBtn.parentNode.parentNode);
+            console.log('확인');
+            const entireRow = button.parentNode.parentNode;
+            const check = confirm(
+                '한 번 삭제한 주문은 복구가 불가능합니다. 그래도 삭제하시겠습니까?',
+            );
+
+            if (check) {
+                productsContainer.removeChild(entireRow);
+
+                // const productId = this.id.slice(13);
+                const data = { orderId };
+
+                // api/admin/product/:productId
+                // /api/auth/:userId/:productId
+                // /api/auth/:userId/orders/:orderId 
+                console.log(orderId);
+                const result = await Api.delete(
+                    '',
+                    `api/auth/${userId}/orders/${orderId}`,
+                    data
+                );
+
+                if (result) {
+                    alert('삭제가 완료되었습니다.');
+                }
+            }
+        }
+    </script> -->
 </head>
 
 <body>

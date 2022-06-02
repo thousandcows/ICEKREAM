@@ -1,6 +1,7 @@
 import * as Api from '/api.js';
 import { navTransition } from '../nav-transition/nav-transition.js';
 
+const userId = sessionStorage.getItem('userId');
 
 navTransition('order-view').then(checkData => {
     if (!checkData.isLogined) {
@@ -26,14 +27,9 @@ navTransition('order-view').then(checkData => {
 // }
 
 async function getProductName(itemList) {
-    console.log(itemList);
-    const itemList1 = itemList.map(async (item) => {
-        const itemID = item.id;
-        const orderProduct = await Api.get(`/api/products/${itemID}`);
-        return orderProduct;
-    });
-    console.log(itemList1);
-    return [1, 2];
+
+    const orderProduct = await Api.get(`/api/auth`);
+
 }
 
 
@@ -42,6 +38,7 @@ async function fetchOrderInfo(userId) {
 
     // 테스트용: 6291d6e14cc1920b02fb4ce1
     const orderList = await Api.get('/api/auth', `${userId}/orders`);
+    console.log(orderList);
     const productsContainer = document.querySelector('#productsContainer');
     // const orderList = await Api.get('/api/auth', `6291d6e14cc1920b02fb4ce1/orders`);
 
@@ -65,9 +62,41 @@ async function fetchOrderInfo(userId) {
         orderItemInfo[3]
         ];
         const orderDateForm = orderDate.slice(0, 10);
-        console.log(itemList);
+        // console.log(itemList, orderItemInfo);
 
+        const List = ['확인'];
+        let productResult;
+        // 주문 내역의 아이템 리스트
+        const productString = itemList.map(async (obj) => {
+            // console.log(obj.id);
+            const product = await Api.get(`/api/products/${obj.id}`);
+            // console.log(product);
+            if (product !== null) {
+                // List.push(product.productName);
+                return product.productName;
+            }
+        })
+        // console.log(productString);
 
+        productString.forEach((item) => {
+            item.then((res) => {
+                if (res !== undefined) {
+                    const ProductName = res;
+                    const orderInfo = `<div class="columns orders-item" id="${orderId}">
+                <div class="column is-2">${orderDateForm}</div>
+                <div class="column is-6 order-summary">${ProductName}</div>
+                <div class="column is-2">${orderState}</div>
+                <div class="column is-2">
+                <button class="button" id="deleteButton-${orderId}">주문 취소</button>
+                </div>
+                </div>`;
+                    productsContainer.insertAdjacentHTML('beforeend', orderInfo);
+
+                }
+                console.log('확인1');
+            })
+
+        })
         // const ProductList = itemList.map(async (item) => {
         //     const itemID = item.id;
         //     const orderProduct = await Api.get(`/api/products/${itemID}`);
@@ -102,10 +131,10 @@ async function fetchOrderInfo(userId) {
 
         // });
 
-        for( const item of itemList) {
-            console.log(item);
-            new Promise(())
-        }
+        // for( const item of itemList) {
+        //     console.log(item);
+        //     new Promise(())
+        // }
 
         // console.log(ProductList);
         // console.log(itemID, orderId, orderItemInfo, itemList);
@@ -130,15 +159,16 @@ async function fetchOrderInfo(userId) {
 
         // productsContainer.insertAdjacentHTML('beforeend', orderInfo);
 
+        // const removeBtn = document.querySelectorAll('.button');
+        // console.log(removeBtn);
+        // removeBtn.forEach((button) => {
+        //     button.addEventListener('click', (e) => {
+        //         console.log(this, e.target);
+        //         deleteOrder(itemID);
+        //     });
+        // });
 
 
-        const removeBtn = document.querySelectorAll('.button');
-        removeBtn.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                console.log(this, e.target);
-                deleteOrder(itemID);
-            });
-        });
         // console.log(removeBtn);
         // removeBtn.addEventListener('click', (e) => {
         //     const orderItemBox = e.target.parentNode.parentNode;
@@ -158,13 +188,34 @@ async function fetchOrderInfo(userId) {
     });
 }
 
+await fetchOrderInfo(userId);
 
-async function deleteOrder(productId) {
-    // console.log(this.id);
-    const rowBtn = document.querySelector(`#${this.id}`);
-    console.log(rowBtn.parentNode.parentNode);
-    const entireRow = rowBtn.parentNode.parentNode;
 
+async function Test() {
+    
+    const removeBtn = document.querySelectorAll('.button');
+    console.log(removeBtn);
+    removeBtn.forEach((button) => {
+        console.log(button);
+        button.addEventListener('click', (e) => {
+            // console.log(this, e.target, e.target.id);
+            // console.log(orderID);
+            // debugger;
+            const orderID = e.target.id.slice(13);
+            deleteOrder(e.target, orderID);
+        });
+    });
+}
+await Test();
+
+
+async function deleteOrder(button, orderId) {
+    // console.log(button, button.parentNode.parentNode);
+
+    // const rowBtn = document.querySelector(`#${button}`);
+    // console.log(rowBtn.parentNode.parentNode);
+    console.log('확인');
+    const entireRow = button.parentNode.parentNode;
     const check = confirm(
         '한 번 삭제한 주문은 복구가 불가능합니다. 그래도 삭제하시겠습니까?',
     );
@@ -173,14 +224,15 @@ async function deleteOrder(productId) {
         productsContainer.removeChild(entireRow);
 
         // const productId = this.id.slice(13);
-        const data = { productId };
+        const data = { orderId };
 
         // api/admin/product/:productId
         // /api/auth/:userId/:productId
-        console.log(productId);
+        // /api/auth/:userId/orders/:orderId 
+        console.log(orderId);
         const result = await Api.delete(
             '',
-            `api/auth/${userId}/${productId}`,
+            `api/auth/${userId}/orders/${orderId}`,
             data
         );
 
@@ -198,10 +250,8 @@ async function deleteOrder(productId) {
 // updatedAt: "2022-05-29T10:48:01.866Z"
 // userId: "6291d6e14cc1920b02fb4ce1"
 
-const productsContainer = document.querySelector('#productsContainer');
-const userId = sessionStorage.getItem('userId');
+// const productsContainer = document.querySelector('#productsContainer');
 
-fetchOrderInfo(userId);
 
 
 
