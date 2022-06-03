@@ -3,3 +3,7 @@
 
 export * from './views-router';
 export * from './user-router';
+export * from './order-router';
+export * from './auth-router';
+export * from './admin-router';
+export * from './product-router';

@@ -1,60 +1,99 @@
-// 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
-// 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
-// 코드 예시를 남겨 두었습니다.
+// import * as Api from '/api.js';
+import Product from './product.js';
+import { navTransition } from '../nav-transition/nav-transition.js';
 
-import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
+const ref = {
+    categoryContainer: document.getElementById('category-container'),
+    productContainer: document.getElementById('product-container'),
+    cartCount: document.getElementById('cart-count'),
+};
 
-// 요소(element), input 혹은 상수
-const landingDiv = document.querySelector('#landingDiv');
-const greetingDiv = document.querySelector('#greetingDiv');
+const categoryList = ['All', 'Shoes', 'Clothes', 'Others'];
+let setCategory = '';
+let setPage = 1;
+let perPage = 20;
 
-addAllElements();
-addAllEvents();
+const drawCartCount = (target) => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) {
+        target.innerText = 0;
+    } else {
+        target.innerText = Object.keys(cart).length;
+    }
+};
 
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-    insertTextToLanding();
-    insertTextToGreeting();
-}
-
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-    landingDiv.addEventListener('click', alertLandingText);
-    greetingDiv.addEventListener('click', alertGreetingText);
-}
-
-function insertTextToLanding() {
-    landingDiv.insertAdjacentHTML(
-        'beforeend',
-        `
-      <h2>n팀 쇼핑몰의 랜딩 페이지입니다. 자바스크립트 파일에서 삽입되었습니다.</h2>
-    `,
+const drawCategoryList = (target, categoryList) => {
+    const div = document.createElement('div');
+    div.id = 'category';
+    div.innerHTML = categoryList.reduce(
+        (prev, curr) =>
+            prev +
+            `<a href="#scroll-top"><button class="category-btn" id=${curr}>${curr}</button></a>`,
+        '',
     );
-}
+    target.appendChild(div);
+};
 
-function insertTextToGreeting() {
-    greetingDiv.insertAdjacentHTML(
-        'beforeend',
-        `
-      <h1>반갑습니다! 자바스크립트 파일에서 삽입되었습니다.</h1>
-    `,
+const drawProductList = (target, productList) => {
+    if (setPage === 1) target.innerHTML = '';
+    productList.forEach((p, i) => {
+        const product = new Product(p);
+        const productUI = product.template();
+        if (i === perPage - 1) {
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    if (entries[0].isIntersecting) {
+                        observer.unobserve(entries[0].target);
+                        getData();
+                    }
+                },
+                {
+                    root: null,
+                    rootMargin: '0px 0px 0px 0px',
+                    thredhold: 1,
+                },
+            );
+            observer.observe(productUI);
+        }
+        target.appendChild(productUI);
+    });
+};
+
+const setEvent = () => {
+    const category = document.getElementById('category');
+    category.addEventListener('click', (e) => {
+        Initialize(e.target.id).then((productList) =>
+            drawProductList(ref.productContainer, productList),
+        );
+    });
+};
+
+const getData = async () => {
+    setPage += 1;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
     );
-}
+    const data = await res.json();
+    drawProductList(ref.productContainer, data.productList);
+};
 
-function alertLandingText() {
-    alert('n팀 쇼핑몰입니다. 안녕하세요.');
-}
+const render = (productList) => {
+    navTransition('home');
+    drawCartCount(ref.cartCount);
+    drawCategoryList(ref.categoryContainer, categoryList);
+    drawProductList(ref.productContainer, productList);
+};
 
-function alertGreetingText() {
-    alert('n팀 쇼핑몰에 오신 것을 환영합니다');
-}
+const Initialize = async (category) => {
+    setPage = 1;
+    setCategory = category;
+    const res = await fetch(
+        `/api/products?category=${setCategory}&perPage=${perPage}&page=${setPage}`,
+    );
+    const data = await res.json();
+    return data.productList;
+};
 
-async function getDataFromApi() {
-    // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-    const data = await Api.get('/api/user/data');
-    const random = randomId();
-
-    console.log({ data });
-    console.log({ random });
-}
+Initialize('')
+    .then((productList) => render(productList))
+    .then(() => setEvent());
