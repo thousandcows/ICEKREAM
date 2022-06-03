@@ -18,12 +18,11 @@ async function navTransition(pageName) {
     const isLogined = checkData.isLogined;
     const navSelect = document.querySelector('#navSelect');
 
-    const loginTag =
-        '<li><a href="/login" style="color: black">로그인</a></li>';
+    const loginTag = '<li><a href="/login" style="color: black">Login</a></li>';
     const logOutTag =
-        '<li><a href="/" id="logout" style="color: black">로그아웃</a></li>';
+        '<li><a href="/" id="logout" style="color: black">Logout</a></li>';
     const registerTag =
-        '<li class="register_btn"><a href="/register" style="color: black">회원가입</a></li>';
+        '<li class="register_btn"><a href="/register" style="color: black">Signup</a></li>';
     const accountManageTag =
         '<li><a href="/account" style="color: black">계정관리</a></li>';
     const adminPageTag =
