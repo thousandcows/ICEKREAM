@@ -1,7 +1,6 @@
 import { navTransition } from './nav-transition.js';
 
 const pageName = document.querySelector('script.nav_trans').id;
-// console.log(test, test.id);
 
 // 관리자만 접속 가능한 페이지 인증
 
