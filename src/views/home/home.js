@@ -62,6 +62,7 @@ const drawCategoryList = (target, categoryList) => {
 };
 
 const drawProductList = (target, productList) => {
+    console.log(productList);
     if (setPage === 1) target.innerHTML = '';
     productList.forEach((p, i) => {
         const product = new Product(p);
