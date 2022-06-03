@@ -3,7 +3,6 @@ import * as Api from '/api.js';
 
 async function patchUserInfo(password, data, userDelete = false) {
     const userId = sessionStorage.getItem('userId');
-    console.log(password);
     if (!password) {
         alert('비밀번호가 입력되지 않았습니다.');
         return false;

@@ -20,7 +20,7 @@ const registerJoiSchema = joi.object({
         'string.empty': `비밀번호는 비어있을 수 없습니다.`,
         'any.required': '비밀번호는 반드시 입력해야 합니다.',
         'string.min': '비밀번호는 최소 4글자 이상이어야 합니다.',
-    }), // 우선 4글자 이상이라고 register.js에 되어있는데 수정도 가능할 듯...
+    }), 
 });
 
 const userUpdateJoiSchema = joi.object({

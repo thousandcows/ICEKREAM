@@ -1,7 +1,4 @@
 import * as Api from '/api.js';
-// import { navTransition } from '../nav-transition/nav-transition';
-
-// navTransition('category')
 
 // 1. 카테고리 조회 기능
 const categories = await Api.get('/api/admin/product/category', '');
@@ -154,13 +151,10 @@ editButtons.forEach((button) => {
 
 // 5. 변경 시 카테고리 정보 수정
 async function updateCategory(categoryInfo){
-    console.log("reached updateCategory")
     const {categoryId, newName, newSize} = categoryInfo;
-    console.log(categoryId);
     const name = newName;
     const size = newSize;
     const data = {categoryId, name, size};
-    console.log(data)
     const result = await Api.patch('',`api/admin/product/category`, data);
 
     if (result) {
