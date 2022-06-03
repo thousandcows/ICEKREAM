@@ -20,10 +20,6 @@ class OrderService {
 
         //
 
-        // billingMethod확인
-        // 품절 확인?
-        // 주소 확인
-
         // 우선 비밀번호 해쉬화(암호화)
         const newAddress = {
             postalCode,

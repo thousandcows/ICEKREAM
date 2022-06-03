@@ -301,7 +301,6 @@ adminRouter.patch('/product/:productId', async (req, res, next) => {
 adminRouter.delete('/product/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
-        console.log(productId);
         const result = await productService.deleteProduct(productId);
         if (result) {
             res.status(200).json({ result: 'success' });

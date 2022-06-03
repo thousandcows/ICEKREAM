@@ -36,5 +36,5 @@ const orderJoiSchema = joi.object({
             })
             .required(),
     ),
-}); //address validation은 어떻게 할까? ....
+}); 
 export { orderJoiSchema };
