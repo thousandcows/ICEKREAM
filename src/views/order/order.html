@@ -1,122 +1,101 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>쇼핑-n팀</title>
-        <!-- 아이콘 -->
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/elice-rabbit-favicon.png"
-        />
-        <!-- bulma css -->
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-        />
-        <link rel="stylesheet" href="order.css" />
-        <!-- 폰트 어썸: 아이콘 -->
-        <script
-            defer
-            src="https://kit.fontawesome.com/7630448495.js"
-            crossorigin="anonymous"
-        ></script>
-        <!-- 커스텀 css, js -->
-        <script src="order.js" type="module" defer></script>
-    </head>
 
-    <body>
-        <script>
-            //console.log('확인', localStorage);
-            //location.href = location.href;
-            if (localStorage.length === 0) {
-                alert('장바구니에 담긴 상품이 없습니다.!');
-                window.location.href = '/';
-            }
-        </script>
-        <!-- 헤더 -->
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="container mt-3">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="/">
-                        <img src="/elice-rabbit.png" width="30" height="30" />
-                        <span class="has-text-link">쇼핑-n팀</span>
-                    </a>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>쇼핑-n팀</title>
+    <!-- 아이콘 -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+    <!-- bulma css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <link rel="stylesheet" href="order.css" />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 커스텀 css, js -->
+    <script id="order" class="nav_trans" src="/nav-transition/nav_user.js" type="module"></script>
+    <script src="order.js" type="module" defer></script>
+</head>
 
-                    <a
-                        role="button"
-                        class="navbar-burger"
-                        aria-label="menu"
-                        aria-expanded="false"
-                        data-target="navbarBasicExample"
-                    >
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
+<body>
+    <script>
+        //console.log('확인', localStorage);
+        //location.href = location.href;
+        if (localStorage.length === 0) {
+            alert('장바구니에 담긴 상품이 없습니다.!');
+            window.location.href = '/';
+        }
+    </script>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container mt-3">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="/elice-rabbit.png" width="30" height="30" />
+                    <span class="has-text-link">쇼핑-n팀</span>
+                </a>
 
-                <div
-                    class="navbar-end breadcrumb my-auto"
-                    aria-label="breadcrumbs"
-                >
-                    <ul id="navSelect">
-                        <li class="register_btn">
-                            <a href="/register">회원가입</a>
-                        </li>
-                        <li>
-                            <a href="/cart" aria-current="page">
-                                <span class="icon">
-                                    <i class="fas fa-cart-shopping"></i>
-                                </span>
-                                <span>카트</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
-        </nav>
 
-        <div class="order-container">
-            <div class="order_body">
-                <div class="order_title">
-                    <h1>주문/결제</h1>
-                    <span></span>
-                </div>
-                <h2 class="buyer_title h2_title">구매자 정보</h2>
-                <div class="buyer">
-                    <table class="buyer_table table_element">
-                        <tbody>
-                            <tr>
-                                <th scope="row" class="name_th">
-                                    <p>이름</p>
-                                </th>
-                                <td class="buyer_name">
+            <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                <ul id="navSelect">
+                    <li>
+                        <a href="/cart" aria-current="page">
+                            <span class="icon">
+                                <i class="fas fa-cart-shopping"></i>
+                            </span>
+                            <div id="cart-count">0</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="order-container">
+        <div class="order_body">
+            <div class="order_title">
+                <h1>주문/결제</h1>
+                <span></span>
+            </div>
+            <h2 class="buyer_title h2_title">구매자 정보</h2>
+            <div class="buyer">
+                <table class="buyer_table table_element">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="name_th">
+                                <p>이름</p>
+                            </th>
+                            <td class="buyer_name">
+                                <div><strong></strong></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="email_th">
+                                <p>이메일</p>
+                            </th>
+                            <td class="buyer_email">
+                                <div><strong></strong></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="phone_th">
+                                <p>연락처</p>
+                            </th>
+                            <td class="buyer_phone">
+                                <div class="show_buyer_phone">
                                     <div><strong></strong></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="email_th">
-                                    <p>이메일</p>
-                                </th>
-                                <td class="buyer_email">
-                                    <div><strong></strong></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="phone_th">
-                                    <p>연락처</p>
-                                </th>
-                                <td class="buyer_phone">
-                                    <div class="show_buyer_phone">
-                                        <div><strong></strong></div>
-                                        <!-- <button type="button" id="change_phone">
+                                    <!-- <button type="button" id="change_phone">
                                             변경하기
                                         </button> -->
-                                    </div>
-                                    <!-- <form id="phone-number-form" class="hide">
+                                </div>
+                                <!-- <form id="phone-number-form" class="hide">
                                         <fieldset>
                                             <div class="div_for_change">
                                                 <label for="change_number"
@@ -156,289 +135,230 @@
                                             </div>
                                         </fieldset>
                                     </form> -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="address_th">
-                                    <p>배송 주소</p>
-                                </th>
-                                <td class="buyer_address">
-                                    <div><strong></strong></div>
-                                    <form id="address-form">
-                                        <fieldset>
-                                            <div class="input_address">
-                                                <label for="cur_address">
-                                                    <strong>
-                                                        배송 정보를
-                                                        입력해주세요.
-                                                    </strong>
-                                                    <button type="button">
-                                                        검색하기
-                                                    </button>
-                                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="address_th">
+                                <p>배송 주소</p>
+                            </th>
+                            <td class="buyer_address">
+                                <div><strong></strong></div>
+                                <form id="address-form">
+                                    <fieldset>
+                                        <div class="input_address">
+                                            <label for="cur_address">
+                                                <strong>
+                                                    배송 정보를
+                                                    입력해주세요.
+                                                </strong>
+                                                <button type="button">
+                                                    검색하기
+                                                </button>
+                                            </label>
+                                        </div>
+                                        <div class="search_address hide">
+                                            <div>
+                                                <!-- <button type="button" id="search_btn">검색</button><br> -->
+                                                <input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기"
+                                                    class="address_button" />
                                             </div>
-                                            <div class="search_address hide">
-                                                <div>
-                                                    <!-- <button type="button" id="search_btn">검색</button><br> -->
-                                                    <input
-                                                        type="button"
-                                                        onclick="sample6_execDaumPostcode()"
-                                                        value="주소 찾기"
-                                                        class="address_button"
-                                                    />
-                                                </div>
 
-                                                <input
-                                                    class="search_address_input"
-                                                    type="text"
-                                                    name="postal"
-                                                    id="sample6_postcode"
-                                                    placeholder="우편번호"
-                                                />
-                                                <input
-                                                    class="search_address_input"
-                                                    type="text"
-                                                    name="address"
-                                                    id="sample6_address"
-                                                    placeholder="주소"
-                                                />
-                                                <input
-                                                    class="search_address_input"
-                                                    type="text"
-                                                    name="detail"
-                                                    id="sample6_detailAddress"
-                                                    placeholder="상세주소"
-                                                />
-                                                <input
-                                                    class="search_address_input"
-                                                    type="text"
-                                                    name="ref"
-                                                    id="sample6_extraAddress"
-                                                    placeholder="참고항목"
-                                                />
-                                                <div class="buttons_container">
-                                                    <button
-                                                        type="submit"
-                                                        id="select_address_btn"
-                                                    >
-                                                        확인
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        id="cancel_address_btn"
-                                                    >
-                                                        취소
-                                                    </button>
-                                                </div>
+                                            <input class="search_address_input" type="text" name="postal"
+                                                id="sample6_postcode" placeholder="우편번호" />
+                                            <input class="search_address_input" type="text" name="address"
+                                                id="sample6_address" placeholder="주소" />
+                                            <input class="search_address_input" type="text" name="detail"
+                                                id="sample6_detailAddress" placeholder="상세주소" />
+                                            <input class="search_address_input" type="text" name="ref"
+                                                id="sample6_extraAddress" placeholder="참고항목" />
+                                            <div class="buttons_container">
+                                                <button type="submit" id="select_address_btn">
+                                                    확인
+                                                </button>
+                                                <button type="button" id="cancel_address_btn">
+                                                    취소
+                                                </button>
                                             </div>
-                                            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                                            <script>
-                                                function sample6_execDaumPostcode() {
-                                                    new daum.Postcode({
-                                                        oncomplete: function (
-                                                            data,
+                                        </div>
+                                        <script
+                                            src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                                        <script>
+                                            function sample6_execDaumPostcode() {
+                                                new daum.Postcode({
+                                                    oncomplete: function (
+                                                        data,
+                                                    ) {
+                                                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                                                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                                        var addr = ''; // 주소 변수
+                                                        var extraAddr = ''; // 참고항목 변수
+
+                                                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                                        if (
+                                                            data.userSelectedType ===
+                                                            'R'
                                                         ) {
-                                                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                                                            // 사용자가 도로명 주소를 선택했을 경우
+                                                            addr =
+                                                                data.roadAddress;
+                                                        } else {
+                                                            // 사용자가 지번 주소를 선택했을 경우(J)
+                                                            addr =
+                                                                data.jibunAddress;
+                                                        }
 
-                                                            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                                                            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                                                            var addr = ''; // 주소 변수
-                                                            var extraAddr = ''; // 참고항목 변수
-
-                                                            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                                        if (
+                                                            data.userSelectedType ===
+                                                            'R'
+                                                        ) {
+                                                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                                                             if (
-                                                                data.userSelectedType ===
-                                                                'R'
-                                                            ) {
-                                                                // 사용자가 도로명 주소를 선택했을 경우
-                                                                addr =
-                                                                    data.roadAddress;
-                                                            } else {
-                                                                // 사용자가 지번 주소를 선택했을 경우(J)
-                                                                addr =
-                                                                    data.jibunAddress;
-                                                            }
-
-                                                            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                                                            if (
-                                                                data.userSelectedType ===
-                                                                'R'
-                                                            ) {
-                                                                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                                                                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                                                                if (
-                                                                    data.bname !==
-                                                                        '' &&
-                                                                    /[동|로|가]$/g.test(
-                                                                        data.bname,
-                                                                    )
-                                                                ) {
-                                                                    extraAddr +=
-                                                                        data.bname;
-                                                                }
-                                                                // 건물명이 있고, 공동주택일 경우 추가한다.
-                                                                if (
-                                                                    data.buildingName !==
-                                                                        '' &&
-                                                                    data.apartment ===
-                                                                        'Y'
-                                                                ) {
-                                                                    extraAddr +=
-                                                                        extraAddr !==
-                                                                        ''
-                                                                            ? ', ' +
-                                                                              data.buildingName
-                                                                            : data.buildingName;
-                                                                }
-                                                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                                                                if (
-                                                                    extraAddr !==
-                                                                    ''
-                                                                ) {
-                                                                    extraAddr =
-                                                                        ' (' +
-                                                                        extraAddr +
-                                                                        ')';
-                                                                }
-                                                                // 조합된 참고항목을 해당 필드에 넣는다.
-                                                                document.getElementById(
-                                                                    'sample6_extraAddress',
-                                                                ).value = extraAddr;
-                                                            } else {
-                                                                document.getElementById(
-                                                                    'sample6_extraAddress',
-                                                                ).value = '';
-                                                            }
-
-                                                            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                                            document.getElementById(
-                                                                'sample6_postcode',
-                                                            ).value =
-                                                                data.zonecode;
-                                                            document.getElementById(
-                                                                'sample6_address',
-                                                            ).value = addr;
-                                                            // 커서를 상세주소 필드로 이동한다.
-                                                            document
-                                                                .getElementById(
-                                                                    'sample6_detailAddress',
+                                                                data.bname !==
+                                                                '' &&
+                                                                /[동|로|가]$/g.test(
+                                                                    data.bname,
                                                                 )
-                                                                .focus();
-                                                        },
-                                                    }).open();
-                                                }
-                                            </script>
-                                        </fieldset>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- 각각의 상품에 대한 정보를 넣는다. -->
-                <h2 class="orderinfo_title h2_title">주문 정보</h2>
-                <div class="orderinfo">
-                    <table class="orderinfo_table table_element">
-                        <tbody>
-                            <tr id="payment_tr">
-                                <th class="order_th" scope="row">주문 정보</th>
-                                <td id="order_list">
-                                    <!-- <div><strong></strong></div> -->
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                                            ) {
+                                                                extraAddr +=
+                                                                    data.bname;
+                                                            }
+                                                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                                                            if (
+                                                                data.buildingName !==
+                                                                '' &&
+                                                                data.apartment ===
+                                                                'Y'
+                                                            ) {
+                                                                extraAddr +=
+                                                                    extraAddr !==
+                                                                        ''
+                                                                        ? ', ' +
+                                                                        data.buildingName
+                                                                        : data.buildingName;
+                                                            }
+                                                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                                            if (
+                                                                extraAddr !==
+                                                                ''
+                                                            ) {
+                                                                extraAddr =
+                                                                    ' (' +
+                                                                    extraAddr +
+                                                                    ')';
+                                                            }
+                                                            // 조합된 참고항목을 해당 필드에 넣는다.
+                                                            document.getElementById(
+                                                                'sample6_extraAddress',
+                                                            ).value = extraAddr;
+                                                        } else {
+                                                            document.getElementById(
+                                                                'sample6_extraAddress',
+                                                            ).value = '';
+                                                        }
 
-                <h2 class="payment_title h2_title">결제 정보</h2>
-                <div class="payment">
-                    <table class="payment_table table_element">
-                        <tbody>
-                            <!-- <tr>
+                                                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                                        document.getElementById(
+                                                            'sample6_postcode',
+                                                        ).value =
+                                                            data.zonecode;
+                                                        document.getElementById(
+                                                            'sample6_address',
+                                                        ).value = addr;
+                                                        // 커서를 상세주소 필드로 이동한다.
+                                                        document
+                                                            .getElementById(
+                                                                'sample6_detailAddress',
+                                                            )
+                                                            .focus();
+                                                    },
+                                                }).open();
+                                            }
+                                        </script>
+                                    </fieldset>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 각각의 상품에 대한 정보를 넣는다. -->
+            <h2 class="orderinfo_title h2_title">주문 정보</h2>
+            <div class="orderinfo">
+                <table class="orderinfo_table table_element">
+                    <tbody>
+                        <tr id="payment_tr">
+                            <th class="order_th" scope="row">주문 정보</th>
+                            <td id="order_list">
+                                <!-- <div><strong></strong></div> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="payment_title h2_title">결제 정보</h2>
+            <div class="payment">
+                <table class="payment_table table_element">
+                    <tbody>
+                        <!-- <tr>
                             <th scope="row" id="total_th">총상품가격</th>
                             <td></td>
                         </tr> -->
-                            <tr>
-                                <th scope="row" id="payment_th">총결제금액</th>
-                                <td id="price_sum"><strong></strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="orderbox">
-                    <button id="orderBtn">결제하기</button>
-                </div>
+                        <tr>
+                            <th scope="row" id="payment_th">총결제금액</th>
+                            <td id="price_sum"><strong></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <footer class="order_footer"></footer>
-        </div>
-        <div class="payment_modal hide">
-            <div class="payment_card">
-                <div class="leftside">
-                    <img
-                        src="https://i.pinimg.com/originals/18/9d/dc/189ddc1221d9c1c779dda4ad37a35fa1.png"
-                        class="product"
-                        alt="Shoes"
-                    />
-                </div>
-                <div class="rightside">
-                    <form action="">
-                        <h1>CheckOut</h1>
-                        <h2>Payment Information</h2>
-                        <p>Cardholder Name</p>
-                        <input
-                            type="text"
-                            class="inputbox"
-                            name="name"
-                            required
-                        />
-                        <p>Card Number</p>
-                        <input
-                            type="number"
-                            class="inputbox"
-                            name="card_number"
-                            id="card_number"
-                            required
-                        />
-
-                        <p>Card Type</p>
-                        <select
-                            class="inputbox"
-                            name="card_type"
-                            id="card_type"
-                            required
-                        >
-                            <option value="">--Select a Card Type--</option>
-                            <option value="Visa">Visa</option>
-                            <option value="RuPay">RuPay</option>
-                            <option value="MasterCard">MasterCard</option>
-                        </select>
-                        <div class="expcvv">
-                            <p class="expcvv_text">Expiry</p>
-                            <input
-                                type="date"
-                                class="inputbox"
-                                name="exp_date"
-                                id="exp_date"
-                                required
-                            />
-
-                            <p class="expcvv_text2">CVV</p>
-                            <input
-                                type="password"
-                                class="inputbox"
-                                name="cvv"
-                                id="cvv"
-                                required
-                            />
-                        </div>
-                        <p></p>
-                        <button type="submit" class="button">CheckOut</button>
-                        <button type="button" class="button" id="cancel_btn">
-                            Cancel
-                        </button>
-                    </form>
-                </div>
+            <div class="orderbox">
+                <button id="orderBtn">결제하기</button>
             </div>
         </div>
-    </body>
+        <footer class="order_footer"></footer>
+    </div>
+    <div class="payment_modal hide">
+        <div class="payment_card">
+            <div class="leftside">
+                <img src="https://i.pinimg.com/originals/18/9d/dc/189ddc1221d9c1c779dda4ad37a35fa1.png" class="product"
+                    alt="Shoes" />
+            </div>
+            <div class="rightside">
+                <form action="">
+                    <h1>CheckOut</h1>
+                    <h2>Payment Information</h2>
+                    <p>Cardholder Name</p>
+                    <input type="text" class="inputbox" name="name" required />
+                    <p>Card Number</p>
+                    <input type="number" class="inputbox" name="card_number" id="card_number" required />
+
+                    <p>Card Type</p>
+                    <select class="inputbox" name="card_type" id="card_type" required>
+                        <option value="">--Select a Card Type--</option>
+                        <option value="Visa">Visa</option>
+                        <option value="RuPay">RuPay</option>
+                        <option value="MasterCard">MasterCard</option>
+                    </select>
+                    <div class="expcvv">
+                        <p class="expcvv_text">Expiry</p>
+                        <input type="date" class="inputbox" name="exp_date" id="exp_date" required />
+
+                        <p class="expcvv_text2">CVV</p>
+                        <input type="password" class="inputbox" name="cvv" id="cvv" required />
+                    </div>
+                    <p></p>
+                    <button type="submit" class="button">CheckOut</button>
+                    <button type="button" class="button" id="cancel_btn">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
