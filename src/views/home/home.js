@@ -40,6 +40,7 @@ const drawProductList = (target, productList) => {
         const product = new Product(p);
         const productUI = product.template();
         if (i === perPage - 1) {
+            console.log(product);
             const observer = new IntersectionObserver(
                 (entries, observer) => {
                     if (entries[0].isIntersecting) {
