@@ -73,28 +73,27 @@ export default class Product {
                 parseInt(total.innerText) -
                 this.userSelectInfo.quantity * this.product.price;
         }
-        return this.product._id;
     }
 
     update(e) {
-        e.target.placeholder = e.target.value;
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        const newQty = parseInt(e.target.value) || 0;
-        const oldQty = parseInt(this.userSelectInfo.quantity);
-        cart[this.product._id].quantity = newQty;
-        this.userSelectInfo.quantity = newQty;
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        const prodTotal = document
-            .getElementById(this.product._id)
-            .querySelector('.prod-total-text');
-        prodTotal.innerText = newQty * this.product.price;
-
         const quantity = document.getElementById('quantity');
         const total = document.getElementById('total');
         const input = document
             .getElementById(this.product._id)
             .querySelector('.select-btn');
+        const prodTotal = document
+            .getElementById(this.product._id)
+            .querySelector('.prod-total-text');
+
+        e.target.placeholder = e.target.value;
+        const newQty = parseInt(e.target.value) || 0;
+        const oldQty = parseInt(this.userSelectInfo.quantity);
+
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        cart[this.product._id].quantity = newQty;
+        this.userSelectInfo.quantity = newQty;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        prodTotal.innerText = newQty * this.product.price;
 
         if (input.checked) {
             if (newQty > oldQty) {
@@ -119,6 +118,7 @@ export default class Product {
         const input = document
             .getElementById(this.product._id)
             .querySelector('.select-btn');
+
         if (input.checked) {
             quantity.innerText =
                 parseInt(quantity.innerText) - this.userSelectInfo.quantity;
@@ -126,6 +126,7 @@ export default class Product {
                 parseInt(total.innerText) -
                 this.userSelectInfo.quantity * this.product.price;
         }
+
         const cart = JSON.parse(localStorage.getItem('cart'));
         delete cart[this.product._id];
         localStorage.setItem('cart', JSON.stringify(cart));
