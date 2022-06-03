@@ -2,7 +2,7 @@ import * as Api from '/api.js';
 
 // 1. 상품 조회 기능
 const products = await Api.get('/api/admin/product', '');
-const productContainer = document.querySelector('#productsContainer');
+const productContainer = document.querySelector('.section-container');
 const modal = document.querySelector('#modal');
 const modalBox = document.querySelector('.modal-box');
 
@@ -10,35 +10,33 @@ for (let i = 0; i < products.length; i++) {
     const { _id, productName, launchDate, price, quantity } = products[i];
 
     const productId = _id;
+    const priceDisplay = price.toLocaleString('ko-KR');
 
-    const div = `
-        <div class="columns notification is-info is-light is-mobile orders-top product${productId}">
-            <div class="column is-3 ">${productName}</div>
-            <div class="column is-2 ">${launchDate}</div>
-            <div class="column is-2 ">${price}원</div>
-            <div class="column is-1 ">${quantity}</div>
-            <div class="column is-1 ">
+    const productContent = `
+            <div class="table-column title-column product${productId}">${productName}</div>
+            <div class="table-column title-column product${productId}">${launchDate}</div>
+            <div class="table-column title-column product${productId}">${priceDisplay}원</div>
+            <div class="table-column title-column product${productId}">${quantity}</div>
+            <div class="table-column title-column product${productId}">
                 <button class="editButton" id="product${productId}">수정</button>
             </div>
-            <div class="column is-1 product${productId}">
+            <div class="table-column title-column" id="product${productId}">
                 <button class="deleteButton" id="product${productId}">삭제</button>
             </div>
-        </div>
         `;
 
-    productContainer.innerHTML += div;
+    productContainer.innerHTML += productContent;
 }
 
 // 2. 상품 삭제 기능
 async function deleteProduct() {
+    
     const entireRow = document.querySelector(`.${this.id}`);
 
-    const productContainer = document.querySelector('#productsContainer');
+    const productContainer = document.querySelector('.section-container');
 
-    const check = confirm(
-        '한 번 삭제한 상품은 복구가 불가능합니다. 그래도 삭제하시겠습니까?',
-    );
-
+    const check = confirm(`상품 정보 삭제 시 복구할 수 없습니다. 정말로 삭제하시겠습니까?`);
+    
     if (check) {
         productContainer.removeChild(entireRow);
 
@@ -53,20 +51,25 @@ async function deleteProduct() {
         if (result) {
             alert('삭제가 완료되었습니다.');
         }
+        closeModal();
+    } else{
+        closeModal();
     }
 }
 
+
 // 3. 상품 수정 기능
 async function editModal() {
-
     const productId = this.id.slice(7);
-
     const productInfo = await Api.get('/api/products', productId);
-
+    
     const { productName, price, img, quantity } = productInfo;
 
     const informationToUpdate = `
+            
             <div class="product-info">
+                <div>
+                    <div class="title">Update Item</div>
                 <div class="field">
                     <label class="label" for="titleInput">상품 이름</label>
                     <div class="control">
@@ -133,12 +136,13 @@ async function editModal() {
             </div>
             </div>
                 <div class="buttons">
-                    <button class="button mt-5" id="editCompleteButton"aria-label="close">
+                    <button class="update-button mt-5" id="editCompleteButton"aria-label="close">
                       변경
                     </button>
-                    <button class="button is-primary mt-5" id="editCancelButton" aria-label="close">
+                    <button class="cancel-button is-primary mt-5" id="editCancelButton" aria-label="close">
                       취소
                     </button>
+            </div>
             </div>
         `;
 
@@ -148,24 +152,20 @@ async function editModal() {
     const editBtn = document.querySelector('#editCompleteButton');
     const cancelBtn = document.querySelector('#editCancelButton');
 
-
     editBtn.addEventListener('click', () => {
         const check = confirm('정말 변경하시겠습니까?');
-        
+
         if (check) {
-            
-            let newPrice = document.querySelector('#priceInput').value; 
+            let newPrice = document.querySelector('#priceInput').value;
             let newImg = document.querySelector('#imgInput').value;
             let newQuantity = document.querySelector('#inventoryInput').value;
 
-            let newInfo = {productId, newPrice, newImg, newQuantity};
+            let newInfo = { productId, newPrice, newImg, newQuantity };
 
             updateProduct(newInfo);
-
-        } else{
+        } else {
             closeModal();
         }
-
     });
     cancelBtn.addEventListener('click', () => {
         closeModal();
@@ -180,11 +180,10 @@ editButtons.forEach((button) => {
 });
 
 // 5. 변경 시 파일 정보 수정
-async function updateProduct(productInfo){
+async function updateProduct(productInfo) {
+    const { productId, newPrice, newImg, newQuantity } = productInfo;
 
-    const {productId, newPrice, newImg, newQuantity} = productInfo;
-
-    const data = {price: newPrice, img: newImg, quantity: newQuantity};
+    const data = { price: newPrice, img: newImg, quantity: newQuantity };
 
     const result = await Api.patch('', `api/admin/product/${productId}`, data);
 
@@ -192,7 +191,6 @@ async function updateProduct(productInfo){
         alert('성공적으로 수정되었습니다!');
         closeModal();
     }
-
 }
 
 // 5. 버튼에 삭제 기능 추가
@@ -203,7 +201,7 @@ deleteButtons.forEach((button) => {
 });
 
 // 6. 모달 창 닫히는 기능
-async function closeModal(){
+async function closeModal() {
     modal.style.display = 'none';
     modalBox.innerHTML = '';
 }

@@ -1,50 +1,204 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
+
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Montserrat', serif;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    height: 70px;
+}
+
+.has-text {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+#slider {
+    margin-top: 5rem;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#slider .slides {
+    display: block;
+    width: 8000px;
+}
+
+#slider .slide {
+    float: left;
+    width: 100vw;
+}
+
 #main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    background-color: gray;
 }
 
-#banner {
+#cart-count {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
+}
+
+#category-container {
+    background-color: white;
+    position: sticky;
+    z-index: 1;
+    top: 70px;
     width: 100%;
-    height: 400px;
-    background-color: yellow;
+    height: 100px;
+}
+
+#category {
+    width: 97%;
+    margin-top: 40px;
+    margin-left: 3%;
+    padding-bottom: 10px;
+    border-bottom: solid 1px gray;
+}
+
+.category-btn {
+    /* width: 150px; */
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 15px;
+    padding: 10px 25px;
+    font-family: 'Montserrat', serif;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+}
+
+.category-btn:hover {
+    background-color: pink;
 }
 
 #section-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
 }
 
 #filter-container {
-    background-color: pink;
-    width: 20%;
-    height: 100vh;
-    position: sticky;
-    top: 0;
+    text-align: right;
+    padding-right: 5%;
+    width: 100%;
 }
 
 #product-container {
-    background-color: aquamarine;
-    display: grid;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(300px, auto));
-    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
-    justify-content: space-between;
-    gap: 30px;
-    margin: 5% 3% 3% 3%;
+    margin-top: 4%;
+    text-align: center;
 }
 
 .product {
-    background-color: white;
-    height: 300px;
+    width: 300px;
+    height: 470px;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.45);
+    color: black;
+    margin: 20px;
+    overflow: hidden;
+    text-align: center;
 }
 
-.product-img {
-    width: 80%;
-    height: 80%;
+.product-img-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    background-color: rgb(254, 223, 223);
+    overflow: hidden;
+}
+
+.product:hover > .product-img-container {
+    background-color: rgb(228, 202, 252);
+}
+
+.product:hover {
+    transform: scale(0.98);
+}
+
+.cart-btn {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 17px;
+    font-family: 'Montserrat', serif;
+    cursor: pointer;
+}
+
+.cart-btn:hover {
+    color: white;
+    background-color: black;
+}
+
+.product-info-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.product-info-container .brand {
+    font-weight: bold;
+}
+
+.product-info-container .price {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.modal-background {
+    z-index: 2;
+    position: fixed;
+    background-color: #e0e0e0;
+}
+
+.modal-box {
+    background-color: white;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 500px;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.size-btn {
+    background-color: rgb(254, 223, 223);
+    width: 130px;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px 10px 10px 28px;
+    border: solid 1px rgb(215, 215, 215);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.size-btn:hover {
+    background-color: rgb(254, 198, 198);
 }

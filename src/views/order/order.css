@@ -1,24 +1,138 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+
+div.hide,
+.hide {
+    display: none;
+}
+
+.order-container {
+    margin: 2rem;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-
-
 .order_body {
     margin: 0 3rem;
 }
 
-.order_title h3 {
+.order_title h1 {
     font-size: 30px;
+    font-weight: bold;
     border-bottom: 1px solid black;
-    margin: 25px 0;
+    margin-bottom: 3rem;
 }
+
+.buyer_title {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.show_buyer_phone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.show_buyer_phone div{
+    width:100%;
+}
+.show_buyer_phone button {
+    position: absolute;
+    right: 0;
+}
+
+/* #phone-number-form fieldset div label{
+    
+} */
+.div_for_change {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+}
+
+.div_for_change label {
+    margin-bottom: 1rem;
+}
+.buttons_container {
+    position: absolute;
+    right: 0rem;
+    top: 2rem;
+}
+.div_for_change input,
+.search_address_input {
+    border: none;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    width: 50%;
+    margin-bottom: 1rem;
+}
+
+.input_address {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input_address label {
+    width: 100%;
+}
+.input_address button,
+.search_address .address_button {
+    position: absolute;
+    right: 0;
+    z-index: 2;
+}
+.search_address > .buttons_container {
+    height: 10rem;
+    display: flex;
+    align-items: flex-end;
+    bottom: 0;
+}
+
+.search_address {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#order_list {
+    text-align: left;
+    padding: 2rem;
+    padding-left: 5rem;
+}
+
+button,
+.address_button {
+    margin-left: 1rem;
+    color: white;
+    background-color: black;
+    border: 1px black solid;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.8rem;
+}
+
+button:hover,
+.address_button:hover {
+    color: black;
+    background-color: white;
+    cursor: pointer;
+}
+
 
 .h2_title {
     font-size: 20px;
-    /* margin-bottom: 10px; */
-    margin: 3em 0 0.5em 0;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    margin-top: 4rem;
 }
 
 .buyer_title {
@@ -27,12 +141,23 @@ table {
 
 .table_element {
     width: 100%;
-    border-top: 2px solid #cecece;
+  
 }
 
-.table_element td,
-.table_element th {
-    border: 1px solid #cecece;
+.order_th,
+#payment_th {
+    font-weight: 400;
+}
+
+.address_th,
+.phone_th,
+.order_th,
+#payment_th {
+    vertical-align: middle;
+}
+
+td {
+    vertical-align: middle;
 }
 
 .table_element th {
@@ -42,169 +167,70 @@ table {
 .orderbox {
     width: 100%;
     height: 8rem;
+    position: relative;
 }
 
 .orderbox button {
-    position: relative;
+    position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%);
+    right: 0;
 }
 
 .order_footer {
     width: 100%;
     height: 5rem;
-    border-top: 1px solid #cecece;
+   
+}
+
+nav{
+    font-family: 'Montserrat', serif;}
+.table_element tr {
+    text-align: center;
+    height: 3rem;
+}
+
+.table_element td {
+    border-bottom: none;
+    border-left: none;
+}
+
+.table_element tr th {
+    border-right: none;
+    background-color: rgb(230, 230, 230);
+}
+
+.table_element tr p {
+    position: relative;
+    top: 50%;
+}
+
+td div {
+    padding: 15px 0;
 }
 
 
 
-/*
 
-    결제창 모달
-
-*/
-
-div.hide {
-    display: none;
-}
-
-.payment_modal {
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    position: fixed;
-    left: 0;
-    top: 0;
-    /* overflow: hidden;
-    touch-action: none; */
+#cart-count {
+    color: black;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(1.5px);
-    -webkit-backdrop-filter: blur(1.5px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    /* background-image: url("https://wallpaperaccess.com/full/3063067.png"); */
-    /* color:#963E7B; */
-}
-
-.payment_card {
-    width: 60rem;
-    margin: auto;
-    background: white;
-    /* position: center; */
-    align-self: center;
-    /* top: -40rem; */
-    border-radius: 1.5rem;
-    box-shadow: 4px 3px 20px #3535358c;
-    display: flex;
-    flex-direction: row;
-
-}
-
-.leftside {
-    background: #030303;
-    width: 25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-top-left-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
-}
-
-.product {
-    object-fit: cover;
-    width: 20em;
-    height: 20em;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
     border-radius: 100%;
 }
 
-.rightside {
-    background-color: #ffffff;
-    width: 35rem;
-    border-bottom-right-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
-    padding: 1rem 2rem 3rem 3rem;
-}
+.has-text{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
 
-p {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 400;
-    margin: .8rem 0;
-}
-
-.inputbox {
-    color: #030303;
-    width: 100%;
-    padding: 0.5rem;
-    border: none;
-    border-bottom: 1.5px solid #ccc;
-    margin-bottom: 1rem;
-    border-radius: 0.3rem;
-    font-family: 'Roboto', sans-serif;
-    color: #615a5a;
-    font-size: 1.1rem;
-    font-weight: 500;
-    outline: none;
-}
-
-.expcvv {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 0.6rem;
-}
-
-.expcvv_text {
-    padding-right: 1rem;
-}
-
-.expcvv_text2 {
-    padding: 0 1rem;
-}
-
-.button {
-    background: linear-gradient(135deg, #753370 0%, #298096 100%);
-    padding: 15px;
-    border: none;
-    border-radius: 50px;
-    color: white;
-    font-weight: 400;
-    font-size: 1.2rem;
-    margin-top: 10px;
-    width: 100%;
-    letter-spacing: .11rem;
-    outline: none;
-}
-
-.button:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 3px 3px 6px #38373785;
-}
-
-@media only screen and (max-width: 1000px) {
-    .payment_card {
-        flex-direction: column;
-        width: auto;
-
-    }
-
-    .leftside {
-        width: 100%;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 0;
-        border-radius: 0;
-    }
-
-    .rightside {
-        width: auto;
-        border-bottom-left-radius: 1.5rem;
-        padding: 0.5rem 3rem 3rem 2rem;
-        border-radius: 0;
-    }
+  } 
+nav{
+    font-family: 'Montserrat', serif;
 }

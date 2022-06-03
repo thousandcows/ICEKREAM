@@ -1,10 +1,4 @@
-
-import { navTransition } from "../navTransition/navTransition.js";
-import { fetchUserData } from "./update-patch.js";
-
-
-navTransition('update');
-
+import { fetchUserData } from "./form-handler.js";
 
 /*
 
@@ -12,18 +6,10 @@ navTransition('update');
     
 */
 
-
 fetchUserData();
-   
-
-
-
 
 const showArea = document.querySelectorAll('.show_area button');
 const changeArea = document.querySelectorAll('.change_area');
-// const withdrawBtn = document.querySelector('.withdraw_area button');
-
-
 
 
 // 정보 변경 클릭 시 인풋 박스가 뜨는 화면 구성

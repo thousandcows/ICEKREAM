@@ -2,76 +2,80 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>쇼핑-데모</title>
-  <!-- 아이콘 -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-  <!-- bulma css 관련 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-  <!-- 폰트 어썸: 아이콘 -->
-  <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-  <!-- 커스텀 css, js -->
-  <link rel="stylesheet" href="login.css" />
-  <script src="login.js" type="module" defer></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>쇼핑-데모</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit.png" />
+    <!-- bulma css 관련 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <!-- 폰트 어썸: 아이콘 -->
+    <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="login.css" />
+    <script id="login" class="nav_trans" src="/nav-transition/nav_logout.js" type="module"></script>
+    <script src="login.js" type="module" defer></script>
 </head>
 
 <body>
-  <!-- 헤더 -->
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container mt-3">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="/elice-rabbit.png" width="30" height="30" />
-          <span class="has-text-link">쇼핑-n팀</span>
-        </a>
+    <!-- 헤더 -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container mt-3">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="/elice-rabbit.png" width="30" height="30" />
+                    <span class="has-text">IceKream</span>
+                </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
 
-      <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-        <ul id="navSelect">
-          <li class="register_btn"><a href="/register">회원가입</a></li>
-          <li>
-            <a href="#cart" aria-current="page">
-              <span class="icon">
-                <i class="fas fa-cart-shopping"></i>
-              </span>
-              <span>카트</span>
+            <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+                <ul id="navSelect">
+                    <li>
+                        <a href="/cart" aria-current="page" style="color: black">
+                            <span class="icon">
+                                <i class="fas fa-cart-shopping"></i>
+                            </span>
+                            <div id="cart-count">0</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 로그인 폼(Form) -->
+    <div class="login-form-container">
+        <form class="login-form-box" id="loginForm">
+            <h2 class="login-title">IceKream</h2>
+            <div class="">
+                <label class="login-label" for="emailInput">Email</label>
+                <div class="input-box">
+                    <input class="login-input" id="emailInput" type="email" placeholder="IceKream@example.com"
+                        autocomplete="on" />
+                </div>
+            </div>
+
+            <div class="">
+                <label class="login-label" for="passwordInput">Password</label>
+                <div class="input-box">
+                    <input class="login-input" id="passwordInput" type="password" placeholder="********"
+                        autocomplete="on" />
+                </div>
+            </div>
+
+            <button class="login-button" id="submitButton">Login</button>
+
+            <a href="/api/users/kakao" class="login-button">
+                <img src="/kakao_login_large_wide.png" id="kakaoButton" />
             </a>
-          </li>
-        </ul>
-      </div>
+        </form>
     </div>
-  </nav>
-
-  <!-- 로그인 폼(Form) -->
-  <div class="login-form-container">
-    <form class="box login-form-box" id="loginForm">
-      <p class="title is-5 has-text-info">어서오세요!</p>
-      <div class="field">
-        <label class="label" for="emailInput">이메일</label>
-        <div class="control">
-          <input class="input" id="emailInput" type="email" placeholder="abc@example.com" autocomplete="on" />
-        </div>
-      </div>
-
-      <div class="field mb-5">
-        <label class="label" for="passwordInput">비밀번호</label>
-        <div class="control">
-          <input class="input" id="passwordInput" type="password" placeholder="********" autocomplete="on" />
-        </div>
-      </div>
-
-      <button class="button is-info is-fullwidth" id="submitButton">
-        로그인하기
-      </button>
-    </form>
-  </div>
 </body>
 
 </html>

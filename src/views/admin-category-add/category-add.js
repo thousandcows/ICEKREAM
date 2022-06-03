@@ -1,8 +1,8 @@
 import * as Api from '/api.js';
 
-const submitBtn = document.querySelector('#addCategoryButton');
-const nameInput = document.querySelector('#categoryName');
-const sizeInput = document.querySelector('#categorySize');
+const submitBtn = document.querySelector('#submitButton');
+const nameInput = document.querySelector('#nameInput');
+const sizeInput = document.querySelector('#sizeInput');
 
 addAllElements();
 addAllEvents();
@@ -43,8 +43,10 @@ async function handleSubmit(e) {
 
             const result = await Api.post('/api/admin/product/category', data);
 
-            console.log(result);
-
+            if (result) {
+                alert(`${name} 카테고리가 성공적으로 등록되었습니다!`);
+                window.location.href = '/admin';
+            }
         }catch(err){
             console.error(err.stack);
             alert(`${err.message}`);

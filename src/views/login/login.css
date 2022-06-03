@@ -1,18 +1,67 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+.has-text{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+
+  } 
+nav{
+    font-family: 'Montserrat', serif;
+}
+
 .login-form-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 85vh;
+  color:black;
+  font-family: 'Montserrat', serif; 
 }
 
 .login-form-box {
-  width: 30rem;
+  display:flex;
+  flex-direction: column;
+  justify-content: bottom;
+  align-items: center;
 }
 
-.login-form-box .title {
+.login-title {
   text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom:3rem;
 }
-
-.login-form-box .button {
+.login-label{
+  font-size:small;
   font-weight: bold;
 }
+.login-input{
+  width:25rem;
+  height:3rem;
+  margin-bottom:2rem;
+  border:none;
+  border-bottom:solid 1px rgb(240,240,240);
+}
+.login-input:focus{
+  outline: none;
+  border-bottom: solid 1px black;
+}
+.login-button{
+  width:25rem;
+  height:3.5rem;
+  margin-bottom:0.5rem;
+  border:none;
+  border-radius: 0.5rem;
+  font-size: medium;
+  background-color:rgb(235,235,235);
+  color: white;
+  font-weight: bold;
+}
+.login-button:hover{
+  cursor:pointer;
+}
+#kakaoButton{
+  width:25rem;
+}
+

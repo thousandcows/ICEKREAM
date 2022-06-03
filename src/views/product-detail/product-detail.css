@@ -1,0 +1,151 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+.has-text{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+
+  } 
+nav{
+    font-family: 'Montserrat', serif;
+}
+#cart-count {
+    color: black;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    height: 80vh;
+    justify-content: center;
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    height: 60%;
+    justify-content: center;
+}
+
+.main-column:first-child {
+    background-color: rgb(244 244 244);
+    margin-right: 2rem;
+    width: 40%;
+    text-align: center;
+}
+
+.product-image-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.product-image {
+    height: 100%;
+}
+
+.main-column:last-child {
+    padding: 2rem;
+    border-left: 1px solid black;
+    display: flex;
+}
+
+.product-brand {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.product-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.product-info-main {
+    padding: 1rem;
+}
+
+.product-price,
+.product-launch,
+.product-sizes {
+    text-align: right;
+    padding: 1rem;
+    border-bottom: 1px rgb(210, 210, 210) solid;
+    font-size: 18px;
+}
+
+.product-sizes button {
+    background-color: rgb(254, 223, 223);
+    width: 120px;
+    height: 2rem;
+    border-radius: 1rem;
+    border: none;
+    padding-bottom: 2px;
+    font-weight: bold;
+}
+
+.buy-buttons {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buy-buttons button {
+    width: 48%;
+    height: 3rem;
+    border-radius: 1rem;
+    border: none;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(253, 176, 189);
+}
+
+#buy {
+    background-color: rgb(254, 223, 223);
+}
+
+#buy:hover {
+    background-color: rgb(253, 176, 189);
+}
+
+.modal-background {
+    z-index: 2;
+    position: fixed;
+    background-color: #e0e0e0;
+}
+
+.modal-box {
+    background-color: white;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 500px;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.size-btn {
+    background-color: rgb(254, 223, 223);
+    width: 130px;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px 10px 10px 28px;
+    border: solid 1px rgb(215, 215, 215);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.size-btn:hover {
+    background-color: rgb(254, 198, 198);
+}

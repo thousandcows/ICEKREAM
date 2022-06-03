@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+
+nav {
+    font-family: 'Montserrat', serif;
+}
+.has-text {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.block.account-header {
+    text-align: center;
+}
+
+.subtitle {
+    font-weight: 600;
+}
+
+.columns {
+    margin: 0;
+    /* margin-left: -0.75rem; */
+    /* margin-right: -0.75rem; */
+    /* margin-top: -0.75rem; */
+}
+
+.container .notification.is-info.is-light {
+    color: black;
+    background-color: #f5f5dc;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+}
+
+.columns.orders-item {
+    text-align: center;
+    padding: 0rem 2.5rem 0rem 1.5rem;
+    line-height: 3;
+}
+
+.columns.orders-item button {
+    margin-bottom: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: medium;
+    background-color: rgb(255, 217, 192);
+    color: black;
+    font-weight: bold;
+}
+
+.columns.orders-item div:nth-child(4) {
+    font-weight: bold;
+}
+
+#cart-count {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
+}

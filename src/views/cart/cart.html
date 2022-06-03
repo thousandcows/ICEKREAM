@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+    <title>IceKream</title>
+    <!-- 아이콘 -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="cart.css" />
+    <!-- <script id="cart" class="nav_trans" src="/nav-transition/nav_user.js" type="module"></script> -->
     <script src="cart.js" type="module" defer></script>
 </head>
 
@@ -18,7 +20,7 @@
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
                     <img src="/elice-rabbit.png" width="30" height="30" />
-                    <span class="has-text-link">쇼핑-n팀</span>
+                    <span class="has-text">IceKream</span>
                 </a>
 
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -30,17 +32,7 @@
             </div>
 
             <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-                <ul id="navbar">
-                    <li><a href="/login">로그인</a></li>
-                    <li><a href="/register">회원가입</a></li>
-                    <li>
-                        <a href="#cart" aria-current="page">
-                            <span class="icon">
-                                <i class="fas fa-cart-shopping"></i>
-                            </span>
-                            <span>카트</span>
-                        </a>
-                    </li>
+                <ul id="navSelect">
                 </ul>
             </div>
         </div>
@@ -49,24 +41,21 @@
     <div class="wrap cf">
         <div class="heading cf">
             <h1>My Cart</h1>
-            <a href="#" class="continue">Continue Shopping</a>
+            <a href="/" class="continue">Continue Shopping</a>
         </div>
-        <input type="checkbox" id="select-all-product" /> all
+        <input type="checkbox" id="select-all-product" /> 전체
+        <button id="delete-selected-btn">선택 삭제</button>
         <div class="cart"></div>
         <div class="subtotal cf">
             <ul>
                 <li class="totalRow">
                     <span class="label">quantity</span><span class="value" id="quantity">0</span>
                 </li>
-
-                <li class="totalRow">
-                    <span class="label">Subtotal</span><span class="value" id="subtotal">0</span>
-                </li>
                 <li class="totalRow final">
                     <span class="label">Total</span><span class="value" id="total">0</span>
                 </li>
                 <li class="totalRow">
-                    <a href="#" class="btn continue">Checkout</a>
+                    <a href="/order" class="btn continue" id="checkout-btn">Checkout</a>
                 </li>
             </ul>
         </div>

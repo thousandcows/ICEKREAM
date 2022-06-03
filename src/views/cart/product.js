@@ -1,13 +1,13 @@
 export default class Product {
-    constructor(target, id, product) {
+    constructor(target, product, userSelectInfo) {
         this.target = target;
-        this.id = id;
         this.product = product;
+        this.userSelectInfo = userSelectInfo;
     }
 
     template(idx) {
         const li = document.createElement('li');
-        li.id = this.id;
+        li.id = this.product._id;
         if (idx % 2 === 0) {
             li.classList.add('items', 'even');
         } else {
@@ -15,23 +15,29 @@ export default class Product {
         }
         li.innerHTML = `
           <div class="infoWrap">
-              <input type="checkbox" class="select-btn"/>
-              <div class="cartSection">
-                  <img src="./product.png" alt="" class="itemImg" />
-                  <h3>${this.product.name}</h3>
-                  <p><input type="text" class="qty" placeholder=${
-                      this.product.quantity
-                  } />x ${this.product.price}</p>
-                  <p class="stockStatus">In Stock</p>
-              </div>
-              <div class="prodTotal cartSection">
-                  <p class="prod-total-text">${
-                      this.product.price * this.product.quantity
-                  }</p>
-              </div>
-              <div class="cartSection remove-btn">
-                  <a href="#" class="remove">x</a>
-              </div>
+                <input type="checkbox" class="select-btn"/>
+                <div class="cartSection">
+                    <img src=${this.product.img} alt="" class="itemImg" />
+                    <h3>${this.product.productName}</h3>
+                    <p>
+                        <input 
+                            type='text'  
+                            class="qty" 
+                            placeholder=${this.userSelectInfo.quantity} 
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')"/>
+                            x ${this.product.price}
+                    </p>
+                    <p class="stockStatus">In Stock</p>
+                    <div class="size">SIZE | ${this.userSelectInfo.size}</div>
+                </div>
+                <div class="prodTotal cartSection">
+                    <p class="prod-total-text">${
+                        this.product.price * this.userSelectInfo.quantity
+                    }</p>
+                </div>
+                <div class="cartSection remove-btn">
+                    <a href="#" class="remove">x</a>
+                </div>
           </div>
       `;
         this.setEvent(li);
@@ -39,6 +45,10 @@ export default class Product {
     }
 
     setEvent(elem) {
+        elem.querySelector('.select-btn').addEventListener(
+            'change',
+            this.select.bind(this),
+        );
         elem.querySelector('.qty').addEventListener(
             'input',
             this.update.bind(this),
@@ -47,76 +57,62 @@ export default class Product {
             'click',
             this.del.bind(this),
         );
-        elem.querySelector('.select-btn').addEventListener(
-            'change',
-            this.select.bind(this),
-        );
     }
 
     select() {
         const quantity = document.getElementById('quantity');
-        const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.id)
+            .getElementById(this.product._id)
             .querySelector('.select-btn');
+
         if (input.checked) {
             quantity.innerText =
-                Number(quantity.innerText) + this.product.quantity;
-            subTotal.innerText =
-                Number(subTotal.innerText) +
-                this.product.quantity * this.product.price;
+                parseInt(quantity.innerText) + this.userSelectInfo.quantity;
             total.innerText =
-                Number(total.innerText) +
-                this.product.quantity * this.product.price;
+                parseInt(total.innerText) +
+                this.userSelectInfo.quantity * this.product.price;
         } else {
             quantity.innerText =
-                Number(quantity.innerText) - this.product.quantity;
-            subTotal.innerText =
-                Number(subTotal.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(quantity.innerText) - this.userSelectInfo.quantity;
             total.innerText =
-                Number(total.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(total.innerText) -
+                this.userSelectInfo.quantity * this.product.price;
         }
     }
 
     update(e) {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        const newQty = Number(e.target.value);
-        const oldQty = Number(cart[this.id].quantity);
-        cart[this.id].quantity = newQty;
-        this.product.quantity = newQty;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        const prodTotal = document
-            .getElementById(this.id)
-            .querySelector('.prod-total-text');
-        prodTotal.innerText = newQty * this.product.price;
-
         const quantity = document.getElementById('quantity');
-        const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.id)
+            .getElementById(this.product._id)
             .querySelector('.select-btn');
+        const prodTotal = document
+            .getElementById(this.product._id)
+            .querySelector('.prod-total-text');
+
+        e.target.placeholder = e.target.value;
+        const newQty = parseInt(e.target.value) || 0;
+        const oldQty = parseInt(this.userSelectInfo.quantity);
+
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        cart[this.product._id].quantity = newQty;
+        this.userSelectInfo.quantity = newQty;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        prodTotal.innerText = newQty * this.product.price;
+
         if (input.checked) {
             if (newQty > oldQty) {
                 quantity.innerText =
-                    Number(quantity.innerText) + (newQty - oldQty);
-                subTotal.innerText =
-                    Number(subTotal.innerText) +
-                    this.product.price * (newQty - oldQty);
+                    parseInt(quantity.innerText) + (newQty - oldQty);
                 total.innerText =
-                    Number(total.innerText) +
+                    parseInt(total.innerText) +
                     this.product.price * (newQty - oldQty);
             } else {
                 quantity.innerText =
-                    Number(quantity.innerText) - (oldQty - newQty);
-                subTotal.innerText =
-                    Number(subTotal.innerText) -
-                    this.product.price * (oldQty - newQty);
+                    parseInt(quantity.innerText) - (oldQty - newQty);
                 total.innerText =
-                    Number(total.innerText) -
+                    parseInt(total.innerText) -
                     this.product.price * (oldQty - newQty);
             }
         }
@@ -124,24 +120,22 @@ export default class Product {
 
     del() {
         const quantity = document.getElementById('quantity');
-        const subTotal = document.getElementById('subtotal');
         const total = document.getElementById('total');
         const input = document
-            .getElementById(this.id)
+            .getElementById(this.product._id)
             .querySelector('.select-btn');
+
         if (input.checked) {
             quantity.innerText =
-                Number(quantity.innerText) - this.product.quantity;
-            subTotal.innerText =
-                Number(subTotal.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(quantity.innerText) - this.userSelectInfo.quantity;
             total.innerText =
-                Number(total.innerText) -
-                this.product.quantity * this.product.price;
+                parseInt(total.innerText) -
+                this.userSelectInfo.quantity * this.product.price;
         }
+
         const cart = JSON.parse(localStorage.getItem('cart'));
-        delete cart[this.id];
+        delete cart[this.product._id];
         localStorage.setItem('cart', JSON.stringify(cart));
-        this.target.removeChild(document.getElementById(this.id));
+        this.target.removeChild(document.getElementById(this.product._id));
     }
 }

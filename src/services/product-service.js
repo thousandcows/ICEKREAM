@@ -1,3 +1,5 @@
+import { categoryService } from './category-service';
+import { orderService } from './order-service';
 const { productModel } = require('../db/models/product-model');
 const {categoryModel} = require('../db/models/category-model');
 
@@ -8,12 +10,9 @@ class ProductService {
     }
     
     // 1. 전체 / 카테고리 상품 목록 조회 기능
-    async findAllProducts(role, category, page, perPage){
-        // 1-1. 유저의 경우 paginated 된 결과를 반환
-        console.log("role: " + role);
-        if (role === "basic-user") {
+    async findAllProducts(category, page, perPage){
 
-            let query = ""
+            let query = {}
         
             if (category !== null && category !== undefined){
                 
@@ -22,17 +21,12 @@ class ProductService {
                 if(isCategoryExist){
                     query = {category: isCategoryExist._id}
                 }
-            
-            const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
-    
-            return [ productList, totalPage ];
             }
-        // 1-2. 관리자의 경우 전체 목록을 한 번에 반환
-        } else if (role === "admin") {
+            const [productList, totalPage] = await this.productModel.getPaginatedProducts(query, page, perPage);
             
-            const productList = await this.productModel.findAllProducts();
-            return productList;
-        }
+            return [ productList, totalPage ];
+            
+
     }
     // 2. 상품 상세 정보 조회 기능
     async findById(productId){
@@ -70,8 +64,6 @@ class ProductService {
     
     // 4. 상품 수정 기능
     async updateProduct(productId, update){
-        console.log(productId)
-        console.log(update)
         const updatedProduct = await this.productModel.updateProduct(productId, update);
         return updatedProduct;
     }
@@ -89,7 +81,6 @@ class ProductService {
     // 6. 장바구니 내에 있는 상품 상세 정보 조회
     async getProductsInCart(productIds){
         const productList = []
-
         for (let i = 0; i < productIds.length; i++){
             
             const productId = productIds[i];
@@ -103,9 +94,102 @@ class ProductService {
     }
 
     // 7. 주문 시 구매자/재고/주문량 변경
-    async manageProductQuantity(){
-        
+    async putOrderProductList(userId, productList){
+
+        // 아이디 중복시 아이디 추가 x, 구매량과 주문량만 변경
+        const updatedProductList = []
+        for (let i = 0; i < productList.length; i++){
+            
+            
+            const {id, name, quantity} = productList[i];
+
+            // 7-1. 재고 확인
+            const productToCheck = await this.productModel.findById(id);
+
+            if (productToCheck.quantity < quantity){
+                throw new Error(`${productToCheck.productName}상품 개수가 ${quantity - productToCheck.quantity}개 부족합니다.`);
+            }
+
+            // 7-2. 유저가 이미 구입했는지 확인
+            // 7-2-1. 기본 업데이트: 유저, 구매량, 재고 수량 업데이트
+            let update = {$push : {purchasedUsers : userId}, $inc : {quantity : -quantity, purchaseCount : quantity}};
+
+            // 7-2-2. 이미 구입하는 유저일 때 
+            
+            if (productToCheck.purchasedUsers.includes(userId)) {
+                update = {$inc : {quantity : -quantity, purchaseCount : quantity}};
+            }
+
+            // 7-3. 업데이트
+            const updatedProduct = await this.productModel.updateProduct(id, update);
+            updatedProductList.push(updatedProduct);
+        }
+
+        return updatedProductList;
     }
+
+    // 8. 주문 취소 시 구매자/재고/주문량 변경
+    async pullOrderProductList(orderId){
+        
+        const canceledOrder = await orderService.findOneOrder(orderId);
+
+        const productsToCancel = canceledOrder.productList;
+
+        const updatedProductList = []
+
+        for (let i = 0; i < productsToCancel.length; i++){
+
+            const id = await productService.findById(productsToCancel[i].id);
+            const quantity = productsToCancel[i].quantity;
+
+            const update = {$inc : {quantity : +quantity, purchaseCount : -quantity}};
+
+            const updatedProduct = await productService.updateProduct(id, update);
+            updatedProductList.push(updatedProduct);
+        }
+        
+        return updatedProductList;
+
+
+    }
+
+    // 8. 관리자 상품 목록 조회 기능
+    async findAllProductsForAdmin(){
+        const productList = await this.productModel.findAllProducts();
+        return productList;
+        
+
+    }
+
+    // 9. 카테고리 삭제 시 상품 내 카테고리 변경
+    async changeCategoryInProducts(categoryId){
+
+        const unassignedCategoryName = "Unassigned";
+        
+        const unassignedCategory = await categoryService.findOne(unassignedCategoryName);
+
+        const unassignedCategoryId = unassignedCategory._id;
+
+        const productList = await this.productModel.findByCategory(categoryId);
+
+        const updatedProductList = []
+
+        for (let i = 0; i < productList.length; i++){
+            
+            const productId = productList[i]._id;
+            const update = {$set : {category: unassignedCategoryId}};
+            const updatedProduct = await this.productModel.updateProduct(productId, update);
+
+            updatedProductList.push(updatedProduct);
+
+            await categoryService.addProductToCategory(unassignedCategoryName, productId);
+
+        }
+
+        return updatedProductList;
+
+    }
+
 }
 
 const productService = new ProductService(productModel);

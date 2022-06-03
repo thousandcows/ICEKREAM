@@ -88,6 +88,19 @@ class UserService {
 
         return user;
     }
+    async userRoleUpdate(userId, toUpdate) {
+        let user = await this.userModel.findById(userId);
+
+        // db에서 찾지 못한 경우, 에러 메시지 반환
+        if (!user) {
+            throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
+        }
+        let newUser = await this.userModel.update({
+            userId,
+            update: toUpdate,
+        });
+        return newUser;
+    }
 
     async deleteUser(userInfoRequired) {
         // 객체 destructuring
@@ -115,8 +128,6 @@ class UserService {
             );
         }
 
-        // 이제 드디어 삭제 시작
-        // 여기에 delete 확정인지 확인을 물어봐야 하나?
         // 업데이트 진행
         const deletedUser = await this.userModel.deleteById(userId);
         return deletedUser;

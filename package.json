@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@sindresorhus/is": "^4.6.0",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -18,11 +19,15 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.3",
+    "geteventlisteners": "^1.1.0",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "material-components-web": "^14.0.0",
+    "moment": "^2.29.3",
     "mongoose": "^6.3.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
+    "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
     "prettier": "2.6.2"
   },
@@ -32,6 +37,7 @@
     "@babel/node": "^7.16.8",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "eslint-plugin-moment": "^0.0.2",
     "nodemon": "^2.0.15"
   }
 }

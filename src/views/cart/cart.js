@@ -1,25 +1,23 @@
 import Product from './product.js';
-
-// 테스트 케이스
-(function testCart() {
-    localStorage.setItem(
-        'cart',
-        JSON.stringify({
-            1: { name: 'apple', price: 1000, checked: true, quantity: 1 },
-            2: { name: 'orange', price: 2000, checked: false, quantity: 3 },
-            3: { name: 'banana', price: 3000, checked: true, quantity: 4 },
-            4: { name: 'apple', price: 1000, checked: false, quantity: 1 },
-            5: { name: 'orange', price: 2000, checked: true, quantity: 2 },
-        }),
-    );
-})();
+import { navTransition } from '../nav-transition/nav-transition.js';
 
 const ref = {
-    productContainer: document.querySelector('.cart'),
+    cartContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),
+    deleteSelectedBtn: document.getElementById('delete-selected-btn'),
+    checkoutBtn: document.getElementById('checkout-btn'),
 };
 
-const addEvents = () => {
+const drawCartList = (target, productList) => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    productList.forEach((product, i) => {
+        const productUI = new Product(target, product, cart[product._id]);
+        target.appendChild(productUI.template(i));
+    });
+};
+
+const setEvents = () => {
+    // 전체 선택
     ref.selectAllBtn.addEventListener('input', () => {
         const selectBtns = document.querySelectorAll('.select-btn');
         if (ref.selectAllBtn.checked) {
@@ -32,17 +30,63 @@ const addEvents = () => {
             );
         }
     });
-};
 
-// id에 해당되는 실제 데이터 요청 필요
-const initialCart = () => JSON.parse(localStorage.getItem('cart'));
+    // 선택 삭제
+    ref.deleteSelectedBtn.addEventListener('click', () => {
+        const productDomList = document.querySelectorAll('.items');
+        productDomList.forEach((productDom) => {
+            const selectBtn = productDom.querySelector('.select-btn');
+            const removeBtn = productDom.querySelector('.remove-btn');
+            if (selectBtn.checked) {
+                removeBtn.click();
+            }
+        });
+    });
 
-const render = (target, products) => {
-    Object.entries(products).forEach(([key, value], i) => {
-        const product = new Product(target, key, value);
-        target.appendChild(product.template(i));
+    // 결제 버튼
+    ref.checkoutBtn.addEventListener('click', (e) => {
+        const allProductUI = Array.from(document.querySelectorAll('.items'));
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const selectedProduct = allProductUI.reduce((prev, productUI) => {
+            const selectBtn = productUI.querySelector('.select-btn');
+            if (selectBtn.checked) {
+                prev[productUI.id] = cart[productUI.id];
+            }
+            return prev;
+        }, {});
+        if (!Object.keys(selectedProduct).length) {
+            e.preventDefault();
+            alert('장바구니에 담긴 상품이 없습니다.');
+        } else {
+            localStorage.setItem('payment', JSON.stringify(selectedProduct));
+        }
     });
 };
 
-render(ref.productContainer, initialCart());
-addEvents();
+const render = (productList) => {
+    navTransition('cart');
+    drawCartList(ref.cartContainer, productList);
+};
+
+const initialize = async () => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+
+    if (cart) {
+        const res = await fetch(`/api/products/cart`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                productIds: Object.keys(cart).map((key) => key),
+            }),
+        });
+        return await res.json();
+    } else {
+        return null;
+    }
+};
+
+initialize()
+    .then((cartList) => render(cartList))
+    .then(() => setEvents());

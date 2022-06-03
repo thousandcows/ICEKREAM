@@ -1,0 +1,41 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+.message-container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 1rem;
+}
+
+main{
+  width:100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message-container h1{
+  font-size:1.5rem;
+  margin:2rem;
+  font-weight: bold;
+  font-family:'Montserrat', serif; ;
+
+}
+
+.message-container button{
+  width:10rem;
+  height:3.5rem;
+  margin-bottom:0.5rem;
+  border:none;
+  border-radius: 0.5rem;
+  font-size: medium;
+  background-color:rgb(235,235,235);
+  color: white;
+  font-weight: bold;
+  font-family:'Montserrat', serif; 
+}
+.message-container button:hover{
+  cursor:pointer;
+}

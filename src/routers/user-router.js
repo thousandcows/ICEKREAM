@@ -24,14 +24,13 @@ userRouter.post('/register', async (req, res, next) => {
             fullName,
             password,
         });
-        console.log('is valid ' + isValid);
         // 위 데이터를 유저 db에 추가하기
         const newUser = await userService.addUser({
             fullName,
             email,
             password,
         });
-        
+
         // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
         // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
         res.status(201).json(newUser);
@@ -68,7 +67,7 @@ userRouter.post('/login', async (req, res, next) => {
                 req.login(user, { session: false }, (loginError) => {
                     // login을 하면
                     if (loginError) {
-                        res.send(loginError);
+                        res.status(400).send(loginError);
                         return;
                     }
                     const secretKey =
@@ -76,8 +75,15 @@ userRouter.post('/login', async (req, res, next) => {
                     const token = jwt.sign(
                         { userId: user._id, role: user.role },
                         secretKey,
+                        {
+                            expiresIn: '7d',
+                        },
                     );
-                    res.json({ token, userId: user._id });
+                    res.status(200).json({
+                        token,
+                        userId: user._id,
+                        role: user.role,
+                    });
                 });
             },
         )(req, res); // 이 부분은 수업 때나 지금이나 이해가 잘 안되지만 필요함.
@@ -88,5 +94,32 @@ userRouter.post('/login', async (req, res, next) => {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+
+//Kakao login 용 userRouter get 요청 두가지
+userRouter.get(
+    '/kakao',
+    passport.authenticate('kakao-login', { session: false }),
+);
+userRouter.get(
+    '/kakao/cb',
+    passport.authenticate('kakao-login', {
+        session: false,
+        failureRedirect: '/login',
+    }),
+    (req, res) => {
+        if (req.user) {
+            const secretKey = process.env.JWT_SECRET_KEY || 'secret-key'; // login 성공시 key값을 써서 토큰 생성
+            const user = req.user;
+            const userId = user._id;
+            const role = user.role;
+            const token = jwt.sign({ userId, role }, secretKey, {
+                expiresIn: '7d',
+            });
+            res.status(200).redirect(
+                `/login/success?token=${token}&userId=${userId}&role=${role}`,
+            );
+        }
+    },
+);
 
 export { userRouter };

@@ -7,13 +7,14 @@ import { userModel } from '../db';
 const { ExtractJwt, Strategy: JWTStrategy } = require('passport-jwt');
 
 const LocalStrategy = Strategy;
+const KakaoStrategy = require('passport-kakao').Strategy; //implement Kakao Strategy;
 
 const passportConfig = {
     // passport의 username, password field configure
     usernameField: 'email',
     passwordField: 'password',
 };
-// 모든 done에 reason=> message로 수정
+
 const passportVerify = async (email, password, done) => {
     try {
         const user = await userModel.findByEmail(email); // email로 유저확인 check user-model;
@@ -74,4 +75,45 @@ function JWTConfiguration() {
     passport.use('jwt', new JWTStrategy(JWTConfig, JWTVerify)); // passport에게 쓸 strategy의 이름과 기능을 설명
 }
 
-export { passportConfiguration, JWTConfiguration };
+////Kakao Strategy
+const KakaoConfig = {
+    clientID: process.env.KAKAO_CLIENT_ID, //env에 대하여 물어봐 주세요.
+    callbackURL:
+        'http://kdt-sw2-seoul-team18.elicecoding.com/api/users/kakao/cb',
+};
+
+const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
+    try {
+        //여기서 profile에 유저 정보가 있는게 정상 같은데....?
+        const userInfoFromKakao = JSON.parse(profile._raw);
+        const kakaoAccount = userInfoFromKakao.kakao_account;
+        const kakaoEmail = kakaoAccount.email;
+        const kakaoUsername = kakaoAccount.profile.nickname;
+        const kakaoPassword = 'kakaoPassword';
+        const arbPassword = await bcrypt.hash(kakaoPassword, 10);
+
+        const user = await userModel.findByEmail(kakaoEmail);
+        if (!user) {
+            const userInfo = {
+                email: kakaoEmail,
+                password: arbPassword,
+                fullName: kakaoUsername,
+                role: 'basic-user',
+                registerType: 'Kakao',
+            };
+            const user = await userModel.create(userInfo);
+            done(null, user);
+            return;
+        }
+        done(null, user);
+        return;
+    } catch (error) {
+        done(error);
+    }
+};
+
+function KakaoConfiguration() {
+    passport.use('kakao-login', new KakaoStrategy(KakaoConfig, KakaoVerify));
+}
+
+export { passportConfiguration, JWTConfiguration, KakaoConfiguration };
