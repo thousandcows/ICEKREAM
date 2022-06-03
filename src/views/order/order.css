@@ -57,6 +57,34 @@ table {
     border-top: 1px solid #cecece;
 }
 
+.table_element {
+    border-bottom: 1px solid #cecece;
+}
+
+.table_element tr {
+    text-align: center;
+    height: 3rem;
+}
+
+.table_element td {
+    border-bottom: none;
+    border-left: none;
+}
+
+.table_element tr th {
+    border-right: none;
+}
+
+.table_element tr p {
+    position: relative;
+    top: 50%;
+    transform: translateY(-25%);
+}
+
+td div {
+    padding: 15px 0;
+}
+
 
 
 /*
@@ -67,7 +95,8 @@ table {
 
 
 
-div.hide, .hide {
+div.hide,
+.hide {
     display: none;
 }
 

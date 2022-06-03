@@ -44,7 +44,7 @@ async function handleSubmit(e) {
             const result = await Api.post('/api/admin/product/category', data);
 
             if (result) {
-                alert(`${result.categoryName} 카테고리가 성공적으로 등록되었습니다!`);
+                alert(`${name} 카테고리가 성공적으로 등록되었습니다!`);
                 window.location.href = '/admin';
             }
         }catch(err){

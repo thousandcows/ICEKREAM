@@ -12,7 +12,7 @@ import { loginCheck } from "../login-check.js";
 
 
 async function navTransition(pageName) {
-
+  // debugger
   const checkData = await loginCheck();
   // const isAdmin = checkData.isAdmin === 'true' ? true : false;
   // const isLogined = checkData.isLogined ? true : false;
@@ -29,7 +29,7 @@ async function navTransition(pageName) {
     navSelect.insertAdjacentHTML('afterbegin', content);
   }
 
-
+  // debugger
   if (pageName === 'register' || isLogined) {
     const registerBtn = document.querySelector('.register_btn');
     registerBtn.parentNode.removeChild(registerBtn);

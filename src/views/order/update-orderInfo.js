@@ -49,19 +49,21 @@ try {
 
 
 // 장바구니 내용 불러오기
-
 const cartData = JSON.parse(localStorage.cart);
 console.log(cartData);
+export const checkedItems1 = [];
 export const checkedItems = [];
+
+
 for (const [key, value] of Object.entries(cartData)) {
-    if (value.checked) {
-        checkedItems.push(value);
-    }
+    const itemInfo = {"id": key, "name": value.productName, "quantity": value.quantity};
+    checkedItems.push(itemInfo);
+    checkedItems1.push(value);
 }
 
 let paymentPrice = 0;
-checkedItems.forEach((item) => {
-    const info = `<div><strong>상품이름: ${item.name}  /  상품가격: ${item.price}  /  주문수량: ${item.quantity}</strong></div>`;
+checkedItems1.forEach((item) => {
+    const info = `<div><strong>상품이름: ${item.productName}  /  사이즈: ${item.size}  /  상품가격: ${item.price}  /  주문수량: ${item.quantity}</strong></div>`;
     orderList.insertAdjacentHTML('beforeend', info);
     paymentPrice += item.price * item.quantity;
 })
