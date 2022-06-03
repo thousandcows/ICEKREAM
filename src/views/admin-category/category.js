@@ -1,4 +1,7 @@
 import * as Api from '/api.js';
+// import { navTransition } from '../nav-transition/nav-transition';
+
+// navTransition('category')
 
 // 1. 카테고리 조회 기능
 const categories = await Api.get('/api/admin/product/category', '');

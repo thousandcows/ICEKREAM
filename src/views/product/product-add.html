@@ -14,7 +14,8 @@
   <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
   <!-- 커스텀 css, js -->
   <link rel="stylesheet" type="text/html" href="product.css" />
-  <script src="/nav-transition/nav_admin.js" type="module"></script>
+  <!-- <script src="/nav-transition/nav_admin.js" type="module"></script> -->
+  <script id="productAdd" class="nav_trans" src="/nav-transition/nav_user.js" type="module"></script>
   <script src="product-add.js" type="module"></script>
 </head>
 
@@ -37,13 +38,13 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-          <ul id="navbar">
+          <ul id="navSelect">
             <li>
               <a href="/cart" aria-current="page">
                 <span class="icon">
                   <i class="fas fa-cart-shopping"></i>
                 </span>
-                <span>카트</span>
+                <div id="cart-count">0</div>
               </a>
             </li>
           </ul>

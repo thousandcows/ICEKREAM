@@ -1,8 +1,8 @@
 import * as Api from '/api.js';
 import { validateEmail } from '/useful-functions.js';
-import { navTransition } from '../nav-transition/nav-transition.js';
+// import { navTransition } from '../nav-transition/nav-transition.js';
 
-navTransition('register');
+// navTransition('register');
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
