@@ -33,18 +33,14 @@ const setEvents = () => {
 
     // 선택 삭제
     ref.deleteSelectedBtn.addEventListener('click', () => {
-        const selectBtns = document.querySelectorAll('.select-btn');
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        selectBtns.forEach((selectBtn) => {
+        const productDomList = document.querySelectorAll('.items');
+        productDomList.forEach((productDom) => {
+            const selectBtn = productDom.querySelector('.select-btn');
+            const removeBtn = productDom.querySelector('.remove-btn');
             if (selectBtn.checked) {
-                const productId = selectBtn.click();
-                delete cart[productId];
-                ref.cartContainer.removeChild(
-                    document.getElementById(productId),
-                );
+                removeBtn.click();
             }
         });
-        localStorage.setItem('cart', JSON.stringify(cart));
     });
 
     // 결제 버튼
