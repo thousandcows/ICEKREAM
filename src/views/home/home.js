@@ -40,7 +40,6 @@ const drawProductList = (target, productList) => {
         const product = new Product(p);
         const productUI = product.template();
         if (i === perPage - 1) {
-            console.log(product);
             const observer = new IntersectionObserver(
                 (entries, observer) => {
                     if (entries[0].isIntersecting) {
@@ -61,12 +60,20 @@ const drawProductList = (target, productList) => {
 };
 
 const setEvent = () => {
+    // 카테고리 선택
     const category = document.getElementById('category');
     category.addEventListener('click', (e) => {
         Initialize(e.target.id).then((productList) =>
             drawProductList(ref.productContainer, productList),
         );
     });
+
+    // 뒤로가기 -> 장바구니 카운트 리렌더링
+    window.onpageshow = function (event) {
+        if (event.persisted || window.performance) {
+            drawCartCount(ref.cartCount);
+        }
+    };
 };
 
 const getData = async () => {
