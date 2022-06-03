@@ -12,6 +12,7 @@ const ProductSchema = new Schema(
         productName: {
             type: String,
             required: true,
+            index: true,
         },
         price: {
             type: Number,
@@ -43,13 +44,12 @@ const ProductSchema = new Schema(
             default: 0,
         },
         purchasedUsers: [String],
-        size:{
+        size: {
             type: [String],
         },
-        sellerId:{
+        sellerId: {
             type: String,
-            
-        }
+        },
     },
     {
         collection: 'products',
