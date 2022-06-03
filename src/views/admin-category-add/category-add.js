@@ -1,15 +1,4 @@
 import * as Api from '/api.js';
-// import { navTransition } from './nav-transition.js';
-
-
-// 관리자만 접속 가능한 페이지 인증
-
-// navTransition('category').then( checkData => {
-//     if (!checkData.isLogined || !checkData.isAdmin) {
-//         alert('관리자 로그인이 필요한 페이지 입니다...');
-//         window.location.href = '/';
-//     }
-// });
 
 const submitBtn = document.querySelector('#submitButton');
 const nameInput = document.querySelector('#nameInput');
