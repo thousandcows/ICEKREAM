@@ -14,6 +14,17 @@
     height: 70px;
 }
 
+#nav-select {
+    color: black;
+}
+
+.has-text {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
 #slider {
     margin-top: 5rem;
     width: 100vw;
