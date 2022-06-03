@@ -17,7 +17,7 @@ const cancelAddressBtn = document.querySelector('#cancel_address_btn');
 // const deliveryAddress = document.querySelector('.input_address strong');
 
 const orderList = document.querySelector('#order_list');
-const priceSum = document.querySelector('#price_sum');
+const priceSum = document.querySelector('#price_sum strong');
 
 
 // 번호 변경 클릭했을 때 전환
