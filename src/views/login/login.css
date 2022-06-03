@@ -1,12 +1,23 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+.has-text{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+
+  } 
+nav{
+    font-family: 'Montserrat', serif;
+}
+
 .login-form-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 85vh;
   color:black;
+  font-family: 'Montserrat', serif; 
 }
-
-
 
 .login-form-box {
   display:flex;
@@ -19,7 +30,6 @@
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-  font-style: italic;
   margin-bottom:3rem;
 }
 .login-label{

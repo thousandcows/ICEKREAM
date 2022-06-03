@@ -4,9 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
-    <!-- 아이콘 -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
+    <title>IceKream</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit.png" />
     <!-- bulma css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <link rel="stylesheet" href="order.css" />
@@ -19,8 +18,6 @@
 
 <body>
     <script>
-        //console.log('확인', localStorage);
-        //location.href = location.href;
         if (localStorage.length === 0) {
             alert('장바구니에 담긴 상품이 없습니다.!');
             window.location.href = '/';
@@ -32,7 +29,7 @@
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
                     <img src="/elice-rabbit.png" width="30" height="30" />
-                    <span class="has-text-link">쇼핑-n팀</span>
+                    <span class="has-text">IceKream</span>
                 </a>
 
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -47,7 +44,7 @@
                 <ul id="navSelect">
                     <li>
                         <a href="/cart" aria-current="page">
-                            <span class="icon">
+                            <span class="icon" style="color: black">
                                 <i class="fas fa-cart-shopping"></i>
                             </span>
                             <div id="cart-count">0</div>
@@ -91,50 +88,7 @@
                             <td class="buyer_phone">
                                 <div class="show_buyer_phone">
                                     <div><strong></strong></div>
-                                    <!-- <button type="button" id="change_phone">
-                                            변경하기
-                                        </button> -->
                                 </div>
-                                <!-- <form id="phone-number-form" class="hide">
-                                        <fieldset>
-                                            <div class="div_for_change">
-                                                <label for="change_number"
-                                                    >변경할 연락처 입력</label
-                                                >
-                                                <input
-                                                    name="numberInput"
-                                                    placeholder="000-0000-0000 형식으로 입력해주세요."
-                                                    type="text"
-                                                    class="number_input input_el"
-                                                />
-                                            </div>
-                                            <div class="div_for_change">
-                                                <label for="check_password"
-                                                    >비밀번호를
-                                                    입력하세요.</label
-                                                >
-                                                <input
-                                                    id="password_check_input"
-                                                    name="passwordCheck"
-                                                    type="password"
-                                                />
-                                                <div class="buttons_container">
-                                                    <button
-                                                        type="submit"
-                                                        id="change_number_btn"
-                                                    >
-                                                        확인
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        id="cancel_number_btn"
-                                                    >
-                                                        취소
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </form> -->
                             </td>
                         </tr>
                         <tr>
@@ -292,9 +246,7 @@
                     <tbody>
                         <tr id="payment_tr">
                             <th class="order_th" scope="row">주문 정보</th>
-                            <td id="order_list">
-                                <!-- <div><strong></strong></div> -->
-                            </td>
+                            <td id="order_list"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -304,10 +256,6 @@
             <div class="payment">
                 <table class="payment_table table_element">
                     <tbody>
-                        <!-- <tr>
-                            <th scope="row" id="total_th">총상품가격</th>
-                            <td></td>
-                        </tr> -->
                         <tr>
                             <th scope="row" id="payment_th">총결제금액</th>
                             <td id="price_sum"><strong></strong></td>
@@ -320,44 +268,6 @@
             </div>
         </div>
         <footer class="order_footer"></footer>
-    </div>
-    <div class="payment_modal hide">
-        <div class="payment_card">
-            <div class="leftside">
-                <img src="https://i.pinimg.com/originals/18/9d/dc/189ddc1221d9c1c779dda4ad37a35fa1.png" class="product"
-                    alt="Shoes" />
-            </div>
-            <div class="rightside">
-                <form action="">
-                    <h1>CheckOut</h1>
-                    <h2>Payment Information</h2>
-                    <p>Cardholder Name</p>
-                    <input type="text" class="inputbox" name="name" required />
-                    <p>Card Number</p>
-                    <input type="number" class="inputbox" name="card_number" id="card_number" required />
-
-                    <p>Card Type</p>
-                    <select class="inputbox" name="card_type" id="card_type" required>
-                        <option value="">--Select a Card Type--</option>
-                        <option value="Visa">Visa</option>
-                        <option value="RuPay">RuPay</option>
-                        <option value="MasterCard">MasterCard</option>
-                    </select>
-                    <div class="expcvv">
-                        <p class="expcvv_text">Expiry</p>
-                        <input type="date" class="inputbox" name="exp_date" id="exp_date" required />
-
-                        <p class="expcvv_text2">CVV</p>
-                        <input type="password" class="inputbox" name="cvv" id="cvv" required />
-                    </div>
-                    <p></p>
-                    <button type="submit" class="button">CheckOut</button>
-                    <button type="button" class="button" id="cancel_btn">
-                        Cancel
-                    </button>
-                </form>
-            </div>
-        </div>
     </div>
 </body>
 

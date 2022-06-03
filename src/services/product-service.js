@@ -1,6 +1,5 @@
 import { categoryService } from './category-service';
 import { orderService } from './order-service';
-import { userService } from './user-service';
 const { productModel } = require('../db/models/product-model');
 const {categoryModel} = require('../db/models/category-model');
 
@@ -98,9 +97,7 @@ class ProductService {
     async putOrderProductList(userId, productList){
 
         // 아이디 중복시 아이디 추가 x, 구매량과 주문량만 변경
-        // 재고 수량 남지 않았을 때 throw error
         const updatedProductList = []
-        console.log(productList);
         for (let i = 0; i < productList.length; i++){
             
             
@@ -148,7 +145,6 @@ class ProductService {
             const update = {$inc : {quantity : +quantity, purchaseCount : -quantity}};
 
             const updatedProduct = await productService.updateProduct(id, update);
-            console.log(updatedProduct);
             updatedProductList.push(updatedProduct);
         }
         

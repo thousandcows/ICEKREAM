@@ -1,3 +1,14 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+.has-text{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+
+  } 
+nav{
+    font-family: 'Montserrat', serif;
+}
 #cart-count {
     color: black;
     text-align: center;

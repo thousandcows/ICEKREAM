@@ -5,12 +5,6 @@ import is from '@sindresorhus/is';
 import { userService } from '../services';
 import { orderService } from '../services/order-service';
 
-import { productService } from '../services/product-service';
-import {
-    productJoiSchema,
-    productUpdateJoiSchema,
-} from '../db/schemas/joi-schemas/product-joi-schema';
-
 import { userUpdateJoiSchema } from '../db/schemas/joi-schemas/user-joi-schema';
 const authRouter = Router();
 
@@ -73,7 +67,6 @@ authRouter.patch('/:userId', async (req, res, next) => {
         }
 
         const userInfoRequired = { userId, currentPassword };
-        //user current password와 password가 다른지 확인해야하나?
 
         // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
         // 보내주었다면, 업데이트용 객체에 삽입함.
@@ -99,7 +92,6 @@ authRouter.patch('/:userId', async (req, res, next) => {
 });
 
 // 회원 탈퇴 api
-//  나중에 다시 확인
 authRouter.delete('/:userId', async (req, res, next) => {
     try {
         if (is.emptyObject(req.body)) {
@@ -136,10 +128,9 @@ authRouter.get('/:userId/orders', async (req, res, next) => {
 
 authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
     try {
-        //이 때 유저 아이디가 주문아이디랑 일치하나 확인을 해야할까?
         const { userId, orderId } = req.params;
-        //어떻게 order_id를 가져오는지는 정확히 모르겠다.
         const checkUserId = await orderService.findUser(orderId);
+
         if (checkUserId !== userId) {
             throw new Error(
                 '유저 아이디 정보와 주문 아이디 정보가 일치하지 않습니다.',
@@ -147,7 +138,7 @@ authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
         }
         const deletedOrder = await orderService.deleteUserOrder(orderId);
         if (deletedOrder) {
-            await userService.pullUserOrderList(userId, orderId); //나중에 다시확인 해야함, user안의 orderList를 업데이트 하는 기능
+            await userService.pullUserOrderList(userId, orderId); 
             res.status(200).json({ result: 'success' });
         } else {
             throw new Error('그 주문 기록은 존재하지 않습니다.');
@@ -157,6 +148,5 @@ authRouter.delete('/:userId/orders/:orderId', async (req, res, next) => {
     }
 });
 
-//  user의 상품 관련 기능없으므로 삭제
 
 export { authRouter };

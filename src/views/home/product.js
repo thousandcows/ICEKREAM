@@ -48,7 +48,7 @@ export default class Product {
         elem.querySelector('.cart-btn').addEventListener('click', (e) => {
             e.preventDefault();
             const cart = JSON.parse(localStorage.getItem('cart'));
-            if (cart[this.product._id]) {
+            if (cart && cart[this.product._id]) {
                 alert('이미 담긴 상품입니다.');
             } else {
                 this.showModal.bind(this)();

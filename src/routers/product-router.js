@@ -33,7 +33,7 @@ productRouter.post('/cart', async (req, res, next) => {
     }
 });
 
-// 3. 상품 상세 정보 조회 기능 //상품이 존재하지 않으면 null 을 반환... null check를 해야할 것 같음.
+// 3. 상품 상세 정보 조회 기능
 productRouter.get('/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
