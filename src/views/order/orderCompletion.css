@@ -1,0 +1,16 @@
+
+
+.container .title {
+    margin-bottom: 2rem;
+}
+
+.order-complete {
+    margin: auto;
+    width: fit-content;
+}
+
+.order-complete .icon-text {
+    justify-content: center;
+    padding: 2rem;
+    font-size: xx-large;
+}

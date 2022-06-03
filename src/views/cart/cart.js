@@ -63,6 +63,11 @@ const setEvents = () => {
     });
 };
 
+const render = (productList) => {
+    navTransition('cart');
+    drawCartList(ref.cartContainer, productList);
+};
+
 const initialize = async () => {
     const cart = JSON.parse(localStorage.getItem('cart'));
 
@@ -80,11 +85,6 @@ const initialize = async () => {
     } else {
         return null;
     }
-};
-
-const render = (productList) => {
-    navTransition('cart');
-    drawCartList(ref.cartContainer, productList);
 };
 
 initialize()

@@ -107,11 +107,12 @@ userRouter.get(
         if (req.user) {
             const secretKey = process.env.JWT_SECRET_KEY || 'secret-key'; // login 성공시 key값을 써서 토큰 생성
             const user = req.user;
-            const token = jwt.sign(
-                { userId: user._id, role: user.role },
-                secretKey,
-            );
-            res.status(200).redirect('/login/success?token=' + token); //이걸 클라이언트에 제공했을 때: JWT를 저장한는 방법만 찾으면 끝인가?
+            const userId = user._id;
+            const role = user.role;
+            const token = jwt.sign({ userId, role }, secretKey);
+            res.status(200).redirect(
+                `/login/success?token=${token}&userId=${userId}&role=${role}`,
+            ); //이걸 클라이언트에 제공했을 때: JWT를 저장한는 방법만 찾으면 끝인가?
             //도저히 모르겠어서 query 파라미터로 넘기는 방식을 써봅니다... 엘리스거를 봐도 cookie를 쓰는데 그건 싫고요...
             //다른 자료는 res.render를 쓰는데, 이건 이번 프로젝트와 안어울리는 거 같아요...
         }

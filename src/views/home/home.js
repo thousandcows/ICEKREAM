@@ -2,8 +2,6 @@
 import Product from './product.js';
 import { navTransition } from '../nav-transition/nav-transition.js';
 
-navTransition('home');
-
 const ref = {
     categoryContainer: document.getElementById('category-container'),
     productContainer: document.getElementById('product-container'),
@@ -17,8 +15,11 @@ let perPage = 20;
 
 const drawCartCount = (target) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (!cart) target.innerText = 0;
-    else target.innerText = Object.keys(cart).length;
+    if (!cart) {
+        target.innerText = 0;
+    } else {
+        target.innerText = Object.keys(cart).length;
+    }
 };
 
 const drawCategoryList = (target, categoryList) => {
@@ -78,7 +79,7 @@ const getData = async () => {
 };
 
 const render = (productList) => {
-    // navTransition('home');
+    navTransition('home');
     drawCartCount(ref.cartCount);
     drawCategoryList(ref.categoryContainer, categoryList);
     drawProductList(ref.productContainer, productList);
