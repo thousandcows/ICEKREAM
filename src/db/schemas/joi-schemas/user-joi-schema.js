@@ -39,7 +39,7 @@ const userUpdateJoiSchema = joi.object({
     address: joi.object({
         postalCode: joi
             .string()
-            .pattern(/[0-6][0-3]\d{3}/)
+            .pattern(/[0-6][0-9]\d{3}/)
             .required()
             .messages({
                 'string.empty': '우편번호는 비어있을 수 없습니다.',
