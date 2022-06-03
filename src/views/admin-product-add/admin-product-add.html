@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>쇼핑-n팀</title>
     <!-- 아이콘 -->
     <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
@@ -14,8 +15,9 @@
     <script id="adminProductAdd" class="nav_trans" src="/nav-transition/nav_admin.js" type="module"></script>
     <script src="product-add.js" type="module"></script>
 </head>
+
 <body>
-	<!-- 헤더 -->
+    <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container mt-3">
             <div class="navbar-brand">
@@ -35,20 +37,12 @@
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
                     <ul id="navSelect">
-                        <li>
-                            <a href="/cart" aria-current="page">
-                                <span class="icon">
-                                    <i class="fas fa-cart-shopping"></i>
-                                </span>
-                                <div id="cart-count">0</div>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-	<div class="category-form-container">
+    <div class="category-form-container">
         <form class="category-form-box" id="categoryForm">
             <h2 class="category-title">New Item</h2>
             <div class="">
@@ -62,96 +56,50 @@
             <div class="">
                 <label class="category-label" for="nameInput">상품 이름</label>
                 <div class="input-box">
-                    <input
-                        class="category-input"
-                        id="nameInput"
-                        type="text"
-                        placeholder="상품 이름을 입력해주세요."
-                        autocomplete="on"
-                        minlength="1"
-                        maxlength="30"
-                    />
+                    <input class="category-input" id="nameInput" type="text" placeholder="상품 이름을 입력해주세요."
+                        autocomplete="on" minlength="1" maxlength="30" />
                 </div>
             </div>
             <div class="">
                 <label class="category-label" for="manufacturerInput">제조사</label>
                 <div class="input-box">
-                    <input
-                        class="category-input"
-                        id="manufacturerInput"
-                        type="text"
-                        placeholder="제조사를 입력해주세요"
-                        autocomplete="on"
-                        minlength="3"
-                        maxlength="30"
-                    />
+                    <input class="category-input" id="manufacturerInput" type="text" placeholder="제조사를 입력해주세요"
+                        autocomplete="on" minlength="3" maxlength="30" />
                 </div>
             </div>
             <div class="">
-              <label class="category-label" for="launchDateInput">출시일</label>
-              <div class="input-box">
-                  <input
-                      class="category-input"
-                      id="launchDateInput"
-                      type="date"
-                      autocomplete="on"
-                      min="2020-01-01"
-                      max="2022-06-04"
-                  />
-              </div>
-          </div>
+                <label class="category-label" for="launchDateInput">출시일</label>
+                <div class="input-box">
+                    <input class="category-input" id="launchDateInput" type="date" autocomplete="on" min="2020-01-01"
+                        max="2022-06-04" />
+                </div>
+            </div>
             <div class="">
                 <label class="category-label" for="imgInput">사진 url</label>
                 <div class="input-box">
-                    <input
-                        class="category-input"
-                        id="imgInput"
-                        type="text"
-                        placeholder="유효한 url을 입력해주세요"
-                        autocomplete="on"
-                    />
+                    <input class="category-input" id="imgInput" type="text" placeholder="유효한 url을 입력해주세요"
+                        autocomplete="on" />
                 </div>
             </div>
             <div class="">
                 <label class="category-label" for="sizeInput">사이즈</label>
                 <div class="input-box">
-                    <input
-                        class="category-input"
-                        id="sizeInput"
-                        type="text"
-                        placeholder="쉼표로 구분하여 입력해주세요"
-                        autocomplete="on"
-                        minlength="1"
-                        maxlength="30"
-                    />
+                    <input class="category-input" id="sizeInput" type="text" placeholder="쉼표로 구분하여 입력해주세요"
+                        autocomplete="on" minlength="1" maxlength="30" />
                 </div>
             </div>
             <div class="">
                 <label class="category-label" for="inventoryInput">사이즈 당 재고수</label>
                 <div class="input-box">
-                    <input
-                        class="category-input"
-                        id="inventoryInput"
-                        type="number"
-                        placeholder="최소 10개, 최대 100까지 입력 가능합니다."
-                        autocomplete="on"
-                        min="10"
-                        max="100"
-                    />
+                    <input class="category-input" id="inventoryInput" type="number"
+                        placeholder="최소 10개, 최대 100까지 입력 가능합니다." autocomplete="on" min="10" max="100" />
                 </div>
             </div>
             <div class="">
                 <label class="category-label" for="priceInput">가격</label>
                 <div class="input-box">
-                    <input
-                        class="category-input"
-                        id="priceInput"
-                        type="number"
-                        placeholder="숫자만 입력해주세요."
-                        autocomplete="on"
-                        min="1000"
-                        max="10000000"
-                    />
+                    <input class="category-input" id="priceInput" type="number" placeholder="숫자만 입력해주세요."
+                        autocomplete="on" min="1000" max="10000000" />
                 </div>
             </div>
 
@@ -160,4 +108,5 @@
     </div>
 
 </body>
+
 </html>

@@ -4,7 +4,6 @@ body {
     font-family: 'Montserrat', serif;
 }
 
-
 .block.account-header {
     text-align: center;
 }
@@ -22,7 +21,7 @@ body {
 
 .container .notification.is-info.is-light {
     color: black;
-    background-color: #F5F5DC;
+    background-color: #f5f5dc;
     text-align: center;
     font-size: 1.2rem;
     font-weight: 600;
@@ -46,6 +45,19 @@ body {
 }
 
 .columns.orders-item div:nth-child(4) {
-
     font-weight: bold;
+}
+
+#cart-count {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
 }

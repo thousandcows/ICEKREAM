@@ -5,51 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>쇼핑-n팀</title>
-    <!-- 아이콘 -->
     <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit-favicon.png" />
-    <!-- bulma css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-    <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-    <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="./order-view.css" />
     <script id="orderView" class="nav_trans" src="/nav-transition/nav_user.js" type="module"></script>
     <script src="order-view.js" type="module"></script>
-    <!-- <script>
-        async function deleteOrder() {
-            console.log(e);
-            // console.log(button, button.parentNode.parentNode);
-
-            // const rowBtn = document.querySelector(`#${button}`);
-            // console.log(rowBtn.parentNode.parentNode);
-            console.log('확인');
-            const entireRow = button.parentNode.parentNode;
-            const check = confirm(
-                '한 번 삭제한 주문은 복구가 불가능합니다. 그래도 삭제하시겠습니까?',
-            );
-
-            if (check) {
-                productsContainer.removeChild(entireRow);
-
-                // const productId = this.id.slice(13);
-                const data = { orderId };
-
-                // api/admin/product/:productId
-                // /api/auth/:userId/:productId
-                // /api/auth/:userId/orders/:orderId 
-                console.log(orderId);
-                const result = await Api.delete(
-                    '',
-                    `api/auth/${userId}/orders/${orderId}`,
-                    data
-                );
-
-                if (result) {
-                    alert('삭제가 완료되었습니다.');
-                }
-            }
-        }
-    </script> -->
 </head>
 
 <body>
@@ -106,15 +67,6 @@
                     <div class="column is-2">상태</div>
                     <div class="column is-2">신청</div>
                 </div>
-                <!-- <div class="columns orders-item" id="order-62965054eb5d1ed00c620281">
-                    <div class="column is-2">2022-05-31</div>
-                    <div class="column is-6 order-summary">아이보리 니트 / 1개
-                        여성 운동복 / 1개</div>
-                    <div class="column is-2">상품 준비중</div>
-                    <div class="column is-2">
-                        <button class="button" id="deleteButton-62965054eb5d1ed00c620281">주문 취소</button>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section>
@@ -127,6 +79,17 @@
             </div>
         </div>
     </div>
+    <script>
+        const drawCartCount = (target) => {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart) {
+                target.innerText = 0;
+            } else {
+                target.innerText = Object.keys(cart).length;
+            }
+        };
+        drawCartCount(document.getElementById('cart-count'))
+    </script>
 </body>
 
 </html>

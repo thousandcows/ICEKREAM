@@ -82,6 +82,17 @@
             </a>
         </div>
     </main>
+    <script>
+        const drawCartCount = (target) => {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            if (!cart) {
+                target.innerText = 0;
+            } else {
+                target.innerText = Object.keys(cart).length;
+            }
+        };
+        drawCartCount(document.getElementById('cart-count'))
+    </script>
 </body>
 
 </html>

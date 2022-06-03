@@ -1,5 +1,5 @@
-.order-container{
-    margin:2rem;
+.order-container {
+    margin: 2rem;
 }
 
 table {
@@ -7,8 +7,7 @@ table {
     border-spacing: 0;
 }
 
-
-.order_body { 
+.order_body {
     margin: 0 3rem;
 }
 
@@ -16,108 +15,107 @@ table {
     font-size: 30px;
     font-weight: bold;
     border-bottom: 1px solid black;
-    margin-bottom:3rem;
-    
+    margin-bottom: 3rem;
 }
 
-.buyer_title{
+.buyer_title {
     font-size: 1rem;
-    margin-top:1rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-.show_buyer_phone{
+.show_buyer_phone {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 }
-.show_buyer_phone div{
-    width:100%;
+.show_buyer_phone div {
+    width: 100%;
 }
-.show_buyer_phone button{
+.show_buyer_phone button {
     position: absolute;
-    right:0;
+    right: 0;
 }
 
 /* #phone-number-form fieldset div label{
     
 } */
-.div_for_change{
+.div_for_change {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding:1rem;
+    padding: 1rem;
     position: relative;
 }
 
-.div_for_change label{
+.div_for_change label {
     margin-bottom: 1rem;
-    
 }
-.buttons_container{
-    position:absolute;
-    right:0rem;
-    top:2rem;
+.buttons_container {
+    position: absolute;
+    right: 0rem;
+    top: 2rem;
 }
-.div_for_change input,.search_address_input
-{
-    border:none;
-    border-bottom: 1px solid rgb(230,230,230);
+.div_for_change input,
+.search_address_input {
+    border: none;
+    border-bottom: 1px solid rgb(230, 230, 230);
     width: 50%;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
 
-.input_address{
-    position:relative;
+.input_address {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.input_address label{
+.input_address label {
     width: 100%;
 }
-.input_address button, .search_address .address_button{
-    position:absolute;
-    right:0;
-    z-index:2;
+.input_address button,
+.search_address .address_button {
+    position: absolute;
+    right: 0;
+    z-index: 2;
 }
-.search_address >
-.buttons_container{
-    height:10rem;
+.search_address > .buttons_container {
+    height: 10rem;
     display: flex;
     align-items: flex-end;
-    bottom:0;
+    bottom: 0;
 }
 
-.search_address{
-    position:relative;
+.search_address {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#order_list{
+#order_list {
     text-align: left;
     padding: 2rem;
     padding-left: 5rem;
 }
 
-button,.address_button{
-    margin-left:1rem;
+button,
+.address_button {
+    margin-left: 1rem;
     color: white;
     background-color: black;
-    border:1px black solid;
+    border: 1px black solid;
     border-radius: 0.5rem;
-    padding:0.5rem 0.8rem;
+    padding: 0.5rem 0.8rem;
 }
 
-button:hover,.address_button:hover{
+button:hover,
+.address_button:hover {
     color: black;
     background-color: white;
     cursor: pointer;
-
 }
 /* #order_list div{
 
@@ -153,12 +151,12 @@ th.address_th, th.phone_th{
 
 .h2_title {
     font-size: 20px;
-   font-weight: 600;
-    margin-bottom:1rem;
-    margin-top:4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    margin-top: 4rem;
 }
 
-.buyer_title { 
+.buyer_title {
     margin-top: 1.5em;
 }
 
@@ -171,15 +169,19 @@ th.address_th, th.phone_th{
 .table_element th {
     border: 1px solid #cecece;
 } */
-.order_th, #payment_th{
+.order_th,
+#payment_th {
     font-weight: 400;
 }
 
-.address_th, .phone_th,.order_th,#payment_th{
+.address_th,
+.phone_th,
+.order_th,
+#payment_th {
     vertical-align: middle;
 }
 
-td{
+td {
     vertical-align: middle;
 }
 
@@ -195,8 +197,8 @@ td{
 
 .orderbox button {
     position: absolute;
-    top:50%;
-    right:0;
+    top: 50%;
+    right: 0;
 }
 
 .order_footer {
@@ -208,8 +210,6 @@ td{
 /* .table_element {
     border-bottom: 1px solid #cecece;
 } */
-
-
 
 .table_element tr {
     text-align: center;
@@ -223,28 +223,23 @@ td{
 
 .table_element tr th {
     border-right: none;
-    background-color: rgb(230,230,230);
+    background-color: rgb(230, 230, 230);
 }
 
 .table_element tr p {
     position: relative;
     top: 50%;
-    
 }
 
 td div {
     padding: 15px 0;
 }
 
-
-
 /*
 
     결제창 모달
 
 */
-
-
 
 div.hide,
 .hide {
@@ -285,7 +280,6 @@ div.hide,
     box-shadow: 4px 3px 20px #3535358c;
     display: flex;
     flex-direction: row;
-
 }
 
 .leftside {
@@ -317,7 +311,7 @@ p {
     display: block;
     font-size: 1.1rem;
     font-weight: 400;
-    margin: .8rem 0;
+    margin: 0.8rem 0;
 }
 
 .inputbox {
@@ -359,7 +353,7 @@ p {
     font-size: 1.2rem;
     margin-top: 10px;
     width: 100%;
-    letter-spacing: .11rem;
+    letter-spacing: 0.11rem;
     outline: none;
 }
 
@@ -372,7 +366,6 @@ p {
     .payment_card {
         flex-direction: column;
         width: auto;
-
     }
 
     .leftside {
@@ -389,4 +382,18 @@ p {
         padding: 0.5rem 3rem 3rem 2rem;
         border-radius: 0;
     }
+}
+
+#cart-count {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
 }

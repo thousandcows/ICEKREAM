@@ -45,21 +45,28 @@ export default class Product {
     }
 
     setEvent(elem) {
-        elem.querySelector('.cart-btn').addEventListener(
-            'click',
-            this.showModal.bind(this),
-        );
+        elem.querySelector('.cart-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            if (cart[this.product._id]) {
+                alert('이미 담긴 상품입니다.');
+            } else {
+                this.showModal.bind(this)();
+            }
+        });
     }
 
     setModalEvent(elem) {
         const sizeBtns = elem.querySelectorAll('.size-btn');
         sizeBtns.forEach((sizeBtn) => {
-            sizeBtn.addEventListener('click', this.addCart.bind(this));
+            sizeBtn.addEventListener('click', (e) => {
+                this.size = e.target.id;
+                this.addCart.bind(this)();
+            });
         });
     }
 
-    showModal(e) {
-        e.preventDefault();
+    showModal() {
         const modalContainer = document.querySelector('.modal-container');
         const tag = this.modalTemplate();
         modalContainer.appendChild(tag);

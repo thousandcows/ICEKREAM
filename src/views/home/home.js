@@ -22,6 +22,33 @@ const drawCartCount = (target) => {
     }
 };
 
+const drawBanner = () => {
+    const slider = document.querySelector('#slider');
+    const slides = slider.querySelector('.slides');
+    const slide = slides.querySelectorAll('.slide');
+    let currentSlide = 0;
+    setInterval(function () {
+        let from = -(100 * currentSlide);
+        let to = from - 100;
+
+        slides.animate(
+            {
+                marginLeft: [from + 'vw', to + 'vw'],
+            },
+            {
+                duration: 500,
+                easing: 'ease',
+                iterations: 1,
+                fill: 'both',
+            },
+        );
+        currentSlide++;
+        if (currentSlide === slide.length - 1) {
+            currentSlide = 0;
+        }
+    }, 2500);
+};
+
 const drawCategoryList = (target, categoryList) => {
     const div = document.createElement('div');
     div.id = 'category';
@@ -40,7 +67,6 @@ const drawProductList = (target, productList) => {
         const product = new Product(p);
         const productUI = product.template();
         if (i === perPage - 1) {
-            console.log(product);
             const observer = new IntersectionObserver(
                 (entries, observer) => {
                     if (entries[0].isIntersecting) {
@@ -61,12 +87,20 @@ const drawProductList = (target, productList) => {
 };
 
 const setEvent = () => {
+    // 카테고리 선택
     const category = document.getElementById('category');
     category.addEventListener('click', (e) => {
         Initialize(e.target.id).then((productList) =>
             drawProductList(ref.productContainer, productList),
         );
     });
+
+    // 뒤로가기 -> 장바구니 카운트 리렌더링
+    window.onpageshow = function (event) {
+        if (event.persisted || window.performance) {
+            drawCartCount(ref.cartCount);
+        }
+    };
 };
 
 const getData = async () => {
@@ -81,6 +115,7 @@ const getData = async () => {
 const render = (productList) => {
     navTransition('home');
     drawCartCount(ref.cartCount);
+    drawBanner();
     drawCategoryList(ref.categoryContainer, categoryList);
     drawProductList(ref.productContainer, productList);
 };
