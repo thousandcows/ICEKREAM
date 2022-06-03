@@ -1,14 +1,27 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
-.has-text{
+
+.has-text {
     font-weight: bold;
     font-size: 20px;
     margin-left: 10px;
 
-  } 
-nav{
+}
+
+nav {
     font-family: 'Montserrat', serif;
 }
+
+.container .cart-header .title {
+    margin-top: 3rem;
+    margin: 3rem 1rem;
+}
+
+.cart-header .title p {
+    height: 4rem;
+    border-bottom: 1px solid black;
+}
+
 .container .title {
     margin-bottom: 2rem;
 }
@@ -22,4 +35,49 @@ nav{
     justify-content: center;
     padding: 2rem;
     font-size: xx-large;
+}
+
+.icon-text .has-text-success {
+    position: relative;
+    right: 3rem;
+}
+
+.buttons-container button.button {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.015em;
+    font-size: 1em;
+    padding: 1em 3em;
+    color: #fff;
+    background: rgb(255 160 160);
+    font-weight: bold;
+    border-radius: 20px;
+    float: right;
+    text-align: right;
+    transition: all 0.25s linear;
+    height: 4rem;
+}
+
+.buttons-container button.button.is-primary:hover,
+.buttons-container button.button.is-medium:hover {
+    background-color: rgb(166 126 255);
+}
+
+.box.order-complete {
+    width: 40rem;
+    height: 25rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 30px;
+}
+
+.box.order-complete .icon-text {
+    align-items: center;
+}
+
+
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
 }
