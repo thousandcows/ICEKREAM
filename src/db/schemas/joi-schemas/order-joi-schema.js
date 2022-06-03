@@ -3,7 +3,7 @@ import joi from 'joi';
 const orderJoiSchema = joi.object({
     postalCode: joi
         .string()
-        .pattern(/[0-6][0-3]\d{3}/)
+        .pattern(/[0-6][0-9]\d{3}/)
         .required()
         .messages({
             'string.empty': '우편번호는 비어있을 수 없습니다.',
@@ -25,6 +25,9 @@ const orderJoiSchema = joi.object({
                 id: joi.string().required().messages({
                     'string.empty': '상품아이디는 비어있을 수 없습니다.',
                     'any.required': '상품아이디는 필수로 입력해야 합니다.',
+                }),
+                name: joi.string().messages({
+                    'string.empty': '상품 이름은 비어있을 수 없습니다.',
                 }),
                 quantity: joi.number().greater(0).required().messages({
                     'number.greater': '상품 수량은 0보다 커야합니다.',

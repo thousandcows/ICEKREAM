@@ -5,6 +5,7 @@ const OrderSchema = new Schema(
         userId: {
             type: String,
             required: true,
+            index: true,
         },
         deliveryAddress: {
             type: AddressSchema,
@@ -16,11 +17,12 @@ const OrderSchema = new Schema(
         },
         paymentStatus: {
             type: String,
-            default: "Ok",
+            default: 'Ok',
         },
         productList: [
             {
                 id: String,
+                name: String,
                 quantity: Number,
             },
         ],

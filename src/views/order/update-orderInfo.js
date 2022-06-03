@@ -6,35 +6,41 @@ const userId = sessionStorage.getItem('userId');
 const buyerName = document.querySelector('.buyer_name strong');
 const buyerEmail = document.querySelector('.buyer_email strong');
 const buyerPhone = document.querySelector('.show_buyer_phone strong');
-const showBuyerPhone = document.querySelector('.show_buyer_phone');
-const phoneNumberForm = document.querySelector('#phone-number-form');
-const changePhone = document.querySelector('#change_phone');
-const cancelNumberBtn = document.querySelector('#cancel_number_btn');
+const showAddress = document.querySelector('.input_address');
+const searchAddress = document.querySelector('.search_address');
 const cancelAddressBtn = document.querySelector('#cancel_address_btn');
+// const showBuyerPhone = document.querySelector('.show_buyer_phone');
+// const phoneNumberForm = document.querySelector('#phone-number-form');
+// const changePhone = document.querySelector('#change_phone');
+// const cancelNumberBtn = document.querySelector('#cancel_number_btn');
 
 // const deliveryAddress = document.querySelector('.input_address strong');
 
 const orderList = document.querySelector('#order_list');
-const priceSum = document.querySelector('#price_sum');
+const priceSum = document.querySelector('#price_sum strong');
 
 
 // 번호 변경 클릭했을 때 전환
-changePhone.addEventListener('click', () => {
-    showBuyerPhone.classList.add('hide');
-    phoneNumberForm.classList.remove('hide');
-})
+// changePhone.addEventListener('click', () => {
+//     showBuyerPhone.classList.add('hide');
+//     phoneNumberForm.classList.remove('hide');
+// })
 
-cancelNumberBtn.addEventListener('click', () => {
-    showBuyerPhone.classList.remove('hide');
-    phoneNumberForm.classList.add('hide');
-})
+// cancelNumberBtn.addEventListener('click', () => {
+//     showBuyerPhone.classList.remove('hide');
+//     phoneNumberForm.classList.add('hide');
+// })
+
+// 배송지를 검색하는 부분 화면 전환
 
 cancelAddressBtn.addEventListener('click', () => {
-    showBuyerPhone.classList.remove('hide');
-    phoneNumberForm.classList.add('hide');
+    showAddress.classList.remove('hide');
+    searchAddress.classList.add('hide');
 })
 
 
+
+// 사용자 정보 불러오기
 
 try {
     const data = await Api.get('/api/auth/', userId);
@@ -49,19 +55,21 @@ try {
 
 
 // 장바구니 내용 불러오기
-
 const cartData = JSON.parse(localStorage.cart);
 console.log(cartData);
+export const checkedItems1 = [];
 export const checkedItems = [];
+
+
 for (const [key, value] of Object.entries(cartData)) {
-    if (value.checked) {
-        checkedItems.push(value);
-    }
+    const itemInfo = {"id": key, "name": value.productName, "quantity": value.quantity};
+    checkedItems.push(itemInfo);
+    checkedItems1.push(value);
 }
 
 let paymentPrice = 0;
-checkedItems.forEach((item) => {
-    const info = `<div><strong>상품이름: ${item.name}  /  상품가격: ${item.price}  /  주문수량: ${item.quantity}</strong></div>`;
+checkedItems1.forEach((item) => {
+    const info = `<div><strong>상품이름: ${item.productName}  /  사이즈: ${item.size}  /  상품가격: ${item.price}  /  주문수량: ${item.quantity}</strong></div>`;
     orderList.insertAdjacentHTML('beforeend', info);
     paymentPrice += item.price * item.quantity;
 })
@@ -74,26 +82,26 @@ priceSum.textContent = `${paymentPrice}`;
 // 주문 / 결제 창에서 전화번호를 patch 할 수 있는 부분
 
 
-phoneNumberForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    new FormData(e.target);
-})
+// phoneNumberForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     new FormData(e.target);
+// })
 
-phoneNumberForm.addEventListener('formdata', async (e) => {
-    const formData = e.formData;
-    const numberInput = formData.get('numberInput');
-    const passwordInput = formData.get('passwordCheck');
+// phoneNumberForm.addEventListener('formdata', async (e) => {
+//     const formData = e.formData;
+//     const numberInput = formData.get('numberInput');
+//     const passwordInput = formData.get('passwordCheck');
 
-    const data = {
-        phoneNumber: numberInput,
-        currentPassword: passwordInput,
-    };
+//     const data = {
+//         phoneNumber: numberInput,
+//         currentPassword: passwordInput,
+//     };
 
-    const resetInput = await patchUserInfo(passwordInput, data);
-    if (!resetInput) {
-        e.target.reset();
-    }
-})
+//     const resetInput = await patchUserInfo(passwordInput, data);
+//     if (!resetInput) {
+//         e.target.reset();
+//     }
+// })
 
 
 

@@ -54,7 +54,7 @@ viewsRouter.use('/admin', serveStatic('admin'));
 // } );
 
 //상품 디테일 페이지
-viewsRouter.use('/products/ID', serveStatic('product-detail'));
+viewsRouter.use('/products/:id', serveStatic('product-detail'));
 
 //임시의 404 페이지
 viewsRouter.use('/notfound', serveStatic('not-found'));
