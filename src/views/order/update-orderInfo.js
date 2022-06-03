@@ -6,11 +6,13 @@ const userId = sessionStorage.getItem('userId');
 const buyerName = document.querySelector('.buyer_name strong');
 const buyerEmail = document.querySelector('.buyer_email strong');
 const buyerPhone = document.querySelector('.show_buyer_phone strong');
-const showBuyerPhone = document.querySelector('.show_buyer_phone');
-const phoneNumberForm = document.querySelector('#phone-number-form');
-const changePhone = document.querySelector('#change_phone');
-const cancelNumberBtn = document.querySelector('#cancel_number_btn');
+const showAddress = document.querySelector('.input_address');
+const searchAddress = document.querySelector('.search_address');
 const cancelAddressBtn = document.querySelector('#cancel_address_btn');
+// const showBuyerPhone = document.querySelector('.show_buyer_phone');
+// const phoneNumberForm = document.querySelector('#phone-number-form');
+// const changePhone = document.querySelector('#change_phone');
+// const cancelNumberBtn = document.querySelector('#cancel_number_btn');
 
 // const deliveryAddress = document.querySelector('.input_address strong');
 
@@ -19,22 +21,26 @@ const priceSum = document.querySelector('#price_sum');
 
 
 // 번호 변경 클릭했을 때 전환
-changePhone.addEventListener('click', () => {
-    showBuyerPhone.classList.add('hide');
-    phoneNumberForm.classList.remove('hide');
-})
+// changePhone.addEventListener('click', () => {
+//     showBuyerPhone.classList.add('hide');
+//     phoneNumberForm.classList.remove('hide');
+// })
 
-cancelNumberBtn.addEventListener('click', () => {
-    showBuyerPhone.classList.remove('hide');
-    phoneNumberForm.classList.add('hide');
-})
+// cancelNumberBtn.addEventListener('click', () => {
+//     showBuyerPhone.classList.remove('hide');
+//     phoneNumberForm.classList.add('hide');
+// })
+
+// 배송지를 검색하는 부분 화면 전환
 
 cancelAddressBtn.addEventListener('click', () => {
-    showBuyerPhone.classList.remove('hide');
-    phoneNumberForm.classList.add('hide');
+    showAddress.classList.remove('hide');
+    searchAddress.classList.add('hide');
 })
 
 
+
+// 사용자 정보 불러오기
 
 try {
     const data = await Api.get('/api/auth/', userId);
@@ -76,26 +82,26 @@ priceSum.textContent = `${paymentPrice}`;
 // 주문 / 결제 창에서 전화번호를 patch 할 수 있는 부분
 
 
-phoneNumberForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    new FormData(e.target);
-})
+// phoneNumberForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     new FormData(e.target);
+// })
 
-phoneNumberForm.addEventListener('formdata', async (e) => {
-    const formData = e.formData;
-    const numberInput = formData.get('numberInput');
-    const passwordInput = formData.get('passwordCheck');
+// phoneNumberForm.addEventListener('formdata', async (e) => {
+//     const formData = e.formData;
+//     const numberInput = formData.get('numberInput');
+//     const passwordInput = formData.get('passwordCheck');
 
-    const data = {
-        phoneNumber: numberInput,
-        currentPassword: passwordInput,
-    };
+//     const data = {
+//         phoneNumber: numberInput,
+//         currentPassword: passwordInput,
+//     };
 
-    const resetInput = await patchUserInfo(passwordInput, data);
-    if (!resetInput) {
-        e.target.reset();
-    }
-})
+//     const resetInput = await patchUserInfo(passwordInput, data);
+//     if (!resetInput) {
+//         e.target.reset();
+//     }
+// })
 
 
 

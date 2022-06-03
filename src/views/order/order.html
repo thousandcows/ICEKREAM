@@ -13,11 +13,19 @@
     <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
-    <script src="order.js" type="module" defer></script>
+    <script src="order.js" type="module" ></script>
 
 </head>
 
 <body>
+    <script >
+        //console.log('확인', localStorage);
+        //location.href = location.href;
+        if (localStorage.length === 0) {
+            alert('장바구니에 담긴 상품이 없습니다.!');
+            window.location.href = '/';
+        }
+    </script>
     <!-- 헤더 -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container mt-3">
@@ -86,9 +94,9 @@
                             <td class="buyer_phone">
                                 <div class="show_buyer_phone">
                                     <div><strong></strong></div>
-                                    <button type="button" id="change_phone">변경하기</button>
+                                    <!-- <button type="button" id="change_phone">변경하기</button> -->
                                 </div>
-                                <form id="phone-number-form" class="hide">
+                                <!-- <form id="phone-number-form" class="hide">
                                     <fieldset>
                                         <div>
                                             <label for="change_number">변경할 연락처 입력</label>
@@ -101,7 +109,7 @@
                                             <button type="button" id="cancel_number_btn">취소</button>
                                         </div>
                                     </fieldset>
-                                </form>
+                                </form> -->
                             </td>
                         </tr>
                         <tr>
@@ -126,7 +134,7 @@
                                                 <strong>
                                                     배송 정보를 입력해주세요.
                                                 </strong>
-                                                <button type="button">검색하기</button>
+                                                <button type="button">입력하기</button>
                                             </label>
                                         </div>
                                         <div class="search_address hide">
@@ -294,7 +302,7 @@
                 </table>
             </div>
             <div class="orderbox">
-                <button>결제하기</button>
+                <button type="button" id="orderBtn">결제하기</button>
             </div>
         </div>
         <footer class="order_footer">
