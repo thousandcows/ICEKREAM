@@ -4,18 +4,16 @@ import { navTransition } from '../nav-transition/nav-transition.js';
 const ref = {
     cartContainer: document.querySelector('.cart'),
     selectAllBtn: document.getElementById('select-all-product'),
-    checkoutBtn: document.getElementById('checkout-btn'),
     deleteSelectedBtn: document.getElementById('delete-selected-btn'),
+    checkoutBtn: document.getElementById('checkout-btn'),
 };
 
 const drawCartList = (target, productList) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart && productList) {
-        productList.forEach((product, i) => {
-            const productUI = new Product(target, product, cart[product._id]);
-            target.appendChild(productUI.template(i));
-        });
-    }
+    productList.forEach((product, i) => {
+        const productUI = new Product(target, product, cart[product._id]);
+        target.appendChild(productUI.template(i));
+    });
 };
 
 const setEvents = () => {
@@ -35,15 +33,14 @@ const setEvents = () => {
 
     // 선택 삭제
     ref.deleteSelectedBtn.addEventListener('click', () => {
-        const selectBtns = document.querySelectorAll('.select-btn');
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        selectBtns.forEach((selectBtn) => {
+        const productDomList = document.querySelectorAll('.items');
+        productDomList.forEach((productDom) => {
+            const selectBtn = productDom.querySelector('.select-btn');
+            const removeBtn = productDom.querySelector('.remove-btn');
             if (selectBtn.checked) {
-                const productId = selectBtn.click();
-                cart.removeItem(productId);
+                removeBtn.click();
             }
         });
-        localStorage.setItem('cart', JSON.stringify(cart));
     });
 
     // 결제 버튼
@@ -61,7 +58,6 @@ const setEvents = () => {
             e.preventDefault();
             alert('장바구니에 담긴 상품이 없습니다.');
         } else {
-            localStorage.removeItem('payment');
             localStorage.setItem('payment', JSON.stringify(selectedProduct));
         }
     });
