@@ -40,7 +40,7 @@ cancelAddressBtn.addEventListener('click', () => {
 
 
 
-
+// 사용자 정보 불러오기
 
 try {
     const data = await Api.get('/api/auth/', userId);

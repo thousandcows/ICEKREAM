@@ -41,27 +41,45 @@ async function fetchOrderInfo(userId) {
         orderItemInfo[3]
         ];
         const orderDateForm = orderDate.slice(0, 10);
-        // 주문 내역의 아이템 리스트
+        // console.log(itemList);
+
+        // 주문 상태에 따라 구분
+        const orderProgress = orderState === 'Ok' ?
+                            '상품 준비중' : '결제완료';   
+        // if (orderState === 'Ok') {
+        //     orderState = '상품 준비중';
+        // } else {
+        //     orderState = '결제 완료';
+        // }
+
+
+        // 주문 내역의 아이템 이름, 수량
         const productString = [];
+
         itemList.forEach((obj) => {
             // console.log(obj.name, obj);
             if (obj.name !== undefined) {
-                productString.push(obj.name);
+                const info = {name: obj.name, quantity: obj.quantity};
+                // productString.push(obj.name);
+                productString.push(info);
             }
         })
 
         if (productString.length !== 0) {
-            const productName = productString.join();
-            const orderInfo = `<div class="columns orders-item" id="${orderId}">
-                        <div class="column is-2">${orderDateForm}</div>
-                        <div class="column is-6 order-summary">${productName}</div>
-                        <div class="column is-2">${orderState}</div>
-                        <div class="column is-2">
-                        <button class="button" id="deleteButton-${orderId}">주문 취소</button>
-                        </div>
-                        </div>`;
+            // const productName = productString.join();
+            productString.forEach((productInfo) => {
+                const orderInfo = `<div class="columns orders-item" id="${orderId}">
+                            <div class="column is-2">${orderDateForm}</div>
+                            <div class="column is-5 order-summary">${productInfo.name}</div>
+                            <div class="column is-1 order-summary">${productInfo.quantity}</div>
+                            <div class="column is-2">${orderProgress}</div>
+                            <div class="column is-2">
+                            <button class="button" id="deleteButton-${orderId}">주문 취소</button>
+                            </div>
+                            </div>`;
 
-            productsContainer.insertAdjacentHTML('beforeend', orderInfo);
+                productsContainer.insertAdjacentHTML('beforeend', orderInfo);
+            })
         }
 
     });
