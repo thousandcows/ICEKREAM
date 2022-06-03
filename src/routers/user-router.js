@@ -75,6 +75,9 @@ userRouter.post('/login', async (req, res, next) => {
                     const token = jwt.sign(
                         { userId: user._id, role: user.role },
                         secretKey,
+                        {
+                            expiresIn: '7d',
+                        },
                     );
                     res.status(200).json({
                         token,
@@ -109,7 +112,9 @@ userRouter.get(
             const user = req.user;
             const userId = user._id;
             const role = user.role;
-            const token = jwt.sign({ userId, role }, secretKey);
+            const token = jwt.sign({ userId, role }, secretKey, {
+                expiresIn: '7d',
+            });
             res.status(200).redirect(
                 `/login/success?token=${token}&userId=${userId}&role=${role}`,
             ); //이걸 클라이언트에 제공했을 때: JWT를 저장한는 방법만 찾으면 끝인가?
