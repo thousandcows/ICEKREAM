@@ -19,9 +19,14 @@ export default class Product {
                 <div class="cartSection">
                     <img src=${this.product.img} alt="" class="itemImg" />
                     <h3>${this.product.productName}</h3>
-                    <p><input type="text" class="qty" placeholder=${
-                        this.userSelectInfo.quantity
-                    } />x ${this.product.price}</p>
+                    <p>
+                        <input 
+                            type='text'  
+                            class="qty" 
+                            placeholder=${this.userSelectInfo.quantity} 
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')"/>
+                            x ${this.product.price}
+                    </p>
                     <p class="stockStatus">In Stock</p>
                     <div class="size">SIZE | ${this.userSelectInfo.size}</div>
                 </div>
