@@ -13,7 +13,7 @@
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="admin-order.css" />
-    <script src="/nav-transition/nav_admin.js" type="module"></script>
+    <script id="adminOrder" class="nav_trans" src="/nav-transition/nav_admin.js" type="module"></script>
     <script src="admin-order.js" type="module" defer></script>
 </head>
 
@@ -38,14 +38,11 @@
             <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
                 <ul id="navSelect">
                     <li>
-                        <a href="/register" class="register_btn">회원가입</a>
-                    </li>
-                    <li>
-                        <a href="#cart" aria-current="page">
+                        <a href="/cart" aria-current="page">
                             <span class="icon">
                                 <i class="fas fa-cart-shopping"></i>
                             </span>
-                            <span>카트</span>
+                            <div id="cart-count">0</div>
                         </a>
                     </li>
                 </ul>

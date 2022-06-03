@@ -14,36 +14,102 @@ import { loginCheck } from "../login-check.js";
 async function navTransition(pageName) {
   // debugger
   const checkData = await loginCheck();
+  console.log('확인');
   // const isAdmin = checkData.isAdmin === 'true' ? true : false;
   // const isLogined = checkData.isLogined ? true : false;
   const isAdmin = checkData.isAdmin
   const isLogined = checkData.isLogined
-  console.log( isLogined, isAdmin, checkData);
+  console.log(isLogined, isAdmin, checkData);
   const navSelect = document.querySelector('#navSelect');
 
 
-  if (pageName !== 'login') {
-    const content = isLogined ?
-      '<li><a href="/" id="logout">로그아웃</a></li>'
-      : '<li><a href="/login">로그인</a></li>';
-    navSelect.insertAdjacentHTML('afterbegin', content);
+  const loginTag = '<li><a href="/login">로그인</a></li>';
+  const logOutTag = '<li><a href="/" id="logout">로그아웃</a></li>';
+  const registerTag = '<li class="register_btn"><a href="/register">회원가입</a></li>';
+  const accountManageTag = '<li><a href="/account">계정관리</a></li>';
+  const adminPageTag = '<li><a href="/admin">페이지 관리</a></li>';
+  // const cartTag = `<li>
+  //                   <a href="/cart" aria-current="page">
+  //                     <span class="icon">
+  //                       <i class="fas fa-cart-shopping"></i>
+  //                     </span>
+  //                     <div id="cart-count">0</div>
+  //                   </a>
+  //                 </li>`;
+
+  if (isLogined && isAdmin) {
+    // logOutTag
+    // adminPageTag
+    // accountManageTag
+    // cartTag
+    if (pageName === 'adminPage') {
+      const navContent = logOutTag + accountManageTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else if (pageName === 'account') {
+      const navContent = logOutTag + adminPageTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else if (pageName === 'cart') {
+      const navContent = logOutTag + adminPageTag + accountManageTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else {
+      const navContent = logOutTag + adminPageTag + accountManageTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    }
+  } else if (isLogined && !isAdmin) {
+    // logOutTag
+    // accountManageTag
+    // cartTag
+    if (pageName === 'account') {
+      const navContent = logOutTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else if (pageName === 'cart') {
+      const navContent = logOutTag + accountManageTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else {
+      const navContent = logOutTag + accountManageTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    }
+  } else {
+    // loginTag
+    // registerTag
+    // cartTag
+    if (pageName === 'login') {
+      const navContent = registerTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else if (pageName === 'register') {
+      const navContent = loginTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else if (pageName === 'cart') {
+      const navContent = loginTag + registerTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    } else {
+      const navContent = loginTag + registerTag;
+      navSelect.insertAdjacentHTML('afterbegin', navContent);
+    }
   }
 
-  // debugger
-  if (pageName === 'register' || isLogined) {
-    const registerBtn = document.querySelector('.register_btn');
-    registerBtn.parentNode.removeChild(registerBtn);
-  }
+  // if (pageName !== 'login') {
+  //   const content = isLogined ?
+  //     '<li><a href="/" id="logout">로그아웃</a></li>'
+  //     : '<li><a href="/login">로그인</a></li>';
+  //   navSelect.insertAdjacentHTML('afterbegin', content);
+  // }
 
-  if (pageName !== 'account' && isLogined) {
-    const account = `<li><a href="/account">계정관리</a></li>`;
-    navSelect.insertAdjacentHTML('afterbegin', account);
-  }
+  // // debugger
+  // if (pageName === 'register' || isLogined) {
+  //   const registerBtn = document.querySelector('.register_btn');
+  //   registerBtn.parentNode.removeChild(registerBtn);
+  // }
 
-  if (isAdmin && pageName !== 'adminPage') {
-    const addminPage = `<li><a href="/admin">페이지 관리</a></li>`;
-    navSelect.insertAdjacentHTML('afterbegin', addminPage);
-  }
+  // if (pageName !== 'account' && isLogined) {
+  //   const account = `<li><a href="/account">계정관리</a></li>`;
+  //   navSelect.insertAdjacentHTML('afterbegin', account);
+  // }
+
+  // if (isAdmin && pageName !== 'adminPage') {
+  //   const addminPage = `<li><a href="/admin">페이지 관리</a></li>`;
+  //   navSelect.insertAdjacentHTML('afterbegin', addminPage);
+  // }
 
 
   // 로그아웃 시 토큰, userId이 삭제되며 홈페이지로 이동

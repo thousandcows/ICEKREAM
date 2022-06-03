@@ -1,13 +1,4 @@
 import * as Api from '/api.js';
-import { navTransition } from '../nav-transition/nav-transition.js';
-
-
-navTransition('order-view').then(checkData => {
-    if (!checkData.isLogined) {
-        alert('로그인이 필요한 페이지 입니다...');
-        window.location.href = '/';
-    }
-});
 
 
 const userId = sessionStorage.getItem('userId');
