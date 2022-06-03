@@ -23,6 +23,7 @@ export default class Product {
                         this.userSelectInfo.quantity
                     } />x ${this.product.price}</p>
                     <p class="stockStatus">In Stock</p>
+                    <div class="size">SIZE | ${this.userSelectInfo.size}</div>
                 </div>
                 <div class="prodTotal cartSection">
                     <p class="prod-total-text">${

@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 const ProductSchema = new Schema(
     {
         category: {
-            type: Schema.Types.ObjectId, // categories = SHOES, CLOTHES, ETC
+            type: Schema.Types.ObjectId,
             ref: 'category',
         },
         brand: {

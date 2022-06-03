@@ -11,10 +11,7 @@ const inventoryInput = document.querySelector('#inventoryInput');
 const priceInput = document.querySelector('#priceInput');
 
 
-// addAllElements();
 addAllEvents();
-
-// async function addAllElements() {}
 
 function addAllEvents() {
     getAllCatagories();

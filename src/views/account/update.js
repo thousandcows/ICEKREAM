@@ -1,15 +1,4 @@
-
-// import { navTransition } from "../nav-transition/nav-transition.js";
 import { fetchUserData } from "./form-handler.js";
-
-
-// navTransition('update').then( checkData => {
-//     if (!checkData.isLogined) {
-//         alert('로그인이 필요한 페이지 입니다...');
-//         window.location.href = '/';
-//     }
-// });
-
 
 /*
 
@@ -18,8 +7,6 @@ import { fetchUserData } from "./form-handler.js";
 */
 
 fetchUserData();
-   
-
 
 const showArea = document.querySelectorAll('.show_area button');
 const changeArea = document.querySelectorAll('.change_area');
