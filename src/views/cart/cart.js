@@ -35,7 +35,7 @@ const setEvents = () => {
 
     // 선택 삭제
     ref.deleteSelectedBtn.addEventListener('click', () => {
-        const selectBtns = document.querySelectorAll('.select-btn');
+        const selectBtns = document.querySelectorAll('.remove-btn');
         const cart = JSON.parse(localStorage.getItem('cart'));
         selectBtns.forEach((selectBtn) => {
             if (selectBtn.checked) {
@@ -67,6 +67,11 @@ const setEvents = () => {
     });
 };
 
+const render = (productList) => {
+    navTransition('cart');
+    drawCartList(ref.cartContainer, productList);
+};
+
 const initialize = async () => {
     const cart = JSON.parse(localStorage.getItem('cart'));
 
@@ -84,11 +89,6 @@ const initialize = async () => {
     } else {
         return null;
     }
-};
-
-const render = (productList) => {
-    navTransition('cart');
-    drawCartList(ref.cartContainer, productList);
 };
 
 initialize()

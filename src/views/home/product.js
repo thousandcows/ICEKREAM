@@ -4,11 +4,13 @@ export default class Product {
     }
 
     template() {
-        const div = document.createElement('div');
-        div.classList.add('product');
-        div.id = this.product._id;
-        div.innerHTML = `
+        const a = document.createElement('a');
+        a.classList.add('product');
+        a.href = `/products/${this.product._id}`;
+        a.id = this.product._id;
+        a.innerHTML = `
             <div class="product-img-container">
+                <button class="cart-btn">Add to Cart</button>
                 <img
                     src=${this.product.img}
                     alt="product-img">
@@ -18,10 +20,10 @@ export default class Product {
                 <div class="product-name">${this.product.productName}</div>
                 <div class="price">${this.product.price}원</div>
             </div>
-            <button class="cart-btn">장바구니</button>
+            
         `;
-        this.setEvent(div);
-        return div;
+        this.setEvent(a);
+        return a;
     }
 
     setEvent(elem) {
@@ -31,7 +33,8 @@ export default class Product {
         );
     }
 
-    addCart() {
+    addCart(e) {
+        e.preventDefault();
         const cartCount = document.getElementById('cart-count');
         const cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) {
@@ -49,7 +52,7 @@ export default class Product {
             alert('장바구니에 담겼습니다.');
             cartCount.innerText = parseInt(cartCount.innerText) + 1;
         } else {
-            if (!cart.id) {
+            if (!cart[this.product._id]) {
                 cart[this.product._id] = {
                     productName: this.product.productName,
                     price: this.product.price,
