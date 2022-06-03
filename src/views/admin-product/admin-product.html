@@ -12,6 +12,7 @@
   <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
   <!-- 커스텀 css, js -->
   <link rel="stylesheet" href="product.css" />
+  <script id="adminProduct" class="nav_trans" src="/nav-transition/nav_admin.js" type="module"></script>
   <script src="product.js" type="module" defer></script>
 </head>
 
@@ -34,18 +35,15 @@
 
       <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
         <ul id="navSelect">
-          <li><a href="/admin">페이지 관리</a></li>
-          <li><a href="/account">계정관리</a></li>
-          <li><a href="/" id="logout">로그아웃</a></li>
           <li>
-            <a href="#cart" aria-current="page">
-              <span class="icon">
-                <i class="fas fa-cart-shopping"></i>
-              </span>
-              <span>카트</span>
-            </a>
+              <a href="/cart" aria-current="page">
+                  <span class="icon">
+                      <i class="fas fa-cart-shopping"></i>
+                  </span>
+                  <div id="cart-count">0</div>
+              </a>
           </li>
-        </ul>
+      </ul>
       </div>
     </div>
   </nav>

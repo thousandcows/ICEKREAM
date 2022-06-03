@@ -13,7 +13,8 @@
     <!-- 폰트 어썸: 아이콘 -->
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css, js -->
-    <script src="account.js" type="module" defer></script>
+    <script id="account" class="nav_trans" src="/nav-transition/nav_user.js" type="module"></script>
+    <!-- <script src="account.js" type="module" defer></script> -->
 </head>
 
 <body>
@@ -36,15 +37,12 @@
 
             <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
                 <ul id="navSelect">
-                    <li class="register_btn">
-                        <a href="/register">회원가입</a>
-                    </li>
                     <li>
                         <a href="/cart" aria-current="page">
                             <span class="icon">
                                 <i class="fas fa-cart-shopping"></i>
                             </span>
-                            <span>카트</span>
+                            <div id="cart-count">0</div>
                         </a>
                     </li>
                 </ul>
