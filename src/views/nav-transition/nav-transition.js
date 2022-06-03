@@ -19,15 +19,15 @@ async function navTransition(pageName) {
     const navSelect = document.querySelector('#navSelect');
 
     const loginTag =
-        '<li><a href="/login" style="color: black">로그인</a></li>';
+        '<li><a href="/login" style="color: black">Login</a></li>';
     const logOutTag =
-        '<li><a href="/" id="logout" style="color: black">로그아웃</a></li>';
+        '<li><a href="/" id="logout" style="color: black">Logout</a></li>';
     const registerTag =
-        '<li class="register_btn"><a href="/register" style="color: black">회원가입</a></li>';
+        '<li class="register_btn"><a href="/register" style="color: black">Register</a></li>';
     const accountManageTag =
-        '<li><a href="/account" style="color: black">계정관리</a></li>';
+        '<li><a href="/account" style="color: black">Manage Account</a></li>';
     const adminPageTag =
-        '<li><a href="/admin" style="color: black">페이지 관리</a></li>';
+        '<li><a href="/admin" style="color: black">Edit Page</a></li>';
     // const cartTag = `<li>
     //                   <a href="/cart" aria-current="page">
     //                     <span class="icon">
