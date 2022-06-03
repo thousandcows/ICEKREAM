@@ -6,7 +6,6 @@ export default class Product {
     }
 
     template(idx) {
-        console.log(this.userSelectInfo);
         const li = document.createElement('li');
         li.id = this.product._id;
         if (idx % 2 === 0) {

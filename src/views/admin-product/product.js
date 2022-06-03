@@ -61,11 +61,9 @@ async function deleteProduct() {
 // 3. 상품 수정 기능
 async function editModal() {
     const productId = this.id.slice(7);
-    console.log(productId)
     const productInfo = await Api.get('/api/products', productId);
-    console.log(productInfo)
+    
     const { productName, price, img, quantity } = productInfo;
-
 
     const informationToUpdate = `
             

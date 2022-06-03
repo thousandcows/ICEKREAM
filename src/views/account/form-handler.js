@@ -2,9 +2,7 @@ import * as Api from '/api.js';
 import { patchUserInfo } from './update-info.js';
 
 /*
-
  사용자의 정보 수정하는 함수
-//뭔가 카카오 로그인 시 문제가 발생하는 것 같다.
 */
 
 const nameForm = document.querySelector('#name_form');
@@ -37,7 +35,6 @@ nameForm.addEventListener('formdata', async (e) => {
 
 passwordForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // console.log(e, 'ghkrdls');
     new FormData(e.target);
 });
 
@@ -138,7 +135,6 @@ async function fetchUserData() {
 
     try {
         const data = await Api.get('/api/auth/', userId);
-        console.log(data);
         email.textContent = data.email;
         name.textContent = data.fullName;
         password.textContent = '변경하시려면 클릭하세요';

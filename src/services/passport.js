@@ -96,11 +96,11 @@ const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
 
         const user = await userModel.findByEmail(kakaoEmail);
         if (!user) {
-            //카카오와 아닌 계정 분리 고려....
+
             const userInfo = {
-                email: kakaoEmail, // profile email를 얻는 법?
-                password: arbPassword, //일단 username값을 임의의 비밀번호로 사용 이후 hash
-                fullName: kakaoUsername, //우선 유저 정보를 모르겠어서 이렇게 해봄.
+                email: kakaoEmail, 
+                password: arbPassword, 
+                fullName: kakaoUsername, 
                 role: 'basic-user',
                 registerType: 'Kakao',
             };

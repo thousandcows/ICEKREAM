@@ -128,8 +128,6 @@ class UserService {
             );
         }
 
-        // 이제 드디어 삭제 시작
-        // 여기에 delete 확정인지 확인을 물어봐야 하나?
         // 업데이트 진행
         const deletedUser = await this.userModel.deleteById(userId);
         return deletedUser;

@@ -3,6 +3,12 @@
 body {
     font-family: 'Montserrat', serif;
 }
+.has-text {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-left: 10px;
+}
 
 .block.account-header {
     text-align: center;

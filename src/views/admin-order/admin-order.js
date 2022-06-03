@@ -1,7 +1,5 @@
 import * as Api from '/api.js';
 
-// 어떻게 해야지 user 가 접근했을 때 권한이 없으면 바로 redirect 할까...
-
 //async event handler - 취소누르면 취소되는 기능
 async function handleCancelOrderClick() {
     const isConfirmed = window.confirm(
@@ -16,7 +14,7 @@ async function handleCancelOrderClick() {
         });
         const orderId = this.id.slice(5); //orderId를 다시 그냥 숫자로 변환
         //주문 삭제
-        await Api.delete('', `api/admin/orders/${orderId}`); // 잘 작동하는 것 확인;}
+        await Api.delete('', `api/admin/orders/${orderId}`);
         alert('정상적으로 취소되었습니다');
     }
 }
