@@ -81,7 +81,7 @@ function JWTConfiguration() {
 ////Kakao Strategy
 const KakaoConfig = {
     clientID: process.env.KAKAO_CLIENT_ID, //env에 대하여 물어봐 주세요.
-    callbackURL: 'http://localhost:3000/api/users/kakao/cb',
+    callbackURL: 'http://localhost:5000/api/users/kakao/cb',
 };
 
 const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
