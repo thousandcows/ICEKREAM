@@ -7,9 +7,6 @@ import { userModel } from '../db';
 const { ExtractJwt, Strategy: JWTStrategy } = require('passport-jwt');
 
 const LocalStrategy = Strategy;
-// import { ExtractJwt } from 'passport-jwt'; //이부분이 질문..
-// const LocalStrategy = Strategy;
-// const JWTStrategy = Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy; //implement Kakao Strategy;
 
 const passportConfig = {
@@ -17,7 +14,7 @@ const passportConfig = {
     usernameField: 'email',
     passwordField: 'password',
 };
-// 모든 done에 reason=> message로 수정
+
 const passportVerify = async (email, password, done) => {
     try {
         const user = await userModel.findByEmail(email); // email로 유저확인 check user-model;
@@ -81,7 +78,8 @@ function JWTConfiguration() {
 ////Kakao Strategy
 const KakaoConfig = {
     clientID: process.env.KAKAO_CLIENT_ID, //env에 대하여 물어봐 주세요.
-    callbackURL: 'http://localhost:5000/api/users/kakao/cb',
+    callbackURL:
+        'http://kdt-sw2-seoul-team18.elicecoding.com/api/users/kakao/cb',
 };
 
 const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
@@ -96,11 +94,10 @@ const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
 
         const user = await userModel.findByEmail(kakaoEmail);
         if (!user) {
-
             const userInfo = {
-                email: kakaoEmail, 
-                password: arbPassword, 
-                fullName: kakaoUsername, 
+                email: kakaoEmail,
+                password: arbPassword,
+                fullName: kakaoUsername,
                 role: 'basic-user',
                 registerType: 'Kakao',
             };
