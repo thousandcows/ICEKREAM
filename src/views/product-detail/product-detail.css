@@ -1,67 +1,140 @@
-main{
-    display:flex;
+#cart-count {
+    color: black;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
+}
+
+main {
+    display: flex;
     align-items: center;
-    height:80vh;
+    height: 80vh;
     justify-content: center;
 }
 
-.main-column{
+.main-column {
     display: flex;
     flex-direction: column;
-    padding:2rem;
-    width:45%;
-    height:60%;
+    width: 45%;
+    height: 60%;
     justify-content: center;
 }
-.main-column:first-child{
-    background-color: rgb(254,223,223);
-    margin-right:2rem;
-    width:40%;
-}
-.main-column:last-child{
-    border-left: 1px solid black;
+
+.main-column:first-child {
+    background-color: rgb(244 244 244);
+    margin-right: 2rem;
+    width: 40%;
+    text-align: center;
 }
 
-.product-brand{
-    font-size: 2rem;
+.product-image-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.product-image {
+    height: 100%;
+}
+
+.main-column:last-child {
+    padding: 2rem;
+    border-left: 1px solid black;
+    display: flex;
+}
+
+.product-brand {
+    font-size: 35px;
     font-weight: bold;
     margin-bottom: 1rem;
 }
-.product-name{
+.product-name {
+    font-size: 20px;
     font-weight: bold;
 }
-.product-info-main{
-    padding:1rem;
+.product-info-main {
+    padding: 1rem;
 }
 
-.product-price, .product-launch, .product-sizes, .buy-buttons{
-    display:flex;
-    justify-content: space-between;
-    padding:1rem;
-    border-bottom: 1px rgb(210,210,210) solid;
-    align-items: center;
+.product-price,
+.product-launch,
+.product-sizes {
+    text-align: right;
+    padding: 1rem;
+    border-bottom: 1px rgb(210, 210, 210) solid;
+    font-size: 18px;
 }
-.product-sizes button{
-    background-color: rgb(254,223,223);
+
+.product-sizes button {
+    background-color: rgb(254, 223, 223);
+    width: 120px;
+    height: 2rem;
     border-radius: 1rem;
     border: none;
-    padding: 1rem;
+    padding-bottom: 2px;
     font-weight: bold;
 }
-.buy-buttons{
-  justify-content: space-evenly;  
+
+.buy-buttons {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
 }
-.buy-buttons button{
-    width: 11rem;
-    height:3rem;
+
+.buy-buttons button {
+    width: 48%;
+    height: 3rem;
     border-radius: 1rem;
-    border:none;
+    border: none;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 17px;
 }
-button:hover{
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(253, 176, 189);
+}
+
+#buy {
+    background-color: rgb(254, 223, 223);
+}
+
+#buy:hover {
+    background-color: rgb(253, 176, 189);
+}
+
+.modal-background {
+    z-index: 2;
+    position: fixed;
+    background-color: #e0e0e0;
+}
+
+.modal-box {
+    background-color: white;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+    width: 600px;
+    height: 500px;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.size-btn {
+    background-color: rgb(254, 223, 223);
+    width: 130px;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px 10px 10px 28px;
+    border: solid 1px rgb(215, 215, 215);
+    border-radius: 12px;
     cursor: pointer;
 }
-#buy{
-    background-color: rgb(254,223,223);
+
+.size-btn:hover {
+    background-color: rgb(254, 198, 198);
 }

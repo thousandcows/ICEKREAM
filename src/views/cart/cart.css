@@ -151,6 +151,13 @@ ul {
     padding-right: 1em;
 }
 
+.cart .items .cartSection .size {
+    color: #333;
+    font-size: 0.8em;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 10px;
+}
+
 .special {
     display: block;
     font-family: 'Montserrat', sans-serif;

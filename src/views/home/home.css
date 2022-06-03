@@ -1,13 +1,44 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
+
 * {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+    font-family: 'Montserrat', serif;
 }
 
 .navbar {
     position: fixed;
     width: 100%;
     height: 70px;
+}
+
+#nav-select {
+    color: black;
+}
+
+.has-text {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+#slider {
+    margin-top: 5rem;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#slider .slides {
+    display: block;
+    width: 8000px;
+}
+
+#slider .slide {
+    float: left;
+    width: 100vw;
 }
 
 #main {
@@ -18,6 +49,9 @@
 
 #cart-count {
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     width: 20px;
     height: 20px;
@@ -37,8 +71,11 @@
 }
 
 #category {
+    width: 97%;
     margin-top: 40px;
     margin-left: 3%;
+    padding-bottom: 10px;
+    border-bottom: solid 1px gray;
 }
 
 .category-btn {
@@ -47,6 +84,7 @@
     border-radius: 5px;
     margin-right: 15px;
     padding: 10px 25px;
+    font-family: 'Montserrat', serif;
     font-size: 17px;
     cursor: pointer;
     border: none;
@@ -63,13 +101,11 @@
     height: 100%;
 }
 
-/* #filter-container {
-    background-color: pink;
-    width: 20%;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-} */
+#filter-container {
+    text-align: right;
+    padding-right: 5%;
+    width: 100%;
+}
 
 #product-container {
     margin-top: 4%;
@@ -97,7 +133,11 @@
 }
 
 .product:hover > .product-img-container {
-    background-color: rgb(212, 167, 255);
+    background-color: rgb(228, 202, 252);
+}
+
+.product:hover {
+    transform: scale(0.98);
 }
 
 .cart-btn {
@@ -109,7 +149,13 @@
     border-radius: 10px;
     background-color: white;
     font-size: 17px;
-    /* cursor: pointer; */
+    font-family: 'Montserrat', serif;
+    cursor: pointer;
+}
+
+.cart-btn:hover {
+    color: white;
+    background-color: black;
 }
 
 .product-info-container {
@@ -152,7 +198,7 @@
     height: 50px;
     font-size: 20px;
     margin: 10px 10px 10px 28px;
-    border: solid 2px rgb(100, 100, 100);
+    border: solid 1px rgb(215, 215, 215);
     border-radius: 12px;
     cursor: pointer;
 }

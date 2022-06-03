@@ -1,84 +1,95 @@
-
-
 .hide {
     display: none;
 }
 .user_update_container {
-    margin-top:2rem;
-    display:flex;
+    margin-top: 2rem;
+    display: flex;
     justify-content: center;
     align-items: top;
-    height:80vh;
+    height: 80vh;
 }
-.user_update{
-    width:50%;
-    display:flex;
+.user_update {
+    width: 50%;
+    display: flex;
     flex-direction: column;
 }
 
-.user_update_title{
+.user_update_title {
     font-size: 2rem;
-    margin-bottom:3rem;
+    margin-bottom: 3rem;
     font-weight: 600;
 }
 
-.user_update_table{
-    width:80%;  
+.user_update_table {
+    width: 80%;
 }
-.show_area{
+.show_area {
     display: flex;
     flex-direction: column;
     margin-bottom: 3rem;
 }
 
-.row{
+.row {
     font-size: 1rem;
     font-weight: bold;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
 
-.current{
+.current {
     display: flex;
     justify-content: space-between;
 }
 
-.new_form{
+.new_form {
     display: flex;
     flex-direction: column;
 }
-input{
-    border:none;
-    border-bottom: 1px solid rgb(230,230,230);
+input {
+    border: none;
+    border-bottom: 1px solid rgb(230, 230, 230);
     margin-bottom: 1rem;
 }
-input:focus{
+input:focus {
     outline: none;
     border-bottom: solid 1px black;
-  }
-legend{
-    margin-bottom:1rem;
+}
+legend {
+    margin-bottom: 1rem;
 }
 
-.button_container{
-    display:flex;
+.button_container {
+    display: flex;
     justify-content: flex-end;
 }
 
-button{
-    margin-left:1rem;
+button {
+    margin-left: 1rem;
     color: white;
     background-color: black;
-    border:1px black solid;
+    border: 1px black solid;
     border-radius: 0.5rem;
-    padding:0.5rem 0.8rem;
+    padding: 0.5rem 0.8rem;
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
     background-color: white;
-    color:black;
+    color: black;
 }
 /* td:nth-of-type(1){
     width: 30rem;
 } */
 
+#cart-count {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin: 0px 0px 20px 30px;
+    background-color: rgb(254, 223, 223);
+    border-radius: 100%;
+}

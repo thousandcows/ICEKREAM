@@ -6,6 +6,7 @@ export default class Product {
     }
 
     template(idx) {
+        console.log(this.userSelectInfo);
         const li = document.createElement('li');
         li.id = this.product._id;
         if (idx % 2 === 0) {
@@ -23,6 +24,7 @@ export default class Product {
                         this.userSelectInfo.quantity
                     } />x ${this.product.price}</p>
                     <p class="stockStatus">In Stock</p>
+                    <div class="size">SIZE | ${this.userSelectInfo.size}</div>
                 </div>
                 <div class="prodTotal cartSection">
                     <p class="prod-total-text">${
