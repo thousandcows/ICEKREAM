@@ -1,6 +1,18 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic%7CMontserrat:400,700);
+
 main{
     height: 100vh;
     color: black;
+}
+.has-text{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+    font-family: 'Montserrat', serif;
+  } 
+.register_btn a{
+    font-family:'Montserrat', serif; 
 }
 .message-container{
     display: flex;
@@ -16,6 +28,7 @@ main{
     justify-content: space-between;
     font-size: 3rem;
     margin-bottom: 3rem;
+    font-family: 'Montserrat', serif;
 }
 
 .not-found-message i{
