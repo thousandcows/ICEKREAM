@@ -28,6 +28,14 @@
     </head>
 
     <body>
+        <script>
+            //console.log('확인', localStorage);
+            //location.href = location.href;
+            if (localStorage.length === 0) {
+                alert('장바구니에 담긴 상품이 없습니다.!');
+                window.location.href = '/';
+            }
+        </script>
         <!-- 헤더 -->
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="container mt-3">
