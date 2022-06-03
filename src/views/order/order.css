@@ -1,38 +1,179 @@
+.order-container{
+    margin:2rem;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
 
-
-.order_body {
+.order_body { 
     margin: 0 3rem;
 }
 
-.order_title h3 {
+.order_title h1 {
     font-size: 30px;
+    font-weight: bold;
     border-bottom: 1px solid black;
-    margin: 25px 0;
+    margin-bottom:3rem;
+    
 }
+
+.buyer_title{
+    font-size: 1rem;
+    margin-top:1rem;
+    margin-bottom: 1rem;
+}
+
+.show_buyer_phone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.show_buyer_phone div{
+    width:100%;
+}
+.show_buyer_phone button{
+    position: absolute;
+    right:0;
+}
+
+/* #phone-number-form fieldset div label{
+    
+} */
+.div_for_change{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:1rem;
+    position: relative;
+}
+
+.div_for_change label{
+    margin-bottom: 1rem;
+    
+}
+.buttons_container{
+    position:absolute;
+    right:0rem;
+    top:2rem;
+}
+.div_for_change input,.search_address_input
+{
+    border:none;
+    border-bottom: 1px solid rgb(230,230,230);
+    width: 50%;
+    margin-bottom:1rem;
+}
+
+.input_address{
+    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input_address label{
+    width: 100%;
+}
+.input_address button, .search_address .address_button{
+    position:absolute;
+    right:0;
+    z-index:2;
+}
+.search_address >
+.buttons_container{
+    height:10rem;
+    display: flex;
+    align-items: flex-end;
+    bottom:0;
+}
+
+.search_address{
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#order_list{
+    text-align: left;
+    padding: 2rem;
+    padding-left: 5rem;
+}
+
+button,.address_button{
+    margin-left:1rem;
+    color: white;
+    background-color: black;
+    border:1px black solid;
+    border-radius: 0.5rem;
+    padding:0.5rem 0.8rem;
+}
+/* #order_list div{
+
+} */
+/* .buyer_table th{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(250,250,250);
+    height:5rem;
+    border-bottom: solid 2px rgb(230,230,230);
+}
+
+th.address_th, th.phone_th{
+    height:10rem;
+}
+
+.buyer_table td{
+    height:5rem;
+    border-bottom: solid 2px rgb(230,230,230);
+}
+
+.buyer_phone,.buyer_address{
+    height: 10rem;
+}
+
+.buyer_table td>div{
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
 
 .h2_title {
     font-size: 20px;
-    /* margin-bottom: 10px; */
-    margin: 3em 0 0.5em 0;
+   font-weight: 600;
+    margin-bottom:1rem;
+    margin-top:4rem;
 }
 
-.buyer_title {
+.buyer_title { 
     margin-top: 1.5em;
 }
 
 .table_element {
     width: 100%;
-    border-top: 2px solid #cecece;
+    /* border-top: 1px solid #cecece; */
 }
 
-.table_element td,
+/* .table_element td,
 .table_element th {
     border: 1px solid #cecece;
+} */
+.order_th, #payment_th{
+    font-weight: 400;
+}
+
+.address_th, .phone_th,.order_th,#payment_th{
+    vertical-align: middle;
+}
+
+td{
+    vertical-align: middle;
 }
 
 .table_element th {
@@ -42,24 +183,26 @@ table {
 .orderbox {
     width: 100%;
     height: 8rem;
+    position: relative;
 }
 
 .orderbox button {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%);
+    position: absolute;
+    top:50%;
+    right:0;
 }
 
 .order_footer {
     width: 100%;
     height: 5rem;
-    border-top: 1px solid #cecece;
+    /* border-top: 1px solid #cecece; */
 }
 
-.table_element {
+/* .table_element {
     border-bottom: 1px solid #cecece;
-}
+} */
+
+
 
 .table_element tr {
     text-align: center;
@@ -73,12 +216,13 @@ table {
 
 .table_element tr th {
     border-right: none;
+    background-color: rgb(230,230,230);
 }
 
 .table_element tr p {
     position: relative;
     top: 50%;
-    transform: translateY(-25%);
+    
 }
 
 td div {
