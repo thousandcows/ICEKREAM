@@ -1,6 +1,13 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic|Montserrat:400,700);
 
+.has-text {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
 ol,
 ul {
     list-style: none;
