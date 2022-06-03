@@ -22,6 +22,33 @@ const drawCartCount = (target) => {
     }
 };
 
+const drawBanner = () => {
+    const slider = document.querySelector('#slider');
+    const slides = slider.querySelector('.slides');
+    const slide = slides.querySelectorAll('.slide');
+    let currentSlide = 0;
+    setInterval(function () {
+        let from = -(100 * currentSlide);
+        let to = from - 100;
+
+        slides.animate(
+            {
+                marginLeft: [from + 'vw', to + 'vw'],
+            },
+            {
+                duration: 500,
+                easing: 'ease',
+                iterations: 1,
+                fill: 'both',
+            },
+        );
+        currentSlide++;
+        if (currentSlide === slide.length - 1) {
+            currentSlide = 0;
+        }
+    }, 2500);
+};
+
 const drawCategoryList = (target, categoryList) => {
     const div = document.createElement('div');
     div.id = 'category';
@@ -88,6 +115,7 @@ const getData = async () => {
 const render = (productList) => {
     navTransition('home');
     drawCartCount(ref.cartCount);
+    drawBanner();
     drawCategoryList(ref.categoryContainer, categoryList);
     drawProductList(ref.productContainer, productList);
 };
