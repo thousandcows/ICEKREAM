@@ -35,11 +35,11 @@ const drawCategoryList = (target, categoryList) => {
 
 const drawProductList = (target, productList) => {
     if (setPage === 1) target.innerHTML = '';
-    console.log(productList);
     productList.forEach((p, i) => {
         const product = new Product(p);
         const productUI = product.template();
         if (i === perPage - 1) {
+            console.log(product);
             const observer = new IntersectionObserver(
                 (entries, observer) => {
                     if (entries[0].isIntersecting) {
