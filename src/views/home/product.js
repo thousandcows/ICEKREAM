@@ -86,6 +86,7 @@ export default class Product {
                         price: this.product.price,
                         quantity: 1,
                         size: 220,
+                        checked: true,
                     },
                 }),
             );
@@ -98,6 +99,7 @@ export default class Product {
                     price: this.product.price,
                     quantity: 1,
                     size: 220,
+                    checked: true,
                 };
                 localStorage.setItem('cart', JSON.stringify(cart));
                 alert('장바구니에 담겼습니다.');

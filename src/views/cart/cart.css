@@ -83,82 +83,82 @@ ul {
     right: -10px;
 }
 
-.cart {
+.cart-container {
     padding: 1em 0;
     margin-top: 20px;
 }
 
-.cart .items {
+.cart-container .items {
     display: block;
     width: 100%;
     padding: 1.5em;
     border-bottom: 1px solid #fafafa;
 }
-.cart .items.even {
+.cart-container .items.even {
     background: #fafafa;
 }
-.cart .items .infoWrap {
+.cart-container .items .infoWrap {
     display: table;
     width: 100%;
 }
-.cart .items .cartSection {
+.cart-container .items .cartSection {
     display: table-cell;
     vertical-align: middle;
 }
 
-.cart .items .cartSection h3 {
+.cart-container .items .cartSection h3 {
     font-size: 1em;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.025em;
 }
-.cart .items .cartSection p {
+.cart-container .items .cartSection p {
     display: inline-block;
     font-size: 0.85em;
     color: #777777;
     font-family: 'Montserrat', sans-serif;
 }
-.cart .items .cartSection p .quantity {
+.cart-container .items .cartSection p .quantity {
     font-weight: bold;
     color: #333;
 }
-.cart .items .cartSection p.stockStatus {
+.cart-container .items .cartSection p.stockStatus {
     color: rgb(255 160 160);
     font-weight: bold;
     padding: 0.5em 0 0 1em;
     text-transform: uppercase;
 }
-.cart .items .cartSection p.stockStatus.out {
+.cart-container .items .cartSection p.stockStatus.out {
     color: rgb(166 126 255);
 }
-.cart .items .cartSection .itemImg {
+.cart-container .items .cartSection .itemImg {
     width: 4em;
     float: left;
 }
-.cart .items .cartSection.qtyWrap,
-.cart .items .cartSection.prodTotal {
+.cart-container .items .cartSection.qtyWrap,
+.cart-container .items .cartSection.prodTotal {
     text-align: right;
 }
-.cart .items .cartSection.qtyWrap p,
-.cart .items .cartSection.prodTotal p {
+.cart-container .items .cartSection.qtyWrap p,
+.cart-container .items .cartSection.prodTotal p {
     font-weight: bold;
     font-size: 1.25em;
 }
-.cart .items .cartSection input.qty {
+.cart-container .items .cartSection input.qty {
     width: 2em;
     text-align: center;
     font-size: 1em;
     padding: 0.25em;
     margin: 1em 0.5em 0 0;
 }
-.cart .items .cartSection .itemImg {
+.cart-container .items .cartSection .itemImg {
     width: 8em;
     display: inline;
     padding-right: 1em;
 }
 
-.cart .items .cartSection .size {
+.cart-container .items .cartSection .size {
     color: #333;
     font-size: 0.8em;
     font-family: 'Montserrat', sans-serif;
@@ -262,30 +262,30 @@ a.remove:hover {
     right: -10px;
 }
 
-.subtotal {
+.checkout-info {
     float: right;
     width: 35%;
 }
-.subtotal .totalRow {
+.checkout-info .totalRow {
     padding: 0.5em;
     text-align: right;
 }
-.subtotal .totalRow.final {
+.checkout-info .totalRow.final {
     font-size: 1.25em;
     font-weight: bold;
 }
-.subtotal .totalRow span {
+.checkout-info .totalRow span {
     display: inline-block;
     padding: 0 0 0 1em;
     text-align: right;
 }
-.subtotal .totalRow .label {
+.checkout-info .totalRow .label {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.85em;
     text-transform: uppercase;
     color: #777;
 }
-.subtotal .totalRow .value {
+.checkout-info .totalRow .value {
     letter-spacing: -0.025em;
     width: 35%;
 }

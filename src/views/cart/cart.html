@@ -5,13 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IceKream</title>
-    <!-- 아이콘 -->
     <link rel="icon" type="image/png" sizes="16x16" href="/elice-rabbit.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <script defer src="https://kit.fontawesome.com/7630448495.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="cart.css" />
-    <!-- <script id="cart" class="nav_trans" src="/nav-transition/nav_user.js" type="module"></script> -->
-    <script src="cart.js" type="module" defer></script>
+    <link rel="stylesheet" href="./cart.css" />
 </head>
 
 <body>
@@ -45,8 +42,8 @@
         </div>
         <input type="checkbox" id="select-all-product" /> 전체
         <button id="delete-selected-btn">선택 삭제</button>
-        <div class="cart"></div>
-        <div class="subtotal cf">
+        <div class="cart-container"></div>
+        <div class="checkout-info cf">
             <ul>
                 <li class="totalRow">
                     <span class="label">quantity</span><span class="value" id="quantity">0</span>
@@ -60,6 +57,7 @@
             </ul>
         </div>
     </div>
+    <script src="./cart.js" type="module"></script>
 </body>
 
 </html>
