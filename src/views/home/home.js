@@ -1,6 +1,6 @@
 // import * as Api from '/api.js';
 import Product from './product.js';
-import { navTransition } from '../nav-transition/nav-transition.js';
+// import { navTransition } from '../nav-transition/nav-transition.js';
 
 const ref = {
     categoryContainer: document.getElementById('category-container'),
@@ -113,7 +113,7 @@ const getData = async () => {
 };
 
 const render = (productList) => {
-    navTransition('home');
+    // navTransition('home');
     drawCartCount(ref.cartCount);
     drawBanner();
     drawCategoryList(ref.categoryContainer, categoryList);
