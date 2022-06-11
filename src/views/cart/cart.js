@@ -1,4 +1,5 @@
-// import { navTransition } from '../../../shopping-mall-cart/src/views/nav-transition/nav-transition.js';
+import { checkAccount } from '../check-account.js';
+import drawNavbar from '../navbar/index.js';
 import { productLayout } from './component.js';
 
 import {
@@ -21,13 +22,16 @@ const ref = {
 };
 
 const drawCartList = () => {
-    const productDom = Object.keys(state.cartList).reduce(
+    const productDomList = Object.keys(state.cartList).reduce(
         (prev, productId) =>
             prev +
-            productLayout(state.productInfo[productId], state.cartList[productId]),
+            productLayout(
+                state.productInfo[productId],
+                state.cartList[productId],
+            ),
         '',
     );
-    ref.cartContainer.innerHTML = productDom;
+    ref.cartContainer.innerHTML = productDomList;
 };
 
 const drawCheckoutInfo = () => {
@@ -40,11 +44,8 @@ const setEvents = () => {
     ref.cartContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('remove')) {
             const productId = e.target.dataset.id;
-
             deleteProduct(productId);
-
-            drawCartList();
-            drawCheckoutInfo();
+            render();
         }
     });
 
@@ -97,12 +98,13 @@ const setEvents = () => {
     });
 };
 
-const render = () => {
+const render = async () => {
     drawCartList();
     drawCheckoutInfo();
 };
 
-// navTransition('cart');
-initState()
+checkAccount()
+    .then(({ isLogined, isAdmin }) => drawNavbar('cart', isLogined, isAdmin))
+    .then(() => initState())
     .then(() => render())
     .then(() => setEvents());
