@@ -79,7 +79,7 @@ function JWTConfiguration() {
 const KakaoConfig = {
     clientID: process.env.KAKAO_CLIENT_ID, //env에 대하여 물어봐 주세요.
     callbackURL:
-        'http://localhost:5000/api/users/kakao/cb',
+        'http://ec2-13-125-246-87.ap-northeast-2.compute.amazonaws.com:5000/api/users/kakao/cb',
 };
 
 const KakaoVerify = async (accessToken, refreshToken, profile, done) => {
